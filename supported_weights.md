@@ -29,6 +29,7 @@
 - dreamshaperXL_alpha2Xl10.safetensors
 - dreamshaperXL_lightningDPMSDE.safetensors
 - dreamshaperXL_sfwV2TurboDPMSDE.safetensors
+- dreamshaperXL_v21TurboDPMSDE.safetensors
 - dynavision_v20Bakedvae.safetensors
 - epicrealism_naturalSinRC1VAE.safetensors
 - epicrealism_pureEvolutionV5-inpainting.safetensors
@@ -143,6 +144,10 @@
 - torealise/robmixCosxlEdit_cosxlEdit10.safetensors
 - epicphotogasm_v1.safetensors
 - svd_xt_1_1.safetensors
+- flux1-dev-bnb-nf4.safetensors
+- flux1-dev-bnb-nf4-v2.safetensors
+- 2dn-illust-v1-sdxl.safetensors
+- majicMIXrealistic_v7.safetensors
 
 ## Upscale models
 - 4x-AnimeSharp.pth
@@ -180,6 +185,21 @@
 - ViT-L-14-TEXT-detail-improved-hiT-GmP-TE-only-HF.safetensors
 - ViT-L-14-BEST-smooth-GmP-ft.safetensors
 - t5-v1_1-xxl-encoder-Q5_K_M.gguf
+- t5-v1_1-xxl-encoder-Q3_K_L.gguf
+- t5-v1_1-xxl-encoder-Q3_K_M.gguf
+- t5-v1_1-xxl-encoder-Q3_K_S.gguf
+- t5-v1_1-xxl-encoder-Q4_K_M.gguf
+- t5-v1_1-xxl-encoder-Q4_K_S.gguf
+- t5-v1_1-xxl-encoder-Q5_K_S.gguf
+- t5-v1_1-xxl-encoder-Q6_K.gguf
+- t5-v1_1-xxl-encoder-Q8_0.gguf
+- t5-v1_1-xxl-encoder-f16.gguf
+- t5-v1_1-xxl-encoder-f32.gguf
+- llava_llama3_fp8_scaled.safetensors
+- llava-llama-3-8b-v1_1-f16.gguf
+- llava-llama-3-8b-v1_1-int4.gguf
+- llava-llama-3-8b-v1_1-mmproj-f16.gguf
+- ViT-L-14-TEXT-detail-improved-hiT-GmP-HF.safetensors
 
 ## CLIP Vision
 - CLIP-ViT-bigG-14-laion2B-39B-b160k.safetensors
@@ -269,10 +289,13 @@
 - COOLKIDS_MERGE_V2.5.safetensors
 - Cyberpunk_typeface_flux_lora_v1.safetensors
 - flux-RealismLora.safetensors
+- FLUX.1-Turbo-Alpha.safetensors
 - flux1-canny-dev-lora.safetensors
 - flux1-depth-dev-lora.safetensors
+- flux_turbo_v1_1.safetensors
 - fofr/emoji.safetensors
 - glowneon_xl_v1.safetensors
+- hands-xl-sd-15-flux1-dev.safetensors
 - Harrlogos_v2.0.safetensors
 - hd_helper_v1.safetensors
 - Hyper-FLUX.1-dev-16steps-lora.safetensors
@@ -344,6 +367,8 @@
 - orbit_left_lora_weights.safetensors
 - orbit_up_lora_weights.safetensors
 - CZArqui9_v10.safetensors
+- sh1n-02-st-bs1-4e4-32-2000.safetensors
+- hyvideo_FastVideo_LoRA-fp8.safetensors
 
 ## Embeddings
 - bad_prompt_version2-neg.pt
@@ -538,6 +563,7 @@
 - t2i-adapter-openpose-sdxl-1.0.safetensors
 - Flux.1-dev-Controlnet-Upscaler-diffusion_pytorch_model.safetensors
 - FLUX.1-dev-Controlnet-Union-diffusion_pytorch_model.safetensors
+- controlnet-union-sdxl-1.0-promax.safetensors
 
 ## VAE
 - ae.safetensors
@@ -550,6 +576,9 @@
 - stable-cascade/stage_a.safetensors
 - vae-ft-mse-840000-ema-pruned.safetensors
 - stable-diffusion-v1-5-vae-diffusion_pytorch_model.safetensors
+- pyramid_flow_vae_bf16.safetensors
+- pyramid_flow_vae_fp32.safetensors
+- hunyuan_video_vae_fp32.safetensors
 
 ## PhotoMaker
 - photomaker-v1.bin
@@ -867,6 +896,10 @@
 ## MistoLine Flux ControlNet
 - mistoline_flux.dev_v1.safetensors
 
+## Reswapper
+- reswapper_128.onnx
+- reswapper_256.onnx
+
 ## Depth Anything
 - depth_anything_v2_vitl.pth
 - depth_anything_v2_vits.pth
@@ -910,4 +943,33 @@
 - stable-cascade/stage_c_lite_bf16.safetensors
 - black-forest-labs_FLUX.1-Fill-dev_flux1-fill-dev_fp8.safetensors
 - flux1-dev-Q4_0.gguf
-
+- flux1-dev-F16.gguf
+- flux1-dev-Q2_K.gguf
+- flux1-dev-Q3_K_S.gguf
+- flux1-dev-Q4_1.gguf
+- flux1-dev-Q4_K_S.gguf
+- flux1-dev-Q5_0.gguf
+- flux1-dev-Q5_1.gguf
+- flux1-dev-Q5_K_S.gguf
+- flux1-dev-Q6_K.gguf
+- flux1-dev-Q8_0.gguf
+- pyramid_flow_miniflux_bf16_v2.safetensors
+- pyramid_flow_miniflux_768_fp8_e4m3fn.safetensors
+- pyramid_flow_miniflux_bf16_v1.safetensors
+- pyramid_flow_miniflux_fp8_e4m3fn_v2.safetensors
+- hunyuan_video_720_cfgdistill_fp8_e4m3fn.safetensors
+- hunyuan_video_720_cfgdistill_bf16.safetensors
+- hunyuan_video_FastVideo_720_fp8_e4m3fn.safetensors
+- fast-hunyuan-video-t2v-720p-BF16.gguf
+- fast-hunyuan-video-t2v-720p-Q3_K_M.gguf
+- fast-hunyuan-video-t2v-720p-Q3_K_S.gguf
+- fast-hunyuan-video-t2v-720p-Q4_0.gguf
+- fast-hunyuan-video-t2v-720p-Q4_1.gguf
+- fast-hunyuan-video-t2v-720p-Q4_K_M.gguf
+- fast-hunyuan-video-t2v-720p-Q4_K_S.gguf
+- fast-hunyuan-video-t2v-720p-Q5_0.gguf
+- fast-hunyuan-video-t2v-720p-Q5_1.gguf
+- fast-hunyuan-video-t2v-720p-Q5_K_M.gguf
+- fast-hunyuan-video-t2v-720p-Q5_K_S.gguf
+- fast-hunyuan-video-t2v-720p-Q6_K.gguf
+- fast-hunyuan-video-t2v-720p-Q8_0.gguf
