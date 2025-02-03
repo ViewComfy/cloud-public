@@ -1,0 +1,2206 @@
+{
+  "file_type": "view_comfy",
+  "file_version": "1.0.0",
+  "version": "0.0.1",
+  "workflows": [
+    {
+      "viewComfyJSON": {
+        "title": "Consistent character",
+        "description": "Create four new images of your starting character",
+        "previewImages": [
+          null,
+          null,
+          null
+        ],
+        "inputs": [
+          {
+            "title": "CHARACTER PROMPT",
+            "inputs": [
+              {
+                "title": "String",
+                "placeholder": "String",
+                "value": "a attractive woman, dark long hair, a women wearing a grey wool turtleneck sweater, brown eyes, jeans, brown boots, short medium long hair, chin long hair that looks like she just got up, She has a fair complexion, expressive brown eyes, Her makeup is natural, highlighting her soft features. she has slightly pink cheeks and a healthy skin tone",
+                "workflowPath": [
+                  "594",
+                  "inputs",
+                  "string"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "long-text",
+                "validations": {
+                  "required": true
+                },
+                "key": "594-inputs-string"
+              }
+            ],
+            "key": "594-String Literal"
+          },
+          {
+            "title": "Character",
+            "inputs": [
+              {
+                "title": "Character",
+                "placeholder": "Character",
+                "value": null,
+                "workflowPath": [
+                  "626",
+                  "inputs",
+                  "image"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "image",
+                "validations": {
+                  "required": true
+                },
+                "key": "626-inputs-image"
+              }
+            ],
+            "key": "626-LoadImage"
+          },
+          {
+            "title": "Pose sheet",
+            "inputs": [
+              {
+                "title": "Pose sheet",
+                "placeholder": "Pose sheet",
+                "value": {},
+                "workflowPath": [
+                  "625",
+                  "inputs",
+                  "image"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "image",
+                "validations": {
+                  "required": true
+                },
+                "key": "625-inputs-image"
+              }
+            ],
+            "key": "625-LoadImage"
+          }
+        ],
+        "advancedInputs": [
+          {
+            "title": "Ultimate SD Upscale",
+            "inputs": [
+              {
+                "title": "Upscale_by",
+                "placeholder": "Upscale_by",
+                "value": 2,
+                "workflowPath": [
+                  "82",
+                  "inputs",
+                  "upscale_by"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "82-inputs-upscale_by"
+              }
+            ],
+            "key": "82-UltimateSDUpscale"
+          },
+          {
+            "title": "Prompt_Image_1",
+            "inputs": [
+              {
+                "title": "String",
+                "placeholder": "String",
+                "value": "a deep forest with oaks and pine trees ferns and bushes, national park, close up, overcast, close up, amateur photography, shot on iphone, candid photo",
+                "workflowPath": [
+                  "426",
+                  "inputs",
+                  "string"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "string",
+                "validations": {
+                  "required": true
+                },
+                "key": "426-inputs-string"
+              }
+            ],
+            "key": "426-String Literal"
+          },
+          {
+            "title": "Prompt_Image_2",
+            "inputs": [
+              {
+                "title": "String",
+                "placeholder": "String",
+                "value": "a modern city during sunset, the sky is adorned by epic cloud formations, frontal close up, walking through the city, hard sunlight on face, Side lit, candid photography, dslr, evening, silhouette, moody, autumn, warm orange atmosphere, natural smile, amateur photography, shot on iphone, candid photo,  winking with one eye closed",
+                "workflowPath": [
+                  "436",
+                  "inputs",
+                  "string"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "string",
+                "validations": {
+                  "required": true
+                },
+                "key": "436-inputs-string"
+              }
+            ],
+            "key": "436-String Literal"
+          },
+          {
+            "title": "Prompt_Image_3",
+            "inputs": [
+              {
+                "title": "String",
+                "placeholder": "String",
+                "value": "music video, color gel lighting, dark background, fog, colorful lighting, looking away from camera, stage lighting, concert stage, neon colors, silhouette, darkness, moody, amateur photography, shot on iphone, candid photo",
+                "workflowPath": [
+                  "443",
+                  "inputs",
+                  "string"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "string",
+                "validations": {
+                  "required": true
+                },
+                "key": "443-inputs-string"
+              }
+            ],
+            "key": "443-String Literal"
+          },
+          {
+            "title": "Prompt_Image_4",
+            "inputs": [
+              {
+                "title": "String",
+                "placeholder": "String",
+                "value": "a vast desert landscape with distant mountains, the hard sunlight is illuminating the person from the side and casting shadows on to the white sand, blue sky, shadows, waving, close up, candid photography, shocked expression, side lit face, shocked expression with an open mouth, surprised face, amateur photography, shot on iphone, candid photo",
+                "workflowPath": [
+                  "458",
+                  "inputs",
+                  "string"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "string",
+                "validations": {
+                  "required": true
+                },
+                "key": "458-inputs-string"
+              }
+            ],
+            "key": "458-String Literal"
+          },
+          {
+            "title": "Generation seed",
+            "inputs": [
+              {
+                "title": "Noise_seed",
+                "placeholder": "Noise_seed",
+                "value": 384340151733840,
+                "workflowPath": [
+                  "499",
+                  "inputs",
+                  "noise_seed"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "seed",
+                "validations": {
+                  "required": true
+                },
+                "key": "499-inputs-noise_seed"
+              }
+            ],
+            "key": "499-RandomNoise"
+          },
+          {
+            "title": "STYLE + QUALITY",
+            "inputs": [
+              {
+                "title": "String",
+                "placeholder": "String",
+                "value": "it is a masterpiece, amateur photography, shot on iphone",
+                "workflowPath": [
+                  "608",
+                  "inputs",
+                  "string"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "string",
+                "validations": {
+                  "required": true
+                },
+                "key": "608-inputs-string"
+              }
+            ],
+            "key": "608-String Literal"
+          }
+        ],
+        "id": "f878c98a0ac26"
+      },
+      "workflowApiJSON": {
+        "18": {
+          "inputs": {
+            "model_name": "bbox/face_yolov8m.pt"
+          },
+          "class_type": "UltralyticsDetectorProvider",
+          "_meta": {
+            "title": "UltralyticsDetectorProvider"
+          }
+        },
+        "82": {
+          "inputs": {
+            "upscale_by": 2,
+            "seed": 384340151733828,
+            "steps": [
+              "743",
+              0
+            ],
+            "cfg": 1,
+            "sampler_name": "euler",
+            "scheduler": "simple",
+            "denoise": 0.18,
+            "mode_type": "Linear",
+            "tile_width": 1024,
+            "tile_height": 1024,
+            "mask_blur": 8,
+            "tile_padding": 32,
+            "seam_fix_mode": "None",
+            "seam_fix_denoise": 1,
+            "seam_fix_width": 64,
+            "seam_fix_mask_blur": 8,
+            "seam_fix_padding": 16,
+            "force_uniform_tiles": false,
+            "tiled_decode": false,
+            "image": [
+              "780",
+              0
+            ],
+            "model": [
+              "628",
+              0
+            ],
+            "positive": [
+              "581",
+              0
+            ],
+            "negative": [
+              "582",
+              0
+            ],
+            "vae": [
+              "97",
+              3
+            ],
+            "upscale_model": [
+              "83",
+              0
+            ]
+          },
+          "class_type": "UltimateSDUpscale",
+          "_meta": {
+            "title": "Ultimate SD Upscale"
+          }
+        },
+        "83": {
+          "inputs": {
+            "model_name": "4x-UltraSharp.pth"
+          },
+          "class_type": "UpscaleModelLoader",
+          "_meta": {
+            "title": "Load Upscale Model"
+          }
+        },
+        "95": {
+          "inputs": {
+            "model": [
+              "628",
+              0
+            ],
+            "clip": [
+              "724",
+              1
+            ],
+            "vae": [
+              "615",
+              0
+            ],
+            "positive": [
+              "581",
+              0
+            ],
+            "negative": [
+              "582",
+              0
+            ]
+          },
+          "class_type": "ToBasicPipe",
+          "_meta": {
+            "title": "ToBasicPipe"
+          }
+        },
+        "97": {
+          "inputs": {
+            "basic_pipe": [
+              "95",
+              0
+            ]
+          },
+          "class_type": "FromBasicPipe_v2",
+          "_meta": {
+            "title": "FromBasicPipe_v2"
+          }
+        },
+        "129": {
+          "inputs": {
+            "upscale_method": "bilinear",
+            "width": 2048,
+            "height": 2048,
+            "crop": "disabled",
+            "image": [
+              "183",
+              0
+            ]
+          },
+          "class_type": "ImageScale",
+          "_meta": {
+            "title": "Upscale Image"
+          }
+        },
+        "134": {
+          "inputs": {
+            "width": 800,
+            "height": 1000,
+            "x": 57,
+            "y": 0,
+            "image": [
+              "129",
+              0
+            ]
+          },
+          "class_type": "ImageCrop",
+          "_meta": {
+            "title": "Image Crop"
+          }
+        },
+        "139": {
+          "inputs": {
+            "width": 1000,
+            "height": 1000,
+            "x": 1158,
+            "y": 42,
+            "image": [
+              "129",
+              0
+            ]
+          },
+          "class_type": "ImageCrop",
+          "_meta": {
+            "title": "Image Crop"
+          }
+        },
+        "142": {
+          "inputs": {
+            "width": 1000,
+            "height": 1000,
+            "x": 1231,
+            "y": 995,
+            "image": [
+              "129",
+              0
+            ]
+          },
+          "class_type": "ImageCrop",
+          "_meta": {
+            "title": "Image Crop"
+          }
+        },
+        "183": {
+          "inputs": {
+            "guide_size": 512,
+            "guide_size_for": true,
+            "max_size": 1024,
+            "seed": 12346,
+            "steps": [
+              "743",
+              0
+            ],
+            "cfg": 1,
+            "sampler_name": "euler",
+            "scheduler": "simple",
+            "denoise": 0.18,
+            "feather": 5,
+            "noise_mask": true,
+            "force_inpaint": true,
+            "bbox_threshold": 0.5,
+            "bbox_dilation": 20,
+            "bbox_crop_factor": 3,
+            "sam_detection_hint": "center-1",
+            "sam_dilation": 0,
+            "sam_threshold": 0.93,
+            "sam_bbox_expansion": 0,
+            "sam_mask_hint_threshold": 0.7,
+            "sam_mask_hint_use_negative": "False",
+            "drop_size": 10,
+            "refiner_ratio": 0.2,
+            "cycle": 1,
+            "inpaint_model": true,
+            "noise_mask_feather": 20,
+            "tiled_encode": false,
+            "tiled_decode": false,
+            "image": [
+              "82",
+              0
+            ],
+            "detailer_pipe": [
+              "185",
+              0
+            ]
+          },
+          "class_type": "FaceDetailerPipe",
+          "_meta": {
+            "title": "FaceDetailer (pipe)"
+          }
+        },
+        "185": {
+          "inputs": {
+            "wildcard": "",
+            "Select to add LoRA": "Select the LoRA to add to the text",
+            "Select to add Wildcard": "Select the Wildcard to add to the text",
+            "model": [
+              "628",
+              0
+            ],
+            "clip": [
+              "97",
+              2
+            ],
+            "vae": [
+              "97",
+              3
+            ],
+            "positive": [
+              "97",
+              4
+            ],
+            "negative": [
+              "97",
+              5
+            ],
+            "bbox_detector": [
+              "18",
+              0
+            ]
+          },
+          "class_type": "ToDetailerPipe",
+          "_meta": {
+            "title": "ToDetailerPipe"
+          }
+        },
+        "259": {
+          "inputs": {
+            "width": 512,
+            "height": 512,
+            "x": 1369,
+            "y": 1031,
+            "image": [
+              "129",
+              0
+            ]
+          },
+          "class_type": "ImageCrop",
+          "_meta": {
+            "title": "Image Crop"
+          }
+        },
+        "298": {
+          "inputs": {
+            "width": 500,
+            "height": 1000,
+            "x": 785,
+            "y": 42,
+            "image": [
+              "129",
+              0
+            ]
+          },
+          "class_type": "ImageCrop",
+          "_meta": {
+            "title": "Image Crop"
+          }
+        },
+        "346": {
+          "inputs": {
+            "rotate_pitch": 0,
+            "rotate_yaw": 0,
+            "rotate_roll": 0,
+            "blink": 0,
+            "eyebrow": 0,
+            "wink": 23.5,
+            "pupil_x": 0,
+            "pupil_y": 0,
+            "aaa": 0,
+            "eee": 0,
+            "woo": 0,
+            "smile": 0,
+            "src_ratio": 1,
+            "sample_ratio": 1,
+            "sample_parts": "OnlyExpression",
+            "crop_factor": 1.7000000000000002,
+            "src_image": [
+              "259",
+              0
+            ]
+          },
+          "class_type": "ExpressionEditor",
+          "_meta": {
+            "title": "Expression Editor (PHM)"
+          }
+        },
+        "354": {
+          "inputs": {
+            "rotate_pitch": -8,
+            "rotate_yaw": -8,
+            "rotate_roll": 4,
+            "blink": 0,
+            "eyebrow": 0,
+            "wink": 0,
+            "pupil_x": 0,
+            "pupil_y": 0,
+            "aaa": 0,
+            "eee": 8.1,
+            "woo": 0,
+            "smile": 1,
+            "src_ratio": 1,
+            "sample_ratio": 1,
+            "sample_parts": "OnlyExpression",
+            "crop_factor": 1.7000000000000002,
+            "src_image": [
+              "259",
+              0
+            ]
+          },
+          "class_type": "ExpressionEditor",
+          "_meta": {
+            "title": "Expression Editor (PHM)"
+          }
+        },
+        "356": {
+          "inputs": {
+            "rotate_pitch": 14.600000000000001,
+            "rotate_yaw": 0,
+            "rotate_roll": 0,
+            "blink": 5,
+            "eyebrow": 15,
+            "wink": 0,
+            "pupil_x": 0,
+            "pupil_y": 0,
+            "aaa": 0,
+            "eee": 0,
+            "woo": 0,
+            "smile": 0,
+            "src_ratio": 1,
+            "sample_ratio": 1,
+            "sample_parts": "OnlyExpression",
+            "crop_factor": 1.7000000000000002,
+            "src_image": [
+              "259",
+              0
+            ]
+          },
+          "class_type": "ExpressionEditor",
+          "_meta": {
+            "title": "Expression Editor (PHM)"
+          }
+        },
+        "358": {
+          "inputs": {
+            "rotate_pitch": 0,
+            "rotate_yaw": 12.8,
+            "rotate_roll": 0,
+            "blink": 5,
+            "eyebrow": 0,
+            "wink": 0,
+            "pupil_x": 0,
+            "pupil_y": 0,
+            "aaa": 120,
+            "eee": 0,
+            "woo": 15,
+            "smile": -0.3,
+            "src_ratio": 1,
+            "sample_ratio": 1,
+            "sample_parts": "OnlyExpression",
+            "crop_factor": 1.7000000000000002,
+            "src_image": [
+              "259",
+              0
+            ]
+          },
+          "class_type": "ExpressionEditor",
+          "_meta": {
+            "title": "Expression Editor (PHM)"
+          }
+        },
+        "424": {
+          "inputs": {
+            "noise": [
+              "499",
+              0
+            ],
+            "guider": [
+              "425",
+              0
+            ],
+            "sampler": [
+              "586",
+              0
+            ],
+            "sigmas": [
+              "587",
+              0
+            ],
+            "latent_image": [
+              "432",
+              0
+            ]
+          },
+          "class_type": "SamplerCustomAdvanced",
+          "_meta": {
+            "title": "SamplerCustomAdvanced"
+          }
+        },
+        "425": {
+          "inputs": {
+            "cfg": 1,
+            "model": [
+              "652",
+              0
+            ],
+            "positive": [
+              "669",
+              0
+            ],
+            "negative": [
+              "669",
+              1
+            ]
+          },
+          "class_type": "CFGGuider",
+          "_meta": {
+            "title": "CFGGuider"
+          }
+        },
+        "426": {
+          "inputs": {
+            "string": "a deep forest with oaks and pine trees ferns and bushes, national park, close up, overcast, close up, amateur photography, shot on iphone, candid photo"
+          },
+          "class_type": "String Literal",
+          "_meta": {
+            "title": "Prompt_Image_1"
+          }
+        },
+        "427": {
+          "inputs": {
+            "string1": [
+              "426",
+              0
+            ],
+            "string2": [
+              "610",
+              0
+            ],
+            "delimiter": ","
+          },
+          "class_type": "JoinStrings",
+          "_meta": {
+            "title": "Join Strings"
+          }
+        },
+        "429": {
+          "inputs": {
+            "samples": [
+              "424",
+              0
+            ],
+            "vae": [
+              "615",
+              0
+            ]
+          },
+          "class_type": "VAEDecode",
+          "_meta": {
+            "title": "VAE Decode"
+          }
+        },
+        "431": {
+          "inputs": {
+            "text": [
+              "427",
+              0
+            ],
+            "clip": [
+              "724",
+              1
+            ]
+          },
+          "class_type": "CLIPTextEncode",
+          "_meta": {
+            "title": "CLIP Text Encode (Prompt)"
+          }
+        },
+        "432": {
+          "inputs": {
+            "width": 1280,
+            "height": 720,
+            "batch_size": 1
+          },
+          "class_type": "EmptyLatentImage",
+          "_meta": {
+            "title": "Empty Latent Image"
+          }
+        },
+        "434": {
+          "inputs": {
+            "noise": [
+              "499",
+              0
+            ],
+            "guider": [
+              "435",
+              0
+            ],
+            "sampler": [
+              "586",
+              0
+            ],
+            "sigmas": [
+              "587",
+              0
+            ],
+            "latent_image": [
+              "432",
+              0
+            ]
+          },
+          "class_type": "SamplerCustomAdvanced",
+          "_meta": {
+            "title": "SamplerCustomAdvanced"
+          }
+        },
+        "435": {
+          "inputs": {
+            "cfg": 1,
+            "model": [
+              "652",
+              0
+            ],
+            "positive": [
+              "687",
+              0
+            ],
+            "negative": [
+              "687",
+              1
+            ]
+          },
+          "class_type": "CFGGuider",
+          "_meta": {
+            "title": "CFGGuider"
+          }
+        },
+        "436": {
+          "inputs": {
+            "string": "a modern city during sunset, the sky is adorned by epic cloud formations, frontal close up, walking through the city, hard sunlight on face, Side lit, candid photography, dslr, evening, silhouette, moody, autumn, warm orange atmosphere, natural smile, amateur photography, shot on iphone, candid photo,  winking with one eye closed"
+          },
+          "class_type": "String Literal",
+          "_meta": {
+            "title": "Prompt_Image_2"
+          }
+        },
+        "437": {
+          "inputs": {
+            "string1": [
+              "436",
+              0
+            ],
+            "string2": [
+              "610",
+              0
+            ],
+            "delimiter": ","
+          },
+          "class_type": "JoinStrings",
+          "_meta": {
+            "title": "Join Strings"
+          }
+        },
+        "438": {
+          "inputs": {
+            "samples": [
+              "434",
+              0
+            ],
+            "vae": [
+              "615",
+              0
+            ]
+          },
+          "class_type": "VAEDecode",
+          "_meta": {
+            "title": "VAE Decode"
+          }
+        },
+        "439": {
+          "inputs": {
+            "text": [
+              "437",
+              0
+            ],
+            "clip": [
+              "724",
+              1
+            ]
+          },
+          "class_type": "CLIPTextEncode",
+          "_meta": {
+            "title": "CLIP Text Encode (Prompt)"
+          }
+        },
+        "441": {
+          "inputs": {
+            "noise": [
+              "499",
+              0
+            ],
+            "guider": [
+              "442",
+              0
+            ],
+            "sampler": [
+              "586",
+              0
+            ],
+            "sigmas": [
+              "587",
+              0
+            ],
+            "latent_image": [
+              "432",
+              0
+            ]
+          },
+          "class_type": "SamplerCustomAdvanced",
+          "_meta": {
+            "title": "SamplerCustomAdvanced"
+          }
+        },
+        "442": {
+          "inputs": {
+            "cfg": 1,
+            "model": [
+              "652",
+              0
+            ],
+            "positive": [
+              "691",
+              0
+            ],
+            "negative": [
+              "691",
+              1
+            ]
+          },
+          "class_type": "CFGGuider",
+          "_meta": {
+            "title": "CFGGuider"
+          }
+        },
+        "443": {
+          "inputs": {
+            "string": "music video, color gel lighting, dark background, fog, colorful lighting, looking away from camera, stage lighting, concert stage, neon colors, silhouette, darkness, moody, amateur photography, shot on iphone, candid photo"
+          },
+          "class_type": "String Literal",
+          "_meta": {
+            "title": "Prompt_Image_3"
+          }
+        },
+        "444": {
+          "inputs": {
+            "string1": [
+              "443",
+              0
+            ],
+            "string2": [
+              "610",
+              0
+            ],
+            "delimiter": ","
+          },
+          "class_type": "JoinStrings",
+          "_meta": {
+            "title": "Join Strings"
+          }
+        },
+        "445": {
+          "inputs": {
+            "samples": [
+              "441",
+              0
+            ],
+            "vae": [
+              "615",
+              0
+            ]
+          },
+          "class_type": "VAEDecode",
+          "_meta": {
+            "title": "VAE Decode"
+          }
+        },
+        "446": {
+          "inputs": {
+            "text": [
+              "444",
+              0
+            ],
+            "clip": [
+              "724",
+              1
+            ]
+          },
+          "class_type": "CLIPTextEncode",
+          "_meta": {
+            "title": "CLIP Text Encode (Prompt)"
+          }
+        },
+        "456": {
+          "inputs": {
+            "noise": [
+              "499",
+              0
+            ],
+            "guider": [
+              "457",
+              0
+            ],
+            "sampler": [
+              "586",
+              0
+            ],
+            "sigmas": [
+              "587",
+              0
+            ],
+            "latent_image": [
+              "432",
+              0
+            ]
+          },
+          "class_type": "SamplerCustomAdvanced",
+          "_meta": {
+            "title": "SamplerCustomAdvanced"
+          }
+        },
+        "457": {
+          "inputs": {
+            "cfg": 1,
+            "model": [
+              "652",
+              0
+            ],
+            "positive": [
+              "695",
+              0
+            ],
+            "negative": [
+              "695",
+              1
+            ]
+          },
+          "class_type": "CFGGuider",
+          "_meta": {
+            "title": "CFGGuider"
+          }
+        },
+        "458": {
+          "inputs": {
+            "string": "a vast desert landscape with distant mountains, the hard sunlight is illuminating the person from the side and casting shadows on to the white sand, blue sky, shadows, waving, close up, candid photography, shocked expression, side lit face, shocked expression with an open mouth, surprised face, amateur photography, shot on iphone, candid photo"
+          },
+          "class_type": "String Literal",
+          "_meta": {
+            "title": "Prompt_Image_4"
+          }
+        },
+        "459": {
+          "inputs": {
+            "string1": [
+              "458",
+              0
+            ],
+            "string2": [
+              "610",
+              0
+            ],
+            "delimiter": ","
+          },
+          "class_type": "JoinStrings",
+          "_meta": {
+            "title": "Join Strings"
+          }
+        },
+        "460": {
+          "inputs": {
+            "samples": [
+              "456",
+              0
+            ],
+            "vae": [
+              "615",
+              0
+            ]
+          },
+          "class_type": "VAEDecode",
+          "_meta": {
+            "title": "VAE Decode"
+          }
+        },
+        "461": {
+          "inputs": {
+            "text": [
+              "459",
+              0
+            ],
+            "clip": [
+              "724",
+              1
+            ]
+          },
+          "class_type": "CLIPTextEncode",
+          "_meta": {
+            "title": "CLIP Text Encode (Prompt)"
+          }
+        },
+        "499": {
+          "inputs": {
+            "noise_seed": 384340151733840
+          },
+          "class_type": "RandomNoise",
+          "_meta": {
+            "title": "Generation seed"
+          }
+        },
+        "581": {
+          "inputs": {
+            "text": [
+              "609",
+              0
+            ],
+            "clip": [
+              "724",
+              1
+            ]
+          },
+          "class_type": "CLIPTextEncode",
+          "_meta": {
+            "title": "CLIP Text Encode (Prompt)"
+          }
+        },
+        "582": {
+          "inputs": {
+            "text": " ",
+            "clip": [
+              "724",
+              1
+            ]
+          },
+          "class_type": "CLIPTextEncode",
+          "_meta": {
+            "title": "CLIP Text Encode (Prompt)"
+          }
+        },
+        "583": {
+          "inputs": {
+            "samples": [
+              "589",
+              1
+            ],
+            "vae": [
+              "615",
+              0
+            ]
+          },
+          "class_type": "VAEDecode",
+          "_meta": {
+            "title": "VAE Decode"
+          }
+        },
+        "586": {
+          "inputs": {
+            "sampler_name": "deis"
+          },
+          "class_type": "KSamplerSelect",
+          "_meta": {
+            "title": "KSamplerSelect"
+          }
+        },
+        "587": {
+          "inputs": {
+            "scheduler": "beta",
+            "steps": [
+              "743",
+              0
+            ],
+            "denoise": 1,
+            "model": [
+              "628",
+              0
+            ]
+          },
+          "class_type": "BasicScheduler",
+          "_meta": {
+            "title": "BasicScheduler"
+          }
+        },
+        "588": {
+          "inputs": {
+            "noise_seed": 384340151733836
+          },
+          "class_type": "RandomNoise",
+          "_meta": {
+            "title": "RandomNoise"
+          }
+        },
+        "589": {
+          "inputs": {
+            "noise": [
+              "588",
+              0
+            ],
+            "guider": [
+              "618",
+              0
+            ],
+            "sampler": [
+              "586",
+              0
+            ],
+            "sigmas": [
+              "587",
+              0
+            ],
+            "latent_image": [
+              "620",
+              0
+            ]
+          },
+          "class_type": "SamplerCustomAdvanced",
+          "_meta": {
+            "title": "SamplerCustomAdvanced"
+          }
+        },
+        "592": {
+          "inputs": {
+            "string": "a character sheet, simple black background, multiple views, from multiple angles, visible face, portrait,"
+          },
+          "class_type": "String Literal",
+          "_meta": {
+            "title": "Character Sheet"
+          }
+        },
+        "593": {
+          "inputs": {
+            "string1": [
+              "592",
+              0
+            ],
+            "string2": [
+              "608",
+              0
+            ],
+            "delimiter": ""
+          },
+          "class_type": "JoinStrings",
+          "_meta": {
+            "title": "Join Strings"
+          }
+        },
+        "594": {
+          "inputs": {
+            "string": "a attractive woman, dark long hair, a women weraing a grey wool turtleneck sweater, brown eyes, jeans, brown boots, short medium long hair, chin long hair that looks like she just got up, She has a fair complexion, expressive brown eyes, Her makeup is natural, highlighting her soft features. she has slightly pink cheeks and a healthy skin tone"
+          },
+          "class_type": "String Literal",
+          "_meta": {
+            "title": "CHARACTER PROMPT"
+          }
+        },
+        "608": {
+          "inputs": {
+            "string": "it is a masterpiece, amateur photography, shot on iphone, test"
+          },
+          "class_type": "String Literal",
+          "_meta": {
+            "title": "STYLE + QUALITY"
+          }
+        },
+        "609": {
+          "inputs": {
+            "string1": [
+              "593",
+              0
+            ],
+            "string2": [
+              "594",
+              0
+            ],
+            "delimiter": ""
+          },
+          "class_type": "JoinStrings",
+          "_meta": {
+            "title": "Join Strings"
+          }
+        },
+        "610": {
+          "inputs": {
+            "string1": [
+              "608",
+              0
+            ],
+            "string2": [
+              "594",
+              0
+            ],
+            "delimiter": " "
+          },
+          "class_type": "JoinStrings",
+          "_meta": {
+            "title": "Join Strings"
+          }
+        },
+        "615": {
+          "inputs": {
+            "vae_name": "ae.safetensors"
+          },
+          "class_type": "VAELoader",
+          "_meta": {
+            "title": "Load VAE"
+          }
+        },
+        "618": {
+          "inputs": {
+            "model": [
+              "628",
+              0
+            ],
+            "conditioning": [
+              "632",
+              0
+            ]
+          },
+          "class_type": "BasicGuider",
+          "_meta": {
+            "title": "BasicGuider"
+          }
+        },
+        "620": {
+          "inputs": {
+            "width": 1280,
+            "height": 1280,
+            "batch_size": 1
+          },
+          "class_type": "EmptySD3LatentImage",
+          "_meta": {
+            "title": "EmptySD3LatentImage"
+          }
+        },
+        "623": {
+          "inputs": {
+            "strength": 0.63,
+            "start_percent": 0,
+            "end_percent": 0.4,
+            "positive": [
+              "581",
+              0
+            ],
+            "negative": [
+              "582",
+              0
+            ],
+            "control_net": [
+              "648",
+              0
+            ],
+            "vae": [
+              "615",
+              0
+            ],
+            "image": [
+              "655",
+              0
+            ]
+          },
+          "class_type": "ControlNetApplySD3",
+          "_meta": {
+            "title": "Apply Controlnet with VAE"
+          }
+        },
+        "625": {
+          "inputs": {
+            "image": "RunComfy_example_1151_pose_sheet.png",
+            "upload": "image"
+          },
+          "class_type": "LoadImage",
+          "_meta": {
+            "title": "Pose sheet"
+          }
+        },
+        "626": {
+          "inputs": {
+            "image": "w1900_q65.jpeg",
+            "upload": "image"
+          },
+          "class_type": "LoadImage",
+          "_meta": {
+            "title": "Character"
+          }
+        },
+        "627": {
+          "inputs": {
+            "pulid_file": "pulid_flux_v0.9.0.safetensors"
+          },
+          "class_type": "PulidFluxModelLoader",
+          "_meta": {
+            "title": "Load PuLID Flux Model"
+          }
+        },
+        "628": {
+          "inputs": {
+            "weight": 0.9500000000000001,
+            "start_at": 0.1,
+            "end_at": 1,
+            "fusion": "concat",
+            "fusion_weight_max": 1,
+            "fusion_weight_min": 0,
+            "train_step": 3000,
+            "use_gray": false,
+            "model": [
+              "646",
+              0
+            ],
+            "pulid_flux": [
+              "627",
+              0
+            ],
+            "eva_clip": [
+              "630",
+              0
+            ],
+            "face_analysis": [
+              "629",
+              0
+            ],
+            "image": [
+              "626",
+              0
+            ]
+          },
+          "class_type": "ApplyPulidFlux",
+          "_meta": {
+            "title": "Apply PuLID Flux"
+          }
+        },
+        "629": {
+          "inputs": {
+            "provider": "CUDA"
+          },
+          "class_type": "PulidFluxInsightFaceLoader",
+          "_meta": {
+            "title": "Load InsightFace (PuLID Flux)"
+          }
+        },
+        "630": {
+          "inputs": {},
+          "class_type": "PulidFluxEvaClipLoader",
+          "_meta": {
+            "title": "Load Eva Clip (PuLID Flux)"
+          }
+        },
+        "632": {
+          "inputs": {
+            "guidance": 3.5,
+            "conditioning": [
+              "623",
+              0
+            ]
+          },
+          "class_type": "FluxGuidance",
+          "_meta": {
+            "title": "FluxGuidance"
+          }
+        },
+        "646": {
+          "inputs": {
+            "max_shift": 1.1500000000000001,
+            "base_shift": 0.5,
+            "width": 1280,
+            "height": 1280,
+            "model": [
+              "724",
+              0
+            ]
+          },
+          "class_type": "ModelSamplingFlux",
+          "_meta": {
+            "title": "ModelSamplingFlux"
+          }
+        },
+        "647": {
+          "inputs": {
+            "control_net_name": "flux.1-dev-controlnet-union.safetensors"
+          },
+          "class_type": "ControlNetLoader",
+          "_meta": {
+            "title": "Load ControlNet Model"
+          }
+        },
+        "648": {
+          "inputs": {
+            "type": "auto",
+            "control_net": [
+              "647",
+              0
+            ]
+          },
+          "class_type": "SetUnionControlNetType",
+          "_meta": {
+            "title": "SetUnionControlNetType"
+          }
+        },
+        "652": {
+          "inputs": {
+            "weight": 0.9,
+            "start_at": 0.1,
+            "end_at": 0.4,
+            "fusion": "concat",
+            "fusion_weight_max": 1,
+            "fusion_weight_min": 0,
+            "train_step": 3000,
+            "use_gray": false,
+            "model": [
+              "662",
+              0
+            ],
+            "pulid_flux": [
+              "627",
+              0
+            ],
+            "eva_clip": [
+              "630",
+              0
+            ],
+            "face_analysis": [
+              "629",
+              0
+            ],
+            "image": [
+              "259",
+              0
+            ]
+          },
+          "class_type": "ApplyPulidFlux",
+          "_meta": {
+            "title": "Apply PuLID Flux"
+          }
+        },
+        "655": {
+          "inputs": {
+            "upscale_method": "lanczos",
+            "width": 1280,
+            "height": 1280,
+            "crop": "disabled",
+            "image": [
+              "625",
+              0
+            ]
+          },
+          "class_type": "ImageScale",
+          "_meta": {
+            "title": "Upscale Image"
+          }
+        },
+        "662": {
+          "inputs": {
+            "max_shift": 1.1500000000000001,
+            "base_shift": 0.5,
+            "width": 1280,
+            "height": 720,
+            "model": [
+              "628",
+              0
+            ]
+          },
+          "class_type": "ModelSamplingFlux",
+          "_meta": {
+            "title": "ModelSamplingFlux"
+          }
+        },
+        "669": {
+          "inputs": {
+            "strength": 0.62,
+            "start_percent": 0,
+            "end_percent": 0.4,
+            "positive": [
+              "431",
+              0
+            ],
+            "negative": [
+              "582",
+              0
+            ],
+            "control_net": [
+              "670",
+              0
+            ],
+            "vae": [
+              "615",
+              0
+            ],
+            "image": [
+              "676",
+              0
+            ]
+          },
+          "class_type": "ControlNetApplySD3",
+          "_meta": {
+            "title": "Apply Controlnet with VAE Image 1"
+          }
+        },
+        "670": {
+          "inputs": {
+            "type": "auto",
+            "control_net": [
+              "647",
+              0
+            ]
+          },
+          "class_type": "SetUnionControlNetType",
+          "_meta": {
+            "title": "SetUnionControlNetType"
+          }
+        },
+        "672": {
+          "inputs": {
+            "merge_with_lineart": "lineart_standard",
+            "resolution": 1280,
+            "lineart_lower_bound": 0,
+            "lineart_upper_bound": 1,
+            "object_min_size": 36,
+            "object_connectivity": 1,
+            "image": [
+              "259",
+              0
+            ]
+          },
+          "class_type": "AnyLineArtPreprocessor_aux",
+          "_meta": {
+            "title": "AnyLine Lineart"
+          }
+        },
+        "676": {
+          "inputs": {
+            "width": 1280,
+            "height": 720,
+            "interpolation": "lanczos",
+            "method": "pad",
+            "condition": "always",
+            "multiple_of": 0,
+            "image": [
+              "717",
+              0
+            ]
+          },
+          "class_type": "ImageResize+",
+          "_meta": {
+            "title": "🔧 Image Resize"
+          }
+        },
+        "687": {
+          "inputs": {
+            "strength": 0.62,
+            "start_percent": 0,
+            "end_percent": 0.4,
+            "positive": [
+              "439",
+              0
+            ],
+            "negative": [
+              "582",
+              0
+            ],
+            "control_net": [
+              "688",
+              0
+            ],
+            "vae": [
+              "615",
+              0
+            ],
+            "image": [
+              "690",
+              0
+            ]
+          },
+          "class_type": "ControlNetApplySD3",
+          "_meta": {
+            "title": "Apply Controlnet with VAE Image 2"
+          }
+        },
+        "688": {
+          "inputs": {
+            "type": "auto",
+            "control_net": [
+              "647",
+              0
+            ]
+          },
+          "class_type": "SetUnionControlNetType",
+          "_meta": {
+            "title": "SetUnionControlNetType"
+          }
+        },
+        "689": {
+          "inputs": {
+            "merge_with_lineart": "lineart_standard",
+            "resolution": 1280,
+            "lineart_lower_bound": 0,
+            "lineart_upper_bound": 1,
+            "object_min_size": 36,
+            "object_connectivity": 1,
+            "image": [
+              "346",
+              0
+            ]
+          },
+          "class_type": "AnyLineArtPreprocessor_aux",
+          "_meta": {
+            "title": "AnyLine Lineart"
+          }
+        },
+        "690": {
+          "inputs": {
+            "width": 1280,
+            "height": 720,
+            "interpolation": "lanczos",
+            "method": "pad",
+            "condition": "always",
+            "multiple_of": 0,
+            "image": [
+              "718",
+              0
+            ]
+          },
+          "class_type": "ImageResize+",
+          "_meta": {
+            "title": "🔧 Image Resize"
+          }
+        },
+        "691": {
+          "inputs": {
+            "strength": 0.62,
+            "start_percent": 0,
+            "end_percent": 0.4,
+            "positive": [
+              "446",
+              0
+            ],
+            "negative": [
+              "582",
+              0
+            ],
+            "control_net": [
+              "692",
+              0
+            ],
+            "vae": [
+              "615",
+              0
+            ],
+            "image": [
+              "694",
+              0
+            ]
+          },
+          "class_type": "ControlNetApplySD3",
+          "_meta": {
+            "title": "Apply Controlnet with VAE Image 3"
+          }
+        },
+        "692": {
+          "inputs": {
+            "type": "auto",
+            "control_net": [
+              "647",
+              0
+            ]
+          },
+          "class_type": "SetUnionControlNetType",
+          "_meta": {
+            "title": "SetUnionControlNetType"
+          }
+        },
+        "693": {
+          "inputs": {
+            "merge_with_lineart": "lineart_standard",
+            "resolution": 1280,
+            "lineart_lower_bound": 0,
+            "lineart_upper_bound": 1,
+            "object_min_size": 36,
+            "object_connectivity": 1,
+            "image": [
+              "354",
+              0
+            ]
+          },
+          "class_type": "AnyLineArtPreprocessor_aux",
+          "_meta": {
+            "title": "AnyLine Lineart"
+          }
+        },
+        "694": {
+          "inputs": {
+            "width": 1280,
+            "height": 720,
+            "interpolation": "lanczos",
+            "method": "pad",
+            "condition": "always",
+            "multiple_of": 0,
+            "image": [
+              "719",
+              0
+            ]
+          },
+          "class_type": "ImageResize+",
+          "_meta": {
+            "title": "🔧 Image Resize"
+          }
+        },
+        "695": {
+          "inputs": {
+            "strength": 0.62,
+            "start_percent": 0,
+            "end_percent": 0.4,
+            "positive": [
+              "461",
+              0
+            ],
+            "negative": [
+              "582",
+              0
+            ],
+            "control_net": [
+              "696",
+              0
+            ],
+            "vae": [
+              "615",
+              0
+            ],
+            "image": [
+              "698",
+              0
+            ]
+          },
+          "class_type": "ControlNetApplySD3",
+          "_meta": {
+            "title": "Apply Controlnet with VAE Image 4"
+          }
+        },
+        "696": {
+          "inputs": {
+            "type": "auto",
+            "control_net": [
+              "647",
+              0
+            ]
+          },
+          "class_type": "SetUnionControlNetType",
+          "_meta": {
+            "title": "SetUnionControlNetType"
+          }
+        },
+        "697": {
+          "inputs": {
+            "merge_with_lineart": "lineart_standard",
+            "resolution": 1280,
+            "lineart_lower_bound": 0,
+            "lineart_upper_bound": 1,
+            "object_min_size": 36,
+            "object_connectivity": 1,
+            "image": [
+              "259",
+              0
+            ]
+          },
+          "class_type": "AnyLineArtPreprocessor_aux",
+          "_meta": {
+            "title": "AnyLine Lineart"
+          }
+        },
+        "698": {
+          "inputs": {
+            "width": 1280,
+            "height": 720,
+            "interpolation": "lanczos",
+            "method": "pad",
+            "condition": "always",
+            "multiple_of": 0,
+            "image": [
+              "720",
+              0
+            ]
+          },
+          "class_type": "ImageResize+",
+          "_meta": {
+            "title": "🔧 Image Resize"
+          }
+        },
+        "717": {
+          "inputs": {
+            "width": 1240,
+            "height": 1240,
+            "x": 40,
+            "y": 40,
+            "image": [
+              "672",
+              0
+            ]
+          },
+          "class_type": "ImageCrop",
+          "_meta": {
+            "title": "Image Crop"
+          }
+        },
+        "718": {
+          "inputs": {
+            "width": 1240,
+            "height": 1240,
+            "x": 40,
+            "y": 40,
+            "image": [
+              "689",
+              0
+            ]
+          },
+          "class_type": "ImageCrop",
+          "_meta": {
+            "title": "Image Crop"
+          }
+        },
+        "719": {
+          "inputs": {
+            "width": 1240,
+            "height": 1240,
+            "x": 40,
+            "y": 40,
+            "image": [
+              "693",
+              0
+            ]
+          },
+          "class_type": "ImageCrop",
+          "_meta": {
+            "title": "Image Crop"
+          }
+        },
+        "720": {
+          "inputs": {
+            "width": 1240,
+            "height": 1240,
+            "x": 40,
+            "y": 40,
+            "image": [
+              "697",
+              0
+            ]
+          },
+          "class_type": "ImageCrop",
+          "_meta": {
+            "title": "Image Crop"
+          }
+        },
+        "724": {
+          "inputs": {
+            "lora_name": "FLUX.1-Turbo-Alpha.safetensors",
+            "strength_model": 1,
+            "strength_clip": 1,
+            "model": [
+              "762",
+              0
+            ],
+            "clip": [
+              "761",
+              0
+            ]
+          },
+          "class_type": "LoraLoader",
+          "_meta": {
+            "title": "Load LoRA"
+          }
+        },
+        "742": {
+          "inputs": {
+            "model": [
+              "724",
+              0
+            ]
+          },
+          "class_type": "ModelPassThrough",
+          "_meta": {
+            "title": "ModelPass"
+          }
+        },
+        "743": {
+          "inputs": {
+            "int": 25
+          },
+          "class_type": "Int Literal",
+          "_meta": {
+            "title": "Steps"
+          }
+        },
+        "761": {
+          "inputs": {
+            "clip_name1": "t5xxl_fp8_e4m3fn.safetensors",
+            "clip_name2": "clip_l.safetensors",
+            "type": "flux",
+            "device": "default"
+          },
+          "class_type": "DualCLIPLoader",
+          "_meta": {
+            "title": "DualCLIPLoader"
+          }
+        },
+        "762": {
+          "inputs": {
+            "unet_name": "flux1-dev-fp8-e4m3fn.safetensors",
+            "weight_dtype": "fp8_e4m3fn"
+          },
+          "class_type": "UNETLoader",
+          "_meta": {
+            "title": "Load Diffusion Model"
+          }
+        },
+        "764": {
+          "inputs": {
+            "filename_prefix": "intermediate_image_7",
+            "images": [
+              "346",
+              0
+            ]
+          },
+          "class_type": "SaveImage",
+          "_meta": {
+            "title": "Save Image"
+          }
+        },
+        "765": {
+          "inputs": {
+            "filename_prefix": "intermediate_image_8",
+            "images": [
+              "354",
+              0
+            ]
+          },
+          "class_type": "SaveImage",
+          "_meta": {
+            "title": "Save Image"
+          }
+        },
+        "766": {
+          "inputs": {
+            "filename_prefix": "intermediate_image_9",
+            "images": [
+              "356",
+              0
+            ]
+          },
+          "class_type": "SaveImage",
+          "_meta": {
+            "title": "Save Image"
+          }
+        },
+        "767": {
+          "inputs": {
+            "filename_prefix": "intermediate_image_10",
+            "images": [
+              "358",
+              0
+            ]
+          },
+          "class_type": "SaveImage",
+          "_meta": {
+            "title": "Save Image"
+          }
+        },
+        "768": {
+          "inputs": {
+            "filename_prefix": "Image_1",
+            "images": [
+              "429",
+              0
+            ]
+          },
+          "class_type": "SaveImage",
+          "_meta": {
+            "title": "Save Image"
+          }
+        },
+        "770": {
+          "inputs": {
+            "filename_prefix": "Image_3",
+            "images": [
+              "445",
+              0
+            ]
+          },
+          "class_type": "SaveImage",
+          "_meta": {
+            "title": "Save Image"
+          }
+        },
+        "771": {
+          "inputs": {
+            "filename_prefix": "Image_2",
+            "images": [
+              "438",
+              0
+            ]
+          },
+          "class_type": "SaveImage",
+          "_meta": {
+            "title": "Save Image"
+          }
+        },
+        "772": {
+          "inputs": {
+            "filename_prefix": "Image_4",
+            "images": [
+              "460",
+              0
+            ]
+          },
+          "class_type": "SaveImage",
+          "_meta": {
+            "title": "Save Image"
+          }
+        },
+        "773": {
+          "inputs": {
+            "filename_prefix": "intermediate_image_1",
+            "images": [
+              "183",
+              0
+            ]
+          },
+          "class_type": "SaveImage",
+          "_meta": {
+            "title": "Save Image"
+          }
+        },
+        "779": {
+          "inputs": {
+            "filename_prefix": "base_character",
+            "images": [
+              "780",
+              0
+            ]
+          },
+          "class_type": "SaveImage",
+          "_meta": {
+            "title": "Save Image"
+          }
+        },
+        "780": {
+          "inputs": {
+            "samples": [
+              "589",
+              1
+            ],
+            "vae": [
+              "615",
+              0
+            ]
+          },
+          "class_type": "VAEDecode",
+          "_meta": {
+            "title": "VAE Decode"
+          }
+        },
+        "782": {
+          "inputs": {
+            "filename_prefix": "intermediate_image _2",
+            "images": [
+              "134",
+              0
+            ]
+          },
+          "class_type": "SaveImage",
+          "_meta": {
+            "title": "Save Image"
+          }
+        },
+        "785": {
+          "inputs": {
+            "filename_prefix": "intermediate_image_3",
+            "images": [
+              "139",
+              0
+            ]
+          },
+          "class_type": "SaveImage",
+          "_meta": {
+            "title": "Save Image"
+          }
+        },
+        "786": {
+          "inputs": {
+            "filename_prefix": "intermediate_image_4",
+            "images": [
+              "142",
+              0
+            ]
+          },
+          "class_type": "SaveImage",
+          "_meta": {
+            "title": "Save Image"
+          }
+        },
+        "787": {
+          "inputs": {
+            "filename_prefix": "intermediate_image_5",
+            "images": [
+              "298",
+              0
+            ]
+          },
+          "class_type": "SaveImage",
+          "_meta": {
+            "title": "Save Image"
+          }
+        },
+        "788": {
+          "inputs": {
+            "filename_prefix": "intermediate_image_6",
+            "images": [
+              "259",
+              0
+            ]
+          },
+          "class_type": "SaveImage",
+          "_meta": {
+            "title": "Save Image"
+          }
+        }
+      }
+    }
+  ]
+}
