@@ -21,3 +21,4 @@ npm run dev
 
 the result will be something like this:
 
+![flux consistent characters result](https://raw.githubusercontent.com/ViewComfy/cloud-public/main/workflows/flux-consistent-characters/flux_consistent_characters_result.png "flux consistent characters result")
