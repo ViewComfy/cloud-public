@@ -54,7 +54,7 @@ The "key" for each parameter can be found inside the viewcomfy.json and will loo
               {
                 "title": "CLIP Text Encode (Prompt)",
                 ...
-                "key": "**6-inputs-text**"
+                **"key": "6-inputs-text"**
               }
             ],
             "key": "6-CLIPTextEncode"
