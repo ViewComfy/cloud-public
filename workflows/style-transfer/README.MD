@@ -13,7 +13,7 @@ The style_transfer_api file defines all the functions that you will need to run 
 The style_transfer_call file takes in the parameters from the UI, sends them to the API and returns the results as Blobs. 
 
 To adapt this example to your project, you will need to do the following:
-1. Create a ViewComfy.json using our open-source [repo](https://github.com/ViewComfy/ViewComfy){:target="_blank"}. The parameters that you decide to expose in the UI are the ones that will be exposed to the API. For more details, you can refer to [this](https://youtu.be/sG2elA1bdrg) video.
+1. Create a ViewComfy.json using our open-source [repo](https://github.com/ViewComfy/ViewComfy). The parameters that you decide to expose in the UI are the ones that will be exposed to the API. For more details, you can refer to [this](https://youtu.be/sG2elA1bdrg) video.
 2. Include this ViewComfy the newly created viewcomfy.json file when deploying your workflow on [viewcomfy cloud](https://app.viewcomfy.com/ ""). For more details, you can refer to [this](https://youtu.be/pIODXFU9sHw) video.
 3. Lastly, you will need to edit the parameters style_transfer_call.ts to match the ones in your viewcomfy.json file. 
 
