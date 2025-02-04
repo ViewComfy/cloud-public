@@ -4,7 +4,7 @@
 
 This example uses the ViewComfy API with a simple next.js app to transfer a style from one input image to a second input image. 
 
-The two key files you need to pay attention to are: 
+The two files you need to pay attention to are: 
 - style_transfer_api.ts
 - style_transfer_call.ts
 
