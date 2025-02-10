@@ -96,7 +96,7 @@ npm install
 
 ### Run the project
 
-Change the viewComfyUrl value to the ViewComfy endpoint from the app.viewcomfy.com
+Change the viewComfyUrl value to the ViewComfy endpoint from the [ViewComfy Dashboard](https://app.viewcomfy.com)
 viewComfyUrl value is inside `main.ts` file also you can change the parameters of the workflow
 
 and to make the API call run:

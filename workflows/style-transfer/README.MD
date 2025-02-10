@@ -6,13 +6,10 @@ This example uses the ViewComfy API with a simple next.js app to transfer a styl
 
 ### TypeScript functions
 
-The two files you need to pay attention to are: 
-- style_transfer_api.ts
-- style_transfer_call.ts
+The file you need to pay attention is: 
+- main.ts
 
-The style_transfer_api file defines all the functions that you will need to run the API and shouldn't need to be changed. 
-
-The style_transfer_call file takes in the parameters from the UI, sends them to the API and returns the results as Blobs. 
+The main.ts is where the ViewComfy url and parameters are set so send them to the API and returns the results as Blobs. 
 
 ### Preparing your API
 
@@ -83,10 +80,8 @@ npm install
 
 ### Run the project
 
-Change the viewComfyUrl value to the ViewComfy endpoint from the app.viewcomfy.com
-viewComfyUrl value is inside `style_transfer_api.ts` file
-
-In the `style_transfer_call.ts` file, you can change the parameters of the workflow
+Change the viewComfyUrl value to the ViewComfy endpoint from the [ViewComfy Dashboard](https://app.viewcomfy.com)
+viewComfyUrl value is inside `main.ts` file also you can change the parameters of the workflow
 
 and to make the API call run:
 

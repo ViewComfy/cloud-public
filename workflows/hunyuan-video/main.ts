@@ -2,111 +2,8 @@ import { IViewComfy, ResponseError } from "./interfaces";
 import { promises as fs } from "fs";
 import * as path from "path";
 
-const workflow = {
-    "1": {
-        inputs: {
-            model: "hunyuan_video_720_fp8_e4m3fn.safetensors",
-            base_precision: "bf16",
-            quantization: "fp8_e4m3fn",
-            load_device: "offload_device",
-            attention_mode: "comfy",
-            auto_cpu_offload: false,
-            upcast_rope: true,
-            lora: ["42", 0],
-        },
-        class_type: "HyVideoModelLoader",
-        _meta: { title: "HunyuanVideo Model Loader" },
-    },
-    "3": {
-        inputs: {
-            width: 512,
-            height: 320,
-            num_frames: 41,
-            steps: 30,
-            embedded_guidance_scale: 6,
-            flow_shift: 9,
-            seed: 92504811584026,
-            force_offload: 1,
-            denoise_strength: 1,
-            scheduler: "FlowMatchDiscreteScheduler",
-            model: ["1", 0],
-            hyvid_embeds: ["30", 0],
-        },
-        class_type: "HyVideoSampler",
-        _meta: { title: "HunyuanVideo Sampler" },
-    },
-    "5": {
-        inputs: {
-            enable_vae_tiling: true,
-            temporal_tiling_sample_size: 8,
-            spatial_tile_sample_min_size: 256,
-            auto_tile_size: true,
-            vae: ["7", 0],
-            samples: ["3", 0],
-        },
-        class_type: "HyVideoDecode",
-        _meta: { title: "HunyuanVideo Decode" },
-    },
-    "7": {
-        inputs: {
-            model_name: "hunyuan_video_vae_bf16.safetensors",
-            precision: "fp16",
-        },
-        class_type: "HyVideoVAELoader",
-        _meta: { title: "HunyuanVideo VAE Loader" },
-    },
-    "16": {
-        inputs: {
-            llm_model: "Kijai/llava-llama-3-8b-text-encoder-tokenizer",
-            clip_model: "openai/clip-vit-large-patch14",
-            precision: "fp16",
-            apply_final_norm: false,
-            hidden_state_skip_layer: 2,
-            quantization: "disabled",
-            load_device: "offload_device",
-        },
-        class_type: "DownloadAndLoadHyVideoTextEncoder",
-        _meta: { title: "(Down)Load HunyuanVideo TextEncoder" },
-    },
-    "30": {
-        inputs: {
-            prompt: "A scene from a Studio Ghibli animated film, featuring a playful girl with wavy red hair, green eyes, and a sunhat, as she runs through a meadow of wildflowers under a clear blue sky, with petals floating in the air, while the camera follows her joyfully, emphasizing the lively and carefree ambiance.",
-            force_offload: "bad quality video",
-            prompt_template: "video",
-            text_encoders: ["16", 0],
-        },
-        class_type: "HyVideoTextEncode",
-        _meta: { title: "HunyuanVideo TextEncode" },
-    },
-    "34": {
-        inputs: {
-            frame_rate: 16,
-            loop_count: 0,
-            filename_prefix: "1176",
-            format: "video/h264-mp4",
-            pix_fmt: "yuv420p",
-            crf: 19,
-            save_metadata: true,
-            trim_to_audio: false,
-            pingpong: false,
-            save_output: true,
-            images: ["5", 0],
-        },
-        class_type: "VHS_VideoCombine",
-        _meta: { title: "Video Combine 🎥🅥🅗🅢" },
-    },
-    "42": {
-        inputs: {
-            lora: "fluidart-v1_hunyuanvideo_e28.safetensors",
-            strength: 1,
-        },
-        class_type: "HyVideoLoraSelect",
-        _meta: { title: "HunyuanVideo Lora Select" },
-    },
-};
-
 const viewComfyUrl =
-    "https://viewcomfy--2-1-32dok6-comfyui-view-comfy-ui.modal.run";
+    "";
 
 async function main() {
     const viewComfy: IViewComfy = {
@@ -270,3 +167,106 @@ async function saveBlob(blob: Blob, filename: string): Promise<void> {
 }
 
 main().catch(console.error);
+
+const workflow = {
+    "1": {
+        inputs: {
+            model: "hunyuan_video_720_fp8_e4m3fn.safetensors",
+            base_precision: "bf16",
+            quantization: "fp8_e4m3fn",
+            load_device: "offload_device",
+            attention_mode: "comfy",
+            auto_cpu_offload: false,
+            upcast_rope: true,
+            lora: ["42", 0],
+        },
+        class_type: "HyVideoModelLoader",
+        _meta: { title: "HunyuanVideo Model Loader" },
+    },
+    "3": {
+        inputs: {
+            width: 512,
+            height: 320,
+            num_frames: 41,
+            steps: 30,
+            embedded_guidance_scale: 6,
+            flow_shift: 9,
+            seed: 92504811584026,
+            force_offload: 1,
+            denoise_strength: 1,
+            scheduler: "FlowMatchDiscreteScheduler",
+            model: ["1", 0],
+            hyvid_embeds: ["30", 0],
+        },
+        class_type: "HyVideoSampler",
+        _meta: { title: "HunyuanVideo Sampler" },
+    },
+    "5": {
+        inputs: {
+            enable_vae_tiling: true,
+            temporal_tiling_sample_size: 8,
+            spatial_tile_sample_min_size: 256,
+            auto_tile_size: true,
+            vae: ["7", 0],
+            samples: ["3", 0],
+        },
+        class_type: "HyVideoDecode",
+        _meta: { title: "HunyuanVideo Decode" },
+    },
+    "7": {
+        inputs: {
+            model_name: "hunyuan_video_vae_bf16.safetensors",
+            precision: "fp16",
+        },
+        class_type: "HyVideoVAELoader",
+        _meta: { title: "HunyuanVideo VAE Loader" },
+    },
+    "16": {
+        inputs: {
+            llm_model: "Kijai/llava-llama-3-8b-text-encoder-tokenizer",
+            clip_model: "openai/clip-vit-large-patch14",
+            precision: "fp16",
+            apply_final_norm: false,
+            hidden_state_skip_layer: 2,
+            quantization: "disabled",
+            load_device: "offload_device",
+        },
+        class_type: "DownloadAndLoadHyVideoTextEncoder",
+        _meta: { title: "(Down)Load HunyuanVideo TextEncoder" },
+    },
+    "30": {
+        inputs: {
+            prompt: "A scene from a Studio Ghibli animated film, featuring a playful girl with wavy red hair, green eyes, and a sunhat, as she runs through a meadow of wildflowers under a clear blue sky, with petals floating in the air, while the camera follows her joyfully, emphasizing the lively and carefree ambiance.",
+            force_offload: "bad quality video",
+            prompt_template: "video",
+            text_encoders: ["16", 0],
+        },
+        class_type: "HyVideoTextEncode",
+        _meta: { title: "HunyuanVideo TextEncode" },
+    },
+    "34": {
+        inputs: {
+            frame_rate: 16,
+            loop_count: 0,
+            filename_prefix: "1176",
+            format: "video/h264-mp4",
+            pix_fmt: "yuv420p",
+            crf: 19,
+            save_metadata: true,
+            trim_to_audio: false,
+            pingpong: false,
+            save_output: true,
+            images: ["5", 0],
+        },
+        class_type: "VHS_VideoCombine",
+        _meta: { title: "Video Combine 🎥🅥🅗🅢" },
+    },
+    "42": {
+        inputs: {
+            lora: "fluidart-v1_hunyuanvideo_e28.safetensors",
+            strength: 1,
+        },
+        class_type: "HyVideoLoraSelect",
+        _meta: { title: "HunyuanVideo Lora Select" },
+    },
+};
