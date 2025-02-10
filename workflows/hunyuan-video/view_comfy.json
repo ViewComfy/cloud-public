@@ -1,0 +1,336 @@
+{
+  "file_type": "view_comfy",
+  "file_version": "1.0.0",
+  "version": "0.0.1",
+  "workflows": [
+    {
+      "viewComfyJSON": {
+        "title": "My app",
+        "description": "",
+        "previewImages": [
+          null,
+          null,
+          null
+        ],
+        "inputs": [
+          {
+            "title": "HunyuanVideo Sampler",
+            "inputs": [
+              {
+                "title": "Width",
+                "placeholder": "Width",
+                "value": 512,
+                "workflowPath": [
+                  "3",
+                  "inputs",
+                  "width"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "3-inputs-width"
+              },
+              {
+                "title": "Height",
+                "placeholder": "Height",
+                "value": 320,
+                "workflowPath": [
+                  "3",
+                  "inputs",
+                  "height"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "3-inputs-height"
+              },
+              {
+                "title": "Num_frames",
+                "placeholder": "Num_frames",
+                "value": 41,
+                "workflowPath": [
+                  "3",
+                  "inputs",
+                  "num_frames"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "3-inputs-num_frames"
+              },
+              {
+                "title": "Steps",
+                "placeholder": "Steps",
+                "value": 30,
+                "workflowPath": [
+                  "3",
+                  "inputs",
+                  "steps"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "3-inputs-steps"
+              },
+              {
+                "title": "Embedded_guidance_scale",
+                "placeholder": "Embedded_guidance_scale",
+                "value": 6,
+                "workflowPath": [
+                  "3",
+                  "inputs",
+                  "embedded_guidance_scale"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "3-inputs-embedded_guidance_scale"
+              },
+              {
+                "title": "Flow_shift",
+                "placeholder": "Flow_shift",
+                "value": 9,
+                "workflowPath": [
+                  "3",
+                  "inputs",
+                  "flow_shift"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "3-inputs-flow_shift"
+              },
+              {
+                "title": "Seed",
+                "placeholder": "Seed",
+                "value": 967396776895755,
+                "workflowPath": [
+                  "3",
+                  "inputs",
+                  "seed"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "seed",
+                "validations": {
+                  "required": true
+                },
+                "key": "3-inputs-seed"
+              }
+            ],
+            "key": "3-HyVideoSampler"
+          },
+          {
+            "title": "HunyuanVideo TextEncode",
+            "inputs": [
+              {
+                "title": "Prompt",
+                "placeholder": "Prompt",
+                "value": "A scene from a Studio Ghibli animated film, featuring a playful girl with wavy red hair, green eyes, and a sunhat, as she runs through a meadow of wildflowers under a clear blue sky, with petals floating in the air, while the camera follows her joyfully, emphasizing the lively and carefree ambiance.",
+                "workflowPath": [
+                  "30",
+                  "inputs",
+                  "prompt"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "string",
+                "validations": {
+                  "required": true
+                },
+                "key": "30-inputs-prompt"
+              }
+            ],
+            "key": "30-HyVideoTextEncode"
+          },
+          {
+            "title": "HunyuanVideo Lora Select",
+            "inputs": [
+              {
+                "title": "Lora",
+                "placeholder": "Lora",
+                "value": "fluidart-v1_hunyuanvideo_e28.safetensors",
+                "workflowPath": [
+                  "42",
+                  "inputs",
+                  "lora"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "string",
+                "validations": {
+                  "required": true
+                },
+                "key": "42-inputs-lora"
+              },
+              {
+                "title": "Strength",
+                "placeholder": "Strength",
+                "value": 1,
+                "workflowPath": [
+                  "42",
+                  "inputs",
+                  "strength"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "42-inputs-strength"
+              }
+            ],
+            "key": "42-HyVideoLoraSelect"
+          }
+        ],
+        "advancedInputs": [],
+        "id": "64a31db92361a"
+      },
+      "workflowApiJSON": {
+        "1": {
+          "inputs": {
+            "model": "hunyuan_video_720_fp8_e4m3fn.safetensors",
+            "base_precision": "bf16",
+            "quantization": "fp8_e4m3fn",
+            "load_device": "offload_device",
+            "attention_mode": "comfy",
+            "auto_cpu_offload": false,
+            "lora": [
+              "42",
+              0
+            ]
+          },
+          "class_type": "HyVideoModelLoader",
+          "_meta": {
+            "title": "HunyuanVideo Model Loader"
+          }
+        },
+        "3": {
+          "inputs": {
+            "width": 512,
+            "height": 320,
+            "num_frames": 41,
+            "steps": 30,
+            "embedded_guidance_scale": 6,
+            "flow_shift": 9,
+            "seed": 967396776895755,
+            "force_offload": 1,
+            "denoise_strength": 1,
+            "model": [
+              "1",
+              0
+            ],
+            "hyvid_embeds": [
+              "30",
+              0
+            ]
+          },
+          "class_type": "HyVideoSampler",
+          "_meta": {
+            "title": "HunyuanVideo Sampler"
+          }
+        },
+        "5": {
+          "inputs": {
+            "enable_vae_tiling": true,
+            "temporal_tiling_sample_size": 8,
+            "spatial_tile_sample_min_size": 256,
+            "auto_tile_size": true,
+            "vae": [
+              "7",
+              0
+            ],
+            "samples": [
+              "3",
+              0
+            ]
+          },
+          "class_type": "HyVideoDecode",
+          "_meta": {
+            "title": "HunyuanVideo Decode"
+          }
+        },
+        "7": {
+          "inputs": {
+            "model_name": "hunyuan_video_vae_bf16.safetensors",
+            "precision": "fp16"
+          },
+          "class_type": "HyVideoVAELoader",
+          "_meta": {
+            "title": "HunyuanVideo VAE Loader"
+          }
+        },
+        "16": {
+          "inputs": {
+            "llm_model": "Kijai/llava-llama-3-8b-text-encoder-tokenizer",
+            "clip_model": "openai/clip-vit-large-patch14",
+            "precision": "fp16",
+            "apply_final_norm": false,
+            "hidden_state_skip_layer": 2,
+            "quantization": "disabled"
+          },
+          "class_type": "DownloadAndLoadHyVideoTextEncoder",
+          "_meta": {
+            "title": "(Down)Load HunyuanVideo TextEncoder"
+          }
+        },
+        "30": {
+          "inputs": {
+            "prompt": "A scene from a Studio Ghibli animated film, featuring a playful girl with wavy red hair, green eyes, and a sunhat, as she runs through a meadow of wildflowers under a clear blue sky, with petals floating in the air, while the camera follows her joyfully, emphasizing the lively and carefree ambiance.",
+            "force_offload": "bad quality video",
+            "prompt_template": "video",
+            "text_encoders": [
+              "16",
+              0
+            ]
+          },
+          "class_type": "HyVideoTextEncode",
+          "_meta": {
+            "title": "HunyuanVideo TextEncode"
+          }
+        },
+        "34": {
+          "inputs": {
+            "frame_rate": 16,
+            "loop_count": 0,
+            "filename_prefix": "1176",
+            "format": "video/h264-mp4",
+            "pix_fmt": "yuv420p",
+            "crf": 19,
+            "save_metadata": true,
+            "trim_to_audio": false,
+            "pingpong": false,
+            "save_output": false,
+            "images": [
+              "5",
+              0
+            ]
+          },
+          "class_type": "VHS_VideoCombine",
+          "_meta": {
+            "title": "Video Combine 🎥🅥🅗🅢"
+          }
+        },
+        "42": {
+          "inputs": {
+            "lora": "lora.safetensors",
+            "strength": 1
+          },
+          "class_type": "HyVideoLoraSelect",
+          "_meta": {
+            "title": "HunyuanVideo Lora Select"
+          }
+        }
+      }
+    }
+  ]
+}
