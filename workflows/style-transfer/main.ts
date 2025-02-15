@@ -49,8 +49,6 @@ async function main() {
     }
 }
 
-main().catch(console.error);
-
 export const doPost = async ({ viewComfy }: { viewComfy: IViewComfy }) => {
     if (!viewComfyUrl) {
         throw new Error("viewComfyUrl is not set");
@@ -154,3 +152,5 @@ async function saveBlob(blob: Blob, filename: string): Promise<void> {
     const buffer = Buffer.from(arrayBuffer);
     await fs.writeFile(filename, buffer);
 }
+
+main().catch(console.error);

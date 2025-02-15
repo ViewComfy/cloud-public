@@ -2,8 +2,7 @@ import { IViewComfy, ResponseError } from "./interfaces";
 import { promises as fs } from "fs";
 import * as path from "path";
 
-const viewComfyUrl =
-    "";
+const viewComfyUrl = "";
 
 async function main() {
     const viewComfy: IViewComfy = {
@@ -155,18 +154,11 @@ function findSubarray(arr: Uint8Array, separator: Uint8Array): number {
     return -1;
 }
 
-async function loadImageFile(filepath: string): Promise<File> {
-    const buffer = await fs.readFile(filepath);
-    return new File([buffer], path.basename(filepath), { type: "image/png" });
-}
-
 async function saveBlob(blob: Blob, filename: string): Promise<void> {
     const arrayBuffer = await blob.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
     await fs.writeFile(filename, buffer);
 }
-
-main().catch(console.error);
 
 const workflow = {
     "1": {
@@ -270,3 +262,5 @@ const workflow = {
         _meta: { title: "HunyuanVideo Lora Select" },
     },
 };
+
+main().catch(console.error);
