@@ -101,4 +101,6 @@ npm run dev
 
 the result will be something like this:
 
-![Hunyuan Video characters result](https://viewcomfy-models-public.s3.us-east-1.amazonaws.com/template_covers/hunyuan_video_cover_video.mp4 "Hunyuan Video result")
+
+
+![Hunyuan Video characters result](https://raw.githubusercontent.com/ViewComfy/cloud-public/main/workflows/hunyuan-video/hunyuan_video_cover_video.mp4 "Hunyuan Video result")
