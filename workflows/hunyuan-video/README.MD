@@ -60,23 +60,17 @@ The "key" for each parameter can be found inside the viewcomfy.json and will loo
 ``` 
 "inputs": [
           {
-            "title": "CHARACTER PROMPT",
+            "title": "HunyuanVideo Sampler",
             "inputs": [
               {
-                "title": "String",
+                "title": "Width",
                 ...
-                "key": "594-inputs-string"
+                "key": "3-inputs-width"
               }
-            ],
-            "key": "594-String Literal"
-          },
-          {
-            "title": "Character",
-            "inputs": [
               {
-                "title": "Character",
+                "title": "Height",
                 ...
-                "key": "626-inputs-image"
+                "key": "3-inputs-height"
               }
             ],
           ...
