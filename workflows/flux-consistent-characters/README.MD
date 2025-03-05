@@ -2,21 +2,19 @@
 
 ## Adapting the example to your project
 
-This example uses the ViewComfy API to run Consistent AI Characters using Flux in ComfyUI,
-you can find more details in this [Guide](https://www.viewcomfy.com/blog/consistent-ai-characters-with-flux-and-comfyui "Consistent AI Characters using Flux in ComfyUI")
+This example uses the ViewComfy API to run our Consistent AI Characters templates in ComfyUI.
+ You can find more details on the specifics of the workflow in this [Guide](https://www.viewcomfy.com/blog/consistent-ai-characters-with-flux-and-comfyui "Consistent AI Characters using Flux in ComfyUI")
 
 ## API
 
-The API example comes in two flavours python and TypeScript, everything that you need to run any kind of workflow
-is abstracted in the api file (api.ts, api.py).
+We have two API examples, in Python and TypeScript. You can adapt the code in the relevant API file (api.ts or api.py) to your workflow.
 
 #### The API has two endpoints:
 
--   infer: classic request response where you wait with your request until the infer finish and you get the result back
--   infer with logs: this endpoint will send real-time updates of the logs of the ComfyUI execution, to make use of this you need to pass
-    a function that will be called each time a log message is sent.
+-   infer: classic request response where you wait for the request to finish before getting your result back
+-   infer with logs: this endpoint will send real-time updates with the ComfyUI execution logs. To make use of this functionality, you need to pass a function that will be called each time a log message is sent.
 
-#### When the infer job finish the result class will be this:
+#### When the infer job finishes the result class will look like this:
 
 ```
 PromptResult:
@@ -30,7 +28,7 @@ PromptResult:
 
 ### Get your API parameters
 
-To get the parameter of your workflow_api.json you can run the workflow_api_parameter_creator function, this will create the dictionary of the workflow_api.json as a dictionary of parameters
+To extract all the parameters in your workflow_api.json, you can run the workflow_api_parameter_creator function. This will create a dictionary with all of the parameters inside the workflow.
 
 for python:
 
