@@ -2,13 +2,12 @@
 
 ## Adapting the example to your project
 
-This example uses the ViewComfy API to run Consistent AI Characters using Flux in ComfyUI,
-you can find more details in this [Guide](https://www.viewcomfy.com/blog/consistent-ai-characters-with-flux-and-comfyui "Consistent AI Characters using Flux in ComfyUI")
+This example uses the ViewComfy API to run our Consistent AI Characters templates in ComfyUI.
+You can find more details on the specifics of the workflow in this [Guide](https://www.viewcomfy.com/blog/consistent-ai-characters-with-flux-and-comfyui "Consistent AI Characters using Flux in ComfyUI").
 
 ## API
 
-The API example comes in two flavors, Python and TypeScript, everything you need to run any workflow
-is abstracted in the api file (api.ts, api.py)
+We have two API examples, in Python and TypeScript. You can adapt the code in the relevant API file (api.ts or api.py) to your workflow.
 
 #### The API has two endpoints:
 
@@ -33,7 +32,7 @@ PromptResult:
 
 ### Get your API parameters
 
-To get the parameter of your workflow_api.json you can run the workflow_api_parameter_creator function, which will create the workflow_api.json as a dictionary of parameters
+To extract all the parameters in your workflow_api.json, you can run the workflow_api_parameter_creator function. This will create a dictionary with all of the parameters inside the workflow.
 
 for python:
 
@@ -147,9 +146,5 @@ sending that workflow_api.json as a parameter
         override_workflow_api = json.load(f)
 
     prompt_result = await infer(api_url=view_comfy_api_url, params=params, override_workflow_api=override_workflow_api)
-
-```
-
-```
 
 ```
