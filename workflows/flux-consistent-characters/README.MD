@@ -98,17 +98,17 @@ The "key" for each parameter can be found inside the workflow_api_parameters.jso
 
 ### TypeScript example
 
-# Install the dependencies:
+Install the dependencies:
 
 ```
 npm install
 ```
 
-# Add your endpoint:
+Add your endpoint:
 
 Deploy the consistent character template and change the viewComfyURl value inside `main.ts` to the ViewComfy endpoint from your [ViewComfy Dashboard](https://app.viewcomfy.com). You can also change the parameters of the workflow inside `main.ts` if you want.
 
-# Call the API:
+Call the API:
 
 ```
 npm run dev
@@ -116,17 +116,17 @@ npm run dev
 
 ### Python example
 
-#Install the dependencies:
+Install the dependencies:
 
 ```
 pip install -r requirements.txt
 ```
 
-#Add your endpoint:
+Add your endpoint:
 
 Deploy the consistent character template and change the viewComfyURl value inside `main.py` to the ViewComfy endpoint from your [ViewComfy Dashboard](https://app.viewcomfy.com). You can also change the parameters of the workflow inside `main.py` if you want.
 
-#Call the API:
+Call the API:
 
 ```
 python main.py
