@@ -94,7 +94,7 @@ The "key" for each parameter can be found inside the workflow_api_parameters.jso
 
 ```
 
-## Running the example
+## Running the TypeScript example
 
 ### TypeScript Install dependencies to run the project
 
