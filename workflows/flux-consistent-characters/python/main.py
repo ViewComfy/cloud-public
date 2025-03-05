@@ -29,7 +29,7 @@ async def api_examples():
     )
 
     # Call the API and wait for the results
-    prompt_result = await infer(api_url=view_comfy_api_url, params=params)
+    # prompt_result = await infer(api_url=view_comfy_api_url, params=params)
 
     
     def logging_callback(log_message: str):
