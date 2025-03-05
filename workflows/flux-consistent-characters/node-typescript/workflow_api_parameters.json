@@ -1,0 +1,1166 @@
+{
+  "_18-node-class_type-info": "UltralyticsDetectorProvider",
+  "18-inputs-model_name": "bbox/face_yolov8m.pt",
+  "_82-node-class_type-info": "Ultimate SD Upscale",
+  "82-inputs-upscale_by": 2,
+  "82-inputs-seed": 384340151733828,
+  "82-inputs-steps": [
+    "743",
+    0
+  ],
+  "82-inputs-cfg": 1,
+  "82-inputs-sampler_name": "euler",
+  "82-inputs-scheduler": "simple",
+  "82-inputs-denoise": 0.18,
+  "82-inputs-mode_type": "Linear",
+  "82-inputs-tile_width": 1024,
+  "82-inputs-tile_height": 1024,
+  "82-inputs-mask_blur": 8,
+  "82-inputs-tile_padding": 32,
+  "82-inputs-seam_fix_mode": "None",
+  "82-inputs-seam_fix_denoise": 1,
+  "82-inputs-seam_fix_width": 64,
+  "82-inputs-seam_fix_mask_blur": 8,
+  "82-inputs-seam_fix_padding": 16,
+  "82-inputs-force_uniform_tiles": false,
+  "82-inputs-tiled_decode": false,
+  "82-inputs-image": [
+    "780",
+    0
+  ],
+  "82-inputs-model": [
+    "628",
+    0
+  ],
+  "82-inputs-positive": [
+    "581",
+    0
+  ],
+  "82-inputs-negative": [
+    "582",
+    0
+  ],
+  "82-inputs-vae": [
+    "97",
+    3
+  ],
+  "82-inputs-upscale_model": [
+    "83",
+    0
+  ],
+  "_83-node-class_type-info": "Load Upscale Model",
+  "83-inputs-model_name": "4x-UltraSharp.pth",
+  "_95-node-class_type-info": "ToBasicPipe",
+  "95-inputs-model": [
+    "628",
+    0
+  ],
+  "95-inputs-clip": [
+    "724",
+    1
+  ],
+  "95-inputs-vae": [
+    "615",
+    0
+  ],
+  "95-inputs-positive": [
+    "581",
+    0
+  ],
+  "95-inputs-negative": [
+    "582",
+    0
+  ],
+  "_97-node-class_type-info": "FromBasicPipe_v2",
+  "97-inputs-basic_pipe": [
+    "95",
+    0
+  ],
+  "_129-node-class_type-info": "Upscale Image",
+  "129-inputs-upscale_method": "bilinear",
+  "129-inputs-width": 2048,
+  "129-inputs-height": 2048,
+  "129-inputs-crop": "disabled",
+  "129-inputs-image": [
+    "183",
+    0
+  ],
+  "_134-node-class_type-info": "Image Crop",
+  "134-inputs-width": 800,
+  "134-inputs-height": 1000,
+  "134-inputs-x": 57,
+  "134-inputs-y": 0,
+  "134-inputs-image": [
+    "129",
+    0
+  ],
+  "_139-node-class_type-info": "Image Crop",
+  "139-inputs-width": 1000,
+  "139-inputs-height": 1000,
+  "139-inputs-x": 1158,
+  "139-inputs-y": 42,
+  "139-inputs-image": [
+    "129",
+    0
+  ],
+  "_142-node-class_type-info": "Image Crop",
+  "142-inputs-width": 1000,
+  "142-inputs-height": 1000,
+  "142-inputs-x": 1231,
+  "142-inputs-y": 995,
+  "142-inputs-image": [
+    "129",
+    0
+  ],
+  "_183-node-class_type-info": "FaceDetailer (pipe)",
+  "183-inputs-guide_size": 512,
+  "183-inputs-guide_size_for": true,
+  "183-inputs-max_size": 1024,
+  "183-inputs-seed": 12346,
+  "183-inputs-steps": [
+    "743",
+    0
+  ],
+  "183-inputs-cfg": 1,
+  "183-inputs-sampler_name": "euler",
+  "183-inputs-scheduler": "simple",
+  "183-inputs-denoise": 0.18,
+  "183-inputs-feather": 5,
+  "183-inputs-noise_mask": true,
+  "183-inputs-force_inpaint": true,
+  "183-inputs-bbox_threshold": 0.5,
+  "183-inputs-bbox_dilation": 20,
+  "183-inputs-bbox_crop_factor": 3,
+  "183-inputs-sam_detection_hint": "center-1",
+  "183-inputs-sam_dilation": 0,
+  "183-inputs-sam_threshold": 0.93,
+  "183-inputs-sam_bbox_expansion": 0,
+  "183-inputs-sam_mask_hint_threshold": 0.7,
+  "183-inputs-sam_mask_hint_use_negative": "False",
+  "183-inputs-drop_size": 10,
+  "183-inputs-refiner_ratio": 0.2,
+  "183-inputs-cycle": 1,
+  "183-inputs-inpaint_model": true,
+  "183-inputs-noise_mask_feather": 20,
+  "183-inputs-tiled_encode": false,
+  "183-inputs-tiled_decode": false,
+  "183-inputs-image": [
+    "82",
+    0
+  ],
+  "183-inputs-detailer_pipe": [
+    "185",
+    0
+  ],
+  "_185-node-class_type-info": "ToDetailerPipe",
+  "185-inputs-wildcard": "",
+  "185-inputs-Select to add LoRA": "Select the LoRA to add to the text",
+  "185-inputs-Select to add Wildcard": "Select the Wildcard to add to the text",
+  "185-inputs-model": [
+    "628",
+    0
+  ],
+  "185-inputs-clip": [
+    "97",
+    2
+  ],
+  "185-inputs-vae": [
+    "97",
+    3
+  ],
+  "185-inputs-positive": [
+    "97",
+    4
+  ],
+  "185-inputs-negative": [
+    "97",
+    5
+  ],
+  "185-inputs-bbox_detector": [
+    "18",
+    0
+  ],
+  "_259-node-class_type-info": "Image Crop",
+  "259-inputs-width": 512,
+  "259-inputs-height": 512,
+  "259-inputs-x": 1369,
+  "259-inputs-y": 1031,
+  "259-inputs-image": [
+    "129",
+    0
+  ],
+  "_298-node-class_type-info": "Image Crop",
+  "298-inputs-width": 500,
+  "298-inputs-height": 1000,
+  "298-inputs-x": 785,
+  "298-inputs-y": 42,
+  "298-inputs-image": [
+    "129",
+    0
+  ],
+  "_346-node-class_type-info": "Expression Editor (PHM)",
+  "346-inputs-rotate_pitch": 0,
+  "346-inputs-rotate_yaw": 0,
+  "346-inputs-rotate_roll": 0,
+  "346-inputs-blink": 0,
+  "346-inputs-eyebrow": 0,
+  "346-inputs-wink": 23.5,
+  "346-inputs-pupil_x": 0,
+  "346-inputs-pupil_y": 0,
+  "346-inputs-aaa": 0,
+  "346-inputs-eee": 0,
+  "346-inputs-woo": 0,
+  "346-inputs-smile": 0,
+  "346-inputs-src_ratio": 1,
+  "346-inputs-sample_ratio": 1,
+  "346-inputs-sample_parts": "OnlyExpression",
+  "346-inputs-crop_factor": 1.7000000000000002,
+  "346-inputs-src_image": [
+    "259",
+    0
+  ],
+  "_354-node-class_type-info": "Expression Editor (PHM)",
+  "354-inputs-rotate_pitch": -8,
+  "354-inputs-rotate_yaw": -8,
+  "354-inputs-rotate_roll": 4,
+  "354-inputs-blink": 0,
+  "354-inputs-eyebrow": 0,
+  "354-inputs-wink": 0,
+  "354-inputs-pupil_x": 0,
+  "354-inputs-pupil_y": 0,
+  "354-inputs-aaa": 0,
+  "354-inputs-eee": 8.1,
+  "354-inputs-woo": 0,
+  "354-inputs-smile": 1,
+  "354-inputs-src_ratio": 1,
+  "354-inputs-sample_ratio": 1,
+  "354-inputs-sample_parts": "OnlyExpression",
+  "354-inputs-crop_factor": 1.7000000000000002,
+  "354-inputs-src_image": [
+    "259",
+    0
+  ],
+  "_356-node-class_type-info": "Expression Editor (PHM)",
+  "356-inputs-rotate_pitch": 14.600000000000001,
+  "356-inputs-rotate_yaw": 0,
+  "356-inputs-rotate_roll": 0,
+  "356-inputs-blink": 5,
+  "356-inputs-eyebrow": 15,
+  "356-inputs-wink": 0,
+  "356-inputs-pupil_x": 0,
+  "356-inputs-pupil_y": 0,
+  "356-inputs-aaa": 0,
+  "356-inputs-eee": 0,
+  "356-inputs-woo": 0,
+  "356-inputs-smile": 0,
+  "356-inputs-src_ratio": 1,
+  "356-inputs-sample_ratio": 1,
+  "356-inputs-sample_parts": "OnlyExpression",
+  "356-inputs-crop_factor": 1.7000000000000002,
+  "356-inputs-src_image": [
+    "259",
+    0
+  ],
+  "_358-node-class_type-info": "Expression Editor (PHM)",
+  "358-inputs-rotate_pitch": 0,
+  "358-inputs-rotate_yaw": 12.8,
+  "358-inputs-rotate_roll": 0,
+  "358-inputs-blink": 5,
+  "358-inputs-eyebrow": 0,
+  "358-inputs-wink": 0,
+  "358-inputs-pupil_x": 0,
+  "358-inputs-pupil_y": 0,
+  "358-inputs-aaa": 120,
+  "358-inputs-eee": 0,
+  "358-inputs-woo": 15,
+  "358-inputs-smile": -0.3,
+  "358-inputs-src_ratio": 1,
+  "358-inputs-sample_ratio": 1,
+  "358-inputs-sample_parts": "OnlyExpression",
+  "358-inputs-crop_factor": 1.7000000000000002,
+  "358-inputs-src_image": [
+    "259",
+    0
+  ],
+  "_424-node-class_type-info": "SamplerCustomAdvanced",
+  "424-inputs-noise": [
+    "499",
+    0
+  ],
+  "424-inputs-guider": [
+    "425",
+    0
+  ],
+  "424-inputs-sampler": [
+    "586",
+    0
+  ],
+  "424-inputs-sigmas": [
+    "587",
+    0
+  ],
+  "424-inputs-latent_image": [
+    "432",
+    0
+  ],
+  "_425-node-class_type-info": "CFGGuider",
+  "425-inputs-cfg": 1,
+  "425-inputs-model": [
+    "652",
+    0
+  ],
+  "425-inputs-positive": [
+    "669",
+    0
+  ],
+  "425-inputs-negative": [
+    "669",
+    1
+  ],
+  "_426-node-class_type-info": "Prompt_Image_1",
+  "426-inputs-string": "a deep forest with oaks and pine trees ferns and bushes, national park, close up, overcast, close up, amateur photography, shot on iphone, candid photo",
+  "_427-node-class_type-info": "Join Strings",
+  "427-inputs-string1": [
+    "426",
+    0
+  ],
+  "427-inputs-string2": [
+    "610",
+    0
+  ],
+  "427-inputs-delimiter": ",",
+  "_429-node-class_type-info": "VAE Decode",
+  "429-inputs-samples": [
+    "424",
+    0
+  ],
+  "429-inputs-vae": [
+    "615",
+    0
+  ],
+  "_431-node-class_type-info": "CLIP Text Encode (Prompt)",
+  "431-inputs-text": [
+    "427",
+    0
+  ],
+  "431-inputs-clip": [
+    "724",
+    1
+  ],
+  "_432-node-class_type-info": "Empty Latent Image",
+  "432-inputs-width": 1280,
+  "432-inputs-height": 720,
+  "432-inputs-batch_size": 1,
+  "_434-node-class_type-info": "SamplerCustomAdvanced",
+  "434-inputs-noise": [
+    "499",
+    0
+  ],
+  "434-inputs-guider": [
+    "435",
+    0
+  ],
+  "434-inputs-sampler": [
+    "586",
+    0
+  ],
+  "434-inputs-sigmas": [
+    "587",
+    0
+  ],
+  "434-inputs-latent_image": [
+    "432",
+    0
+  ],
+  "_435-node-class_type-info": "CFGGuider",
+  "435-inputs-cfg": 1,
+  "435-inputs-model": [
+    "652",
+    0
+  ],
+  "435-inputs-positive": [
+    "687",
+    0
+  ],
+  "435-inputs-negative": [
+    "687",
+    1
+  ],
+  "_436-node-class_type-info": "Prompt_Image_2",
+  "436-inputs-string": "a modern city during sunset, the sky is adorned by epic cloud formations, frontal close up, walking through the city, hard sunlight on face, Side lit, candid photography, dslr, evening, silhouette, moody, autumn, warm orange atmosphere, natural smile, amateur photography, shot on iphone, candid photo,  winking with one eye closed",
+  "_437-node-class_type-info": "Join Strings",
+  "437-inputs-string1": [
+    "436",
+    0
+  ],
+  "437-inputs-string2": [
+    "610",
+    0
+  ],
+  "437-inputs-delimiter": ",",
+  "_438-node-class_type-info": "VAE Decode",
+  "438-inputs-samples": [
+    "434",
+    0
+  ],
+  "438-inputs-vae": [
+    "615",
+    0
+  ],
+  "_439-node-class_type-info": "CLIP Text Encode (Prompt)",
+  "439-inputs-text": [
+    "437",
+    0
+  ],
+  "439-inputs-clip": [
+    "724",
+    1
+  ],
+  "_441-node-class_type-info": "SamplerCustomAdvanced",
+  "441-inputs-noise": [
+    "499",
+    0
+  ],
+  "441-inputs-guider": [
+    "442",
+    0
+  ],
+  "441-inputs-sampler": [
+    "586",
+    0
+  ],
+  "441-inputs-sigmas": [
+    "587",
+    0
+  ],
+  "441-inputs-latent_image": [
+    "432",
+    0
+  ],
+  "_442-node-class_type-info": "CFGGuider",
+  "442-inputs-cfg": 1,
+  "442-inputs-model": [
+    "652",
+    0
+  ],
+  "442-inputs-positive": [
+    "691",
+    0
+  ],
+  "442-inputs-negative": [
+    "691",
+    1
+  ],
+  "_443-node-class_type-info": "Prompt_Image_3",
+  "443-inputs-string": "music video, color gel lighting, dark background, fog, colorful lighting, looking away from camera, stage lighting, concert stage, neon colors, silhouette, darkness, moody, amateur photography, shot on iphone, candid photo",
+  "_444-node-class_type-info": "Join Strings",
+  "444-inputs-string1": [
+    "443",
+    0
+  ],
+  "444-inputs-string2": [
+    "610",
+    0
+  ],
+  "444-inputs-delimiter": ",",
+  "_445-node-class_type-info": "VAE Decode",
+  "445-inputs-samples": [
+    "441",
+    0
+  ],
+  "445-inputs-vae": [
+    "615",
+    0
+  ],
+  "_446-node-class_type-info": "CLIP Text Encode (Prompt)",
+  "446-inputs-text": [
+    "444",
+    0
+  ],
+  "446-inputs-clip": [
+    "724",
+    1
+  ],
+  "_456-node-class_type-info": "SamplerCustomAdvanced",
+  "456-inputs-noise": [
+    "499",
+    0
+  ],
+  "456-inputs-guider": [
+    "457",
+    0
+  ],
+  "456-inputs-sampler": [
+    "586",
+    0
+  ],
+  "456-inputs-sigmas": [
+    "587",
+    0
+  ],
+  "456-inputs-latent_image": [
+    "432",
+    0
+  ],
+  "_457-node-class_type-info": "CFGGuider",
+  "457-inputs-cfg": 1,
+  "457-inputs-model": [
+    "652",
+    0
+  ],
+  "457-inputs-positive": [
+    "695",
+    0
+  ],
+  "457-inputs-negative": [
+    "695",
+    1
+  ],
+  "_458-node-class_type-info": "Prompt_Image_4",
+  "458-inputs-string": "a vast desert landscape with distant mountains, the hard sunlight is illuminating the person from the side and casting shadows on to the white sand, blue sky, shadows, waving, close up, candid photography, shocked expression, side lit face, shocked expression with an open mouth, surprised face, amateur photography, shot on iphone, candid photo",
+  "_459-node-class_type-info": "Join Strings",
+  "459-inputs-string1": [
+    "458",
+    0
+  ],
+  "459-inputs-string2": [
+    "610",
+    0
+  ],
+  "459-inputs-delimiter": ",",
+  "_460-node-class_type-info": "VAE Decode",
+  "460-inputs-samples": [
+    "456",
+    0
+  ],
+  "460-inputs-vae": [
+    "615",
+    0
+  ],
+  "_461-node-class_type-info": "CLIP Text Encode (Prompt)",
+  "461-inputs-text": [
+    "459",
+    0
+  ],
+  "461-inputs-clip": [
+    "724",
+    1
+  ],
+  "_499-node-class_type-info": "Generation seed",
+  "499-inputs-noise_seed": 384340151733840,
+  "_581-node-class_type-info": "CLIP Text Encode (Prompt)",
+  "581-inputs-text": [
+    "609",
+    0
+  ],
+  "581-inputs-clip": [
+    "724",
+    1
+  ],
+  "_582-node-class_type-info": "CLIP Text Encode (Prompt)",
+  "582-inputs-text": " ",
+  "582-inputs-clip": [
+    "724",
+    1
+  ],
+  "_583-node-class_type-info": "VAE Decode",
+  "583-inputs-samples": [
+    "589",
+    1
+  ],
+  "583-inputs-vae": [
+    "615",
+    0
+  ],
+  "_586-node-class_type-info": "KSamplerSelect",
+  "586-inputs-sampler_name": "deis",
+  "_587-node-class_type-info": "BasicScheduler",
+  "587-inputs-scheduler": "beta",
+  "587-inputs-steps": [
+    "743",
+    0
+  ],
+  "587-inputs-denoise": 1,
+  "587-inputs-model": [
+    "628",
+    0
+  ],
+  "_588-node-class_type-info": "RandomNoise",
+  "588-inputs-noise_seed": 384340151733836,
+  "_589-node-class_type-info": "SamplerCustomAdvanced",
+  "589-inputs-noise": [
+    "588",
+    0
+  ],
+  "589-inputs-guider": [
+    "618",
+    0
+  ],
+  "589-inputs-sampler": [
+    "586",
+    0
+  ],
+  "589-inputs-sigmas": [
+    "587",
+    0
+  ],
+  "589-inputs-latent_image": [
+    "620",
+    0
+  ],
+  "_592-node-class_type-info": "Character Sheet",
+  "592-inputs-string": "a character sheet, simple black background, multiple views, from multiple angles, visible face, portrait,",
+  "_593-node-class_type-info": "Join Strings",
+  "593-inputs-string1": [
+    "592",
+    0
+  ],
+  "593-inputs-string2": [
+    "608",
+    0
+  ],
+  "593-inputs-delimiter": "",
+  "_594-node-class_type-info": "CHARACTER PROMPT",
+  "594-inputs-string": "a attractive woman, dark long hair, a women weraing a grey wool turtleneck sweater, brown eyes, jeans, brown boots, short medium long hair, chin long hair that looks like she just got up, She has a fair complexion, expressive brown eyes, Her makeup is natural, highlighting her soft features. she has slightly pink cheeks and a healthy skin tone",
+  "_608-node-class_type-info": "STYLE + QUALITY",
+  "608-inputs-string": "it is a masterpiece, amateur photography, shot on iphone",
+  "_609-node-class_type-info": "Join Strings",
+  "609-inputs-string1": [
+    "593",
+    0
+  ],
+  "609-inputs-string2": [
+    "594",
+    0
+  ],
+  "609-inputs-delimiter": "",
+  "_610-node-class_type-info": "Join Strings",
+  "610-inputs-string1": [
+    "608",
+    0
+  ],
+  "610-inputs-string2": [
+    "594",
+    0
+  ],
+  "610-inputs-delimiter": " ",
+  "_615-node-class_type-info": "Load VAE",
+  "615-inputs-vae_name": "ae.safetensors",
+  "_618-node-class_type-info": "BasicGuider",
+  "618-inputs-model": [
+    "628",
+    0
+  ],
+  "618-inputs-conditioning": [
+    "632",
+    0
+  ],
+  "_620-node-class_type-info": "EmptySD3LatentImage",
+  "620-inputs-width": 1280,
+  "620-inputs-height": 1280,
+  "620-inputs-batch_size": 1,
+  "_623-node-class_type-info": "Apply Controlnet with VAE",
+  "623-inputs-strength": 0.63,
+  "623-inputs-start_percent": 0,
+  "623-inputs-end_percent": 0.4,
+  "623-inputs-positive": [
+    "581",
+    0
+  ],
+  "623-inputs-negative": [
+    "582",
+    0
+  ],
+  "623-inputs-control_net": [
+    "648",
+    0
+  ],
+  "623-inputs-vae": [
+    "615",
+    0
+  ],
+  "623-inputs-image": [
+    "655",
+    0
+  ],
+  "_625-node-class_type-info": "Pose sheet",
+  "625-inputs-image": "RunComfy_example_1151_pose_sheet.png",
+  "625-inputs-upload": "image",
+  "_626-node-class_type-info": "Character",
+  "626-inputs-image": "w1900_q65.jpeg",
+  "626-inputs-upload": "image",
+  "_627-node-class_type-info": "Load PuLID Flux Model",
+  "627-inputs-pulid_file": "pulid_flux_v0.9.0.safetensors",
+  "_628-node-class_type-info": "Apply PuLID Flux",
+  "628-inputs-weight": 0.9500000000000001,
+  "628-inputs-start_at": 0.1,
+  "628-inputs-end_at": 1,
+  "628-inputs-fusion": "concat",
+  "628-inputs-fusion_weight_max": 1,
+  "628-inputs-fusion_weight_min": 0,
+  "628-inputs-train_step": 3000,
+  "628-inputs-use_gray": false,
+  "628-inputs-model": [
+    "646",
+    0
+  ],
+  "628-inputs-pulid_flux": [
+    "627",
+    0
+  ],
+  "628-inputs-eva_clip": [
+    "630",
+    0
+  ],
+  "628-inputs-face_analysis": [
+    "629",
+    0
+  ],
+  "628-inputs-image": [
+    "626",
+    0
+  ],
+  "_629-node-class_type-info": "Load InsightFace (PuLID Flux)",
+  "629-inputs-provider": "CUDA",
+  "_630-node-class_type-info": "Load Eva Clip (PuLID Flux)",
+  "_632-node-class_type-info": "FluxGuidance",
+  "632-inputs-guidance": 3.5,
+  "632-inputs-conditioning": [
+    "623",
+    0
+  ],
+  "_646-node-class_type-info": "ModelSamplingFlux",
+  "646-inputs-max_shift": 1.1500000000000001,
+  "646-inputs-base_shift": 0.5,
+  "646-inputs-width": 1280,
+  "646-inputs-height": 1280,
+  "646-inputs-model": [
+    "724",
+    0
+  ],
+  "_647-node-class_type-info": "Load ControlNet Model",
+  "647-inputs-control_net_name": "flux.1-dev-controlnet-union.safetensors",
+  "_648-node-class_type-info": "SetUnionControlNetType",
+  "648-inputs-type": "auto",
+  "648-inputs-control_net": [
+    "647",
+    0
+  ],
+  "_652-node-class_type-info": "Apply PuLID Flux",
+  "652-inputs-weight": 0.9,
+  "652-inputs-start_at": 0.1,
+  "652-inputs-end_at": 0.4,
+  "652-inputs-fusion": "concat",
+  "652-inputs-fusion_weight_max": 1,
+  "652-inputs-fusion_weight_min": 0,
+  "652-inputs-train_step": 3000,
+  "652-inputs-use_gray": false,
+  "652-inputs-model": [
+    "662",
+    0
+  ],
+  "652-inputs-pulid_flux": [
+    "627",
+    0
+  ],
+  "652-inputs-eva_clip": [
+    "630",
+    0
+  ],
+  "652-inputs-face_analysis": [
+    "629",
+    0
+  ],
+  "652-inputs-image": [
+    "259",
+    0
+  ],
+  "_655-node-class_type-info": "Upscale Image",
+  "655-inputs-upscale_method": "lanczos",
+  "655-inputs-width": 1280,
+  "655-inputs-height": 1280,
+  "655-inputs-crop": "disabled",
+  "655-inputs-image": [
+    "625",
+    0
+  ],
+  "_662-node-class_type-info": "ModelSamplingFlux",
+  "662-inputs-max_shift": 1.1500000000000001,
+  "662-inputs-base_shift": 0.5,
+  "662-inputs-width": 1280,
+  "662-inputs-height": 720,
+  "662-inputs-model": [
+    "628",
+    0
+  ],
+  "_669-node-class_type-info": "Apply Controlnet with VAE Image 1",
+  "669-inputs-strength": 0.62,
+  "669-inputs-start_percent": 0,
+  "669-inputs-end_percent": 0.4,
+  "669-inputs-positive": [
+    "431",
+    0
+  ],
+  "669-inputs-negative": [
+    "582",
+    0
+  ],
+  "669-inputs-control_net": [
+    "670",
+    0
+  ],
+  "669-inputs-vae": [
+    "615",
+    0
+  ],
+  "669-inputs-image": [
+    "676",
+    0
+  ],
+  "_670-node-class_type-info": "SetUnionControlNetType",
+  "670-inputs-type": "auto",
+  "670-inputs-control_net": [
+    "647",
+    0
+  ],
+  "_672-node-class_type-info": "AnyLine Lineart",
+  "672-inputs-merge_with_lineart": "lineart_standard",
+  "672-inputs-resolution": 1280,
+  "672-inputs-lineart_lower_bound": 0,
+  "672-inputs-lineart_upper_bound": 1,
+  "672-inputs-object_min_size": 36,
+  "672-inputs-object_connectivity": 1,
+  "672-inputs-image": [
+    "259",
+    0
+  ],
+  "_676-node-class_type-info": "🔧 Image Resize",
+  "676-inputs-width": 1280,
+  "676-inputs-height": 720,
+  "676-inputs-interpolation": "lanczos",
+  "676-inputs-method": "pad",
+  "676-inputs-condition": "always",
+  "676-inputs-multiple_of": 0,
+  "676-inputs-image": [
+    "717",
+    0
+  ],
+  "_687-node-class_type-info": "Apply Controlnet with VAE Image 2",
+  "687-inputs-strength": 0.62,
+  "687-inputs-start_percent": 0,
+  "687-inputs-end_percent": 0.4,
+  "687-inputs-positive": [
+    "439",
+    0
+  ],
+  "687-inputs-negative": [
+    "582",
+    0
+  ],
+  "687-inputs-control_net": [
+    "688",
+    0
+  ],
+  "687-inputs-vae": [
+    "615",
+    0
+  ],
+  "687-inputs-image": [
+    "690",
+    0
+  ],
+  "_688-node-class_type-info": "SetUnionControlNetType",
+  "688-inputs-type": "auto",
+  "688-inputs-control_net": [
+    "647",
+    0
+  ],
+  "_689-node-class_type-info": "AnyLine Lineart",
+  "689-inputs-merge_with_lineart": "lineart_standard",
+  "689-inputs-resolution": 1280,
+  "689-inputs-lineart_lower_bound": 0,
+  "689-inputs-lineart_upper_bound": 1,
+  "689-inputs-object_min_size": 36,
+  "689-inputs-object_connectivity": 1,
+  "689-inputs-image": [
+    "346",
+    0
+  ],
+  "_690-node-class_type-info": "🔧 Image Resize",
+  "690-inputs-width": 1280,
+  "690-inputs-height": 720,
+  "690-inputs-interpolation": "lanczos",
+  "690-inputs-method": "pad",
+  "690-inputs-condition": "always",
+  "690-inputs-multiple_of": 0,
+  "690-inputs-image": [
+    "718",
+    0
+  ],
+  "_691-node-class_type-info": "Apply Controlnet with VAE Image 3",
+  "691-inputs-strength": 0.62,
+  "691-inputs-start_percent": 0,
+  "691-inputs-end_percent": 0.4,
+  "691-inputs-positive": [
+    "446",
+    0
+  ],
+  "691-inputs-negative": [
+    "582",
+    0
+  ],
+  "691-inputs-control_net": [
+    "692",
+    0
+  ],
+  "691-inputs-vae": [
+    "615",
+    0
+  ],
+  "691-inputs-image": [
+    "694",
+    0
+  ],
+  "_692-node-class_type-info": "SetUnionControlNetType",
+  "692-inputs-type": "auto",
+  "692-inputs-control_net": [
+    "647",
+    0
+  ],
+  "_693-node-class_type-info": "AnyLine Lineart",
+  "693-inputs-merge_with_lineart": "lineart_standard",
+  "693-inputs-resolution": 1280,
+  "693-inputs-lineart_lower_bound": 0,
+  "693-inputs-lineart_upper_bound": 1,
+  "693-inputs-object_min_size": 36,
+  "693-inputs-object_connectivity": 1,
+  "693-inputs-image": [
+    "354",
+    0
+  ],
+  "_694-node-class_type-info": "🔧 Image Resize",
+  "694-inputs-width": 1280,
+  "694-inputs-height": 720,
+  "694-inputs-interpolation": "lanczos",
+  "694-inputs-method": "pad",
+  "694-inputs-condition": "always",
+  "694-inputs-multiple_of": 0,
+  "694-inputs-image": [
+    "719",
+    0
+  ],
+  "_695-node-class_type-info": "Apply Controlnet with VAE Image 4",
+  "695-inputs-strength": 0.62,
+  "695-inputs-start_percent": 0,
+  "695-inputs-end_percent": 0.4,
+  "695-inputs-positive": [
+    "461",
+    0
+  ],
+  "695-inputs-negative": [
+    "582",
+    0
+  ],
+  "695-inputs-control_net": [
+    "696",
+    0
+  ],
+  "695-inputs-vae": [
+    "615",
+    0
+  ],
+  "695-inputs-image": [
+    "698",
+    0
+  ],
+  "_696-node-class_type-info": "SetUnionControlNetType",
+  "696-inputs-type": "auto",
+  "696-inputs-control_net": [
+    "647",
+    0
+  ],
+  "_697-node-class_type-info": "AnyLine Lineart",
+  "697-inputs-merge_with_lineart": "lineart_standard",
+  "697-inputs-resolution": 1280,
+  "697-inputs-lineart_lower_bound": 0,
+  "697-inputs-lineart_upper_bound": 1,
+  "697-inputs-object_min_size": 36,
+  "697-inputs-object_connectivity": 1,
+  "697-inputs-image": [
+    "259",
+    0
+  ],
+  "_698-node-class_type-info": "🔧 Image Resize",
+  "698-inputs-width": 1280,
+  "698-inputs-height": 720,
+  "698-inputs-interpolation": "lanczos",
+  "698-inputs-method": "pad",
+  "698-inputs-condition": "always",
+  "698-inputs-multiple_of": 0,
+  "698-inputs-image": [
+    "720",
+    0
+  ],
+  "_717-node-class_type-info": "Image Crop",
+  "717-inputs-width": 1240,
+  "717-inputs-height": 1240,
+  "717-inputs-x": 40,
+  "717-inputs-y": 40,
+  "717-inputs-image": [
+    "672",
+    0
+  ],
+  "_718-node-class_type-info": "Image Crop",
+  "718-inputs-width": 1240,
+  "718-inputs-height": 1240,
+  "718-inputs-x": 40,
+  "718-inputs-y": 40,
+  "718-inputs-image": [
+    "689",
+    0
+  ],
+  "_719-node-class_type-info": "Image Crop",
+  "719-inputs-width": 1240,
+  "719-inputs-height": 1240,
+  "719-inputs-x": 40,
+  "719-inputs-y": 40,
+  "719-inputs-image": [
+    "693",
+    0
+  ],
+  "_720-node-class_type-info": "Image Crop",
+  "720-inputs-width": 1240,
+  "720-inputs-height": 1240,
+  "720-inputs-x": 40,
+  "720-inputs-y": 40,
+  "720-inputs-image": [
+    "697",
+    0
+  ],
+  "_724-node-class_type-info": "Load LoRA",
+  "724-inputs-lora_name": "FLUX.1-Turbo-Alpha.safetensors",
+  "724-inputs-strength_model": 1,
+  "724-inputs-strength_clip": 1,
+  "724-inputs-model": [
+    "762",
+    0
+  ],
+  "724-inputs-clip": [
+    "761",
+    0
+  ],
+  "_742-node-class_type-info": "ModelPass",
+  "742-inputs-model": [
+    "724",
+    0
+  ],
+  "_743-node-class_type-info": "Steps",
+  "743-inputs-int": 25,
+  "_761-node-class_type-info": "DualCLIPLoader",
+  "761-inputs-clip_name1": "t5xxl_fp8_e4m3fn.safetensors",
+  "761-inputs-clip_name2": "clip_l.safetensors",
+  "761-inputs-type": "flux",
+  "761-inputs-device": "default",
+  "_762-node-class_type-info": "Load Diffusion Model",
+  "762-inputs-unet_name": "flux1-dev-fp8-e4m3fn.safetensors",
+  "762-inputs-weight_dtype": "fp8_e4m3fn",
+  "_764-node-class_type-info": "Save Image",
+  "764-inputs-filename_prefix": "intermediate_image_7",
+  "764-inputs-images": [
+    "346",
+    0
+  ],
+  "_765-node-class_type-info": "Save Image",
+  "765-inputs-filename_prefix": "intermediate_image_8",
+  "765-inputs-images": [
+    "354",
+    0
+  ],
+  "_766-node-class_type-info": "Save Image",
+  "766-inputs-filename_prefix": "intermediate_image_9",
+  "766-inputs-images": [
+    "356",
+    0
+  ],
+  "_767-node-class_type-info": "Save Image",
+  "767-inputs-filename_prefix": "intermediate_image_10",
+  "767-inputs-images": [
+    "358",
+    0
+  ],
+  "_768-node-class_type-info": "Save Image",
+  "768-inputs-filename_prefix": "Image_1",
+  "768-inputs-images": [
+    "429",
+    0
+  ],
+  "_770-node-class_type-info": "Save Image",
+  "770-inputs-filename_prefix": "Image_3",
+  "770-inputs-images": [
+    "445",
+    0
+  ],
+  "_771-node-class_type-info": "Save Image",
+  "771-inputs-filename_prefix": "Image_2",
+  "771-inputs-images": [
+    "438",
+    0
+  ],
+  "_772-node-class_type-info": "Save Image",
+  "772-inputs-filename_prefix": "Image_4",
+  "772-inputs-images": [
+    "460",
+    0
+  ],
+  "_773-node-class_type-info": "Save Image",
+  "773-inputs-filename_prefix": "intermediate_image_1",
+  "773-inputs-images": [
+    "183",
+    0
+  ],
+  "_779-node-class_type-info": "Save Image",
+  "779-inputs-filename_prefix": "base_character",
+  "779-inputs-images": [
+    "780",
+    0
+  ],
+  "_780-node-class_type-info": "VAE Decode",
+  "780-inputs-samples": [
+    "589",
+    1
+  ],
+  "780-inputs-vae": [
+    "615",
+    0
+  ],
+  "_782-node-class_type-info": "Save Image",
+  "782-inputs-filename_prefix": "intermediate_image _2",
+  "782-inputs-images": [
+    "134",
+    0
+  ],
+  "_785-node-class_type-info": "Save Image",
+  "785-inputs-filename_prefix": "intermediate_image_3",
+  "785-inputs-images": [
+    "139",
+    0
+  ],
+  "_786-node-class_type-info": "Save Image",
+  "786-inputs-filename_prefix": "intermediate_image_4",
+  "786-inputs-images": [
+    "142",
+    0
+  ],
+  "_787-node-class_type-info": "Save Image",
+  "787-inputs-filename_prefix": "intermediate_image_5",
+  "787-inputs-images": [
+    "298",
+    0
+  ],
+  "_788-node-class_type-info": "Save Image",
+  "788-inputs-filename_prefix": "intermediate_image_6",
+  "788-inputs-images": [
+    "259",
+    0
+  ]
+}
