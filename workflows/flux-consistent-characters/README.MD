@@ -94,35 +94,39 @@ The "key" for each parameter can be found inside the workflow_api_parameters.jso
 
 ```
 
-## Running the TypeScript example
+## Running the example
 
-### TypeScript Install dependencies to run the project
+### TypeScript example
+
+Install the dependencies:
 
 ```
 npm install
 ```
 
-### Run the project
+Add your endpoint:
 
-Change the viewComfyUrl value to the ViewComfy endpoint from the [ViewComfy Dashboard](https://app.viewcomfy.com)
-viewComfyUrl value is inside `main.ts` file also you can change the parameters of the workflow
-and to make the API call run:
+Deploy the consistent character template and change the viewComfyUrl value inside `main.ts` to the ViewComfy endpoint from your [ViewComfy Dashboard](https://app.viewcomfy.com). You can also change the parameters of the workflow inside `main.ts` if you want.
+
+Call the API:
 
 ```
 npm run dev
 ```
 
-### Python Install dependencies to run the project
+### Python example
+
+Install the dependencies:
 
 ```
 pip install -r requirements.txt
 ```
 
-### Run the project
+Add your endpoint:
 
-Change the viewComfyUrl value to the ViewComfy endpoint from the [ViewComfy Dashboard](https://app.viewcomfy.com)
-viewComfyUrl value is inside `main.py` file also you can change the parameters of the workflow
-and to make the API call run:
+Deploy the consistent character template and change the viewComfyUrl value inside `main.py` to the ViewComfy endpoint from your [ViewComfy Dashboard](https://app.viewcomfy.com). You can also change the parameters of the workflow inside `main.py` if you want.
+
+Call the API:
 
 ```
 python main.py
@@ -136,11 +140,10 @@ the result will be something like this:
 
 ### Advanced Usage
 
-Overwrite the default workflow_api.json, the recommendation is not to abuse this functionality, and have one deployment
-per workflow that you create, because having too many custom_node packages can create some dependency issues between the python-packages version of each node, and can make your workflow break, also having a lot of custom_nodes installed can make the ComfyUI start up time increase notably.
+You can overwrite the default workflow_api.json when sending a request. We recommend not to abuse this functionality, and have one deployment
+per workflow. Having too many custom_node packages can create some dependency issues between the Python packages version for each node. This can make workflow breaks, and increase ComfyUI start up time.
 
-If, for example, you installed new nodes and created a new workflow that will work with the deployment, you can make use of it
-sending that workflow_api.json as a parameter
+To use an updated workflow (that works with your deployment) with your API, you can send the new workflow_api.json as a parameter. For example, using python: 
 
 ```python
     override_workflow_api = None
