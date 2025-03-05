@@ -7,14 +7,17 @@ you can find more details in this [Guide](https://www.viewcomfy.com/blog/consist
 
 ## API
 
-The API example comes in two flavours python and TypeScript, everything that you need to run any kind of workflow
-is abstracted in the api file (api.ts, api.py).
+The API example comes in two flavors, Python and TypeScript, everything you need to run any workflow
+is abstracted in the api file (api.ts, api.py)
 
 #### The API has two endpoints:
 
--   infer: classic request response where you wait with your request until the infer finish and you get the result back
--   infer with logs: this endpoint will send real-time updates of the logs of the ComfyUI execution, to make use of this you need to pass
+-   infer: classic request-response where you wait with your request until the infer finishes and you get the result back
+-   infer with logs: this endpoint will send real-time updates of the logs of the ComfyUI execution, to make use of this, you need to pass
     a function that will be called each time a log message is sent.
+
+The endpoints also support the functionality to send a workflow_api.json that will be used instead of the workflow_api.json that you
+use when you made your deployment, the example of how to use it is in the [Advanced Usage](#advanced-usage)
 
 #### When the infer job finish the result class will be this:
 
@@ -30,7 +33,7 @@ PromptResult:
 
 ### Get your API parameters
 
-To get the parameter of your workflow_api.json you can run the workflow_api_parameter_creator function, this will create the dictionary of the workflow_api.json as a dictionary of parameters
+To get the parameter of your workflow_api.json you can run the workflow_api_parameter_creator function, which will create the workflow_api.json as a dictionary of parameters
 
 for python:
 
@@ -127,3 +130,26 @@ python main.py
 the result will be something like this:
 
 ![flux consistent characters result](https://raw.githubusercontent.com/ViewComfy/cloud-public/main/workflows/flux-consistent-characters/flux_consistent_characters_result.png "flux consistent characters result")
+
+<a id="advanced-usage"></a>
+
+### Advanced Usage
+
+Overwrite the default workflow_api.json, the recommendation is not to abuse this functionality, and have one deployment
+per workflow that you create, because having too many custom_node packages can create some dependency issues between the python-packages version of each node, and can make your workflow break, also having a lot of custom_nodes installed can make the ComfyUI start up time increase notably.
+
+If, for example, you installed new nodes and created a new workflow that will work with the deployment, you can make use of it
+sending that workflow_api.json as a parameter
+
+```python
+    override_workflow_api = None
+    with open("workflow_api_default.json", "rb") as f:
+        override_workflow_api = json.load(f)
+
+    prompt_result = await infer(api_url=view_comfy_api_url, params=params, override_workflow_api=override_workflow_api)
+
+```
+
+```
+
+```
