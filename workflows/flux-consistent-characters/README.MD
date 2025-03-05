@@ -3,7 +3,7 @@
 ## Adapting the example to your project
 
 This example uses the ViewComfy API to run our Consistent AI Characters templates in ComfyUI.
- You can find more details on the specifics of the workflow in this [Guide](https://www.viewcomfy.com/blog/consistent-ai-characters-with-flux-and-comfyui "Consistent AI Characters using Flux in ComfyUI")
+ You can find more details on the specifics of the workflow in this [Guide](https://www.viewcomfy.com/blog/consistent-ai-characters-with-flux-and-comfyui "Consistent AI Characters using Flux in ComfyUI").
 
 ## API
 
