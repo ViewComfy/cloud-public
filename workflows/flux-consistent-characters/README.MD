@@ -11,10 +11,10 @@ We have two API examples, in Python and TypeScript. You can adapt the code in th
 
 #### The API has two endpoints:
 
--   infer: classic request response where you wait for the request to finish before getting your result back
+-   infer: classic request where you wait for the request to finish before getting your result back
 -   infer with logs: this endpoint will send real-time updates with the ComfyUI execution logs. To make use of this functionality, you need to pass a function that will be called each time a log message is sent.
 
-#### When the infer job finishes the result class will look like this:
+#### When the infer job finishes, the result class will look like this:
 
 ```
 PromptResult:
