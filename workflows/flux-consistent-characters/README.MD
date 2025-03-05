@@ -106,7 +106,7 @@ npm install
 
 Add your endpoint:
 
-Deploy the consistent character template and change the viewComfyURl value inside `main.ts` to the ViewComfy endpoint from your [ViewComfy Dashboard](https://app.viewcomfy.com). You can also change the parameters of the workflow inside `main.ts` if you want.
+Deploy the consistent character template and change the view_comfy_api_url value inside `main.ts` to the ViewComfy endpoint from your [ViewComfy Dashboard](https://app.viewcomfy.com). You can also change the parameters of the workflow inside `main.ts` if you want.
 
 Call the API:
 
@@ -124,7 +124,7 @@ pip install -r requirements.txt
 
 Add your endpoint:
 
-Deploy the consistent character template and change the viewComfyURl value inside `main.py` to the ViewComfy endpoint from your [ViewComfy Dashboard](https://app.viewcomfy.com). You can also change the parameters of the workflow inside `main.py` if you want.
+Deploy the consistent character template and change the view_comfy_api_url value inside `main.py` to the ViewComfy endpoint from your [ViewComfy Dashboard](https://app.viewcomfy.com). You can also change the parameters of the workflow inside `main.py` if you want.
 
 Call the API:
 
