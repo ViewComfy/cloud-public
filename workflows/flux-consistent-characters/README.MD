@@ -20,7 +20,7 @@ We have two API examples, in Python and TypeScript. You can adapt the code in th
 The endpoints also support the functionality to send a workflow_api.json that will be used instead of the workflow_api.json that you
 use when you made your deployment, the example of how to use it is in the [Advanced Usage](#advanced-usage)
 
-#### When the infer job finish the result class will be this:
+#### When the infer job finishes this will be the result class:
 
 ```
 PromptResult:
