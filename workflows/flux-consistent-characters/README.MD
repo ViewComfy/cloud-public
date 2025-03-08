@@ -17,8 +17,7 @@ We have two API examples, in Python and TypeScript. You can adapt the code in th
 -   infer with logs: this endpoint will send real-time updates of the logs of the ComfyUI execution, to make use of this, you need to pass
     a function that will be called each time a log message is sent.
 
-The endpoints also support the functionality to send a workflow_api.json that will be used instead of the workflow_api.json that you
-use when you made your deployment, the example of how to use it is in the [Advanced Usage](#advanced-usage)
+The endpoints can also receive a workflow_api.json as a parameter. This is useful if you want to run a different workflow than the one you deployed with. For an example of how to use it, you can refer to the [Advanced Usage](#advanced-usage) section.
 
 #### When the infer job finishes this will be the result class:
 
