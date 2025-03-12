@@ -50,7 +50,7 @@ python workflow_parameters_maker.py --workflow_api_path "<Path to your workflow_
 ```
 **For typescript** 
 
-comment the generation function inside main.ts and uncomment the getWorkflowParametersForApi.
+Comment the generation function inside main.ts and uncomment the getWorkflowParametersForApi.
 
 ```typescript
 
