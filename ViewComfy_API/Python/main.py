@@ -16,12 +16,14 @@ async def api_examples():
     params["6-inputs-text"] = "A cat sorcerer"
     params["52-inputs-image"] = open("input_folder/input_img.png", "rb")
 
-
-    if  override_workflow_api_path:  
-        with open(override_workflow_api_path, "r") as f:
-            override_workflow_api = json.load(f)
-    else:
-        override_workflow_api = None
+    override_workflow_api = None
+    if  override_workflow_api_path:
+        if os.path.exists(override_workflow_api_path):  
+            with open(override_workflow_api_path, "r") as f:
+                override_workflow_api = json.load(f)
+        else:
+            print(f"Error: {override_workflow_api_path} does not exist")
+        
 
     # Call the API and wait for the results
     # prompt_result = await infer(api_url=view_comfy_api_url, params=params, override_workflow_api=override_workflow_api)
