@@ -1,0 +1,11 @@
+{
+  // "extends": "@tsconfig/node20/tsconfig.json",
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "CommonJS",
+    "outDir": "out",
+    "sourceMap": true
+  },
+  "include": ["*"],
+  "exclude": ["node_modules"]
+}
