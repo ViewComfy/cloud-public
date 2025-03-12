@@ -7,7 +7,7 @@ from api import infer, infer_with_logs
 async def api_examples():
 
     view_comfy_api_url = "<Your_ViewComfy_endpoint>"
-    output_directory = "output"
+    output_directory = "outputs"
     override_workflow_api_path = None # Advanced feature: overwrite default workflow with a new one
 
     # Set parameters
@@ -36,7 +36,7 @@ async def api_examples():
         """
         print(log_message)
     # Call the API and get the logs of the execution in real time
-    # the console.log is the function that will be use to log the messages
+    # the print function will be used to log the messages
     # you can use this function to build logics using the ComfyUI logs
     prompt_result = await infer_with_logs(
         api_url=view_comfy_api_url,
