@@ -250,7 +250,7 @@ the result will be something like this:
 
   
 
-You can overwrite the default workflow_api.json when sending a request. be careful if you need to install new node packs to run the new workflow. Having too many custom_node packages can create some dependency issues between the Python packages. This can increase ComfyUI start up time and in some cases break the ComfyUI installation.
+You can overwrite the default workflow_api.json when sending a request. Be careful if you need to install new node packs to run the new workflow. Having too many custom_node packages can create some dependency issues between the Python packages. This can increase ComfyUI start-up time and, in some cases, break the ComfyUI installation.
 
 To use an updated workflow (that works with your deployment) with the API, you can send the new workflow_api.json as a parameter. For example, using python:
 
