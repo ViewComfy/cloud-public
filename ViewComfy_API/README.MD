@@ -39,7 +39,7 @@ outputs (List[Dict], optional): List of output file data. Defaults to empty list
 
 To extract all the parameters from your workflow_api.json, you can run the workflow_api_parameter_creator function. This will create a dictionary with all of the parameters inside the workflow.
 
-For python:
+**For python**
 
   
 
@@ -48,18 +48,20 @@ For python:
 python workflow_parameters_maker.py --workflow_api_path "<Path to your workflow_api.json file>"
 
 ```
-For typescript: comment the generation function and uncomment the getWorkflowParametersForApi
-
-  
-
+**For typescript** 
+comment the generation function inside main.ts and uncomment the getWorkflowParametersForApi.
 ```typescript
 
-//generate().catch(console.error);
-
-getWorkflowParametersForApi().catch(console.error);
+// generate().catch(console.error);
+const  workflowPath = "workflow_api.json";
+getWorkflowParametersForApi(workflowPath).catch(console.error);
 
 ```
 
+Then run the script:
+```typescript
+npm run dev
+```
   
 
 ### Updating the parameters to call your API
@@ -68,7 +70,6 @@ In the Python example, the parameters are:
   
 
 ```
-
 params = {}
 
 params["6-inputs-text"] = "A cat sorcerer"
