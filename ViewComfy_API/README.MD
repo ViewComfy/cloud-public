@@ -15,7 +15,7 @@ We have two API examples, one in Python and one TypeScript. All the functions to
 The endpoints can also take a workflow_api.json as a parameter. This is useful if you want to run a different workflow than the one you used when deploying. For an example of how to use this functionality, you can refer to the [Advanced Usage](#advanced-usage) section.
 
   
-#### The resutls are stored inside a call with this format (for the full definition refer to the api files):
+#### The resutls are stored inside a class with this format (for the full definition refer to the api files):
 
 ```
 
@@ -49,7 +49,9 @@ python workflow_parameters_maker.py --workflow_api_path "<Path to your workflow_
 
 ```
 **For typescript** 
+
 comment the generation function inside main.ts and uncomment the getWorkflowParametersForApi.
+
 ```typescript
 
 // generate().catch(console.error);
@@ -77,7 +79,7 @@ params["52-inputs-image"] = open("input_folder/input_img.png", "rb")
 
 ```
 
-The "key" for each parameter can be found inside the workflow_api_parameters.json you create usingworkflow_parameters_maker.py. They will look like this:
+The "key" for each parameter can be found inside the workflow_api_parameters.json you create using workflow_parameters_maker.py. They will look like this:
 
 ```
 {  
@@ -120,7 +122,7 @@ Add your endpoint:
 
   
 
-Change the view_comfy_api_url value inside `main.py` to your ViewComfy endpoint from your [ViewComfy Dashboard](https://app.viewcomfy.com). You can also change the parameters of the workflow inside `main.py` if you want.
+Change the view_comfy_api_url value inside `main.py` to the ViewComfy endpoint from your [ViewComfy Dashboard](https://app.viewcomfy.com). You can also change the parameters of the workflow inside `main.py` if you want.
 
 Call the API:
 
@@ -168,7 +170,7 @@ npm run dev
 
   
 
-You can overwrite the default workflow_api.json when sending a request. be careful if you need to install new node packs to run the new workflow. Having too many custom_node packages can create some issues between the Python packages. This can increase ComfyUI start up time and in some cases break the ComfyUI installation.
+You can overwrite the default workflow_api.json when sending a request. Be careful if you need to install new node packs to run the new workflow. Having too many custom node packages can create some issues between the Python packages. This can increase ComfyUI start up time and in some cases break the ComfyUI installation.
 
 To use an updated workflow (that works with your deployment) with the API, you can send the new workflow_api.json as a parameter by changing the override_workflow_api_path value. For example, using python:
 

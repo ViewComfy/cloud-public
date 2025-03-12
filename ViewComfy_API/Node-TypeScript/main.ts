@@ -8,6 +8,8 @@ const viewComfyUrl = "<ViewComfy api url>";
 // Move your main function logic into a route handler
 const generate = async () => {
     try {
+        const override_workflow_api_path = null;
+
         const params = {};
 
         params["6-inputs-text"] = "A cat sorcerer"
@@ -16,6 +18,17 @@ const generate = async () => {
         params["52-inputs-image"] = inputImage;
 
         params["3-inputs-steps"] = 1
+
+
+        let override_workflow_api = null;
+        if (override_workflow_api_path) {
+            try {
+                const fileContent = await fs.readFile(override_workflow_api_path, "utf-8");
+                override_workflow_api = JSON.parse(fileContent);
+            } catch (error) {
+                console.error("Override workflow API path does not exist");
+            }
+        }
 
         // Call the API and wait for the results
         // const result = await infer({
@@ -30,6 +43,7 @@ const generate = async () => {
             apiUrl: viewComfyUrl,
             params,
             loggingCallback: console.log,
+            override_workflow_api,
         });
 
         const urls = [];

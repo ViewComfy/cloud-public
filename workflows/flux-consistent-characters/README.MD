@@ -24,7 +24,7 @@ We have two API examples, one in Python and one TypeScript. All the functions to
 The endpoints can also take a workflow_api.json as a parameter. This is useful if you want to run a different workflow than the one you used when deploying. For an example of how to use it, you can refer to the [Advanced Usage](#advanced-usage) section.
 
   
-#### The calss storing the resutls has this format:
+#### The resutls are stored inside a class with this format (for the full definition refer to the api files):
 
 ```
 
