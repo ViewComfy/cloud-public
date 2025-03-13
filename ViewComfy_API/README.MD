@@ -121,11 +121,11 @@ pip install -r requirements.txt
 
 ```
 
-Add your endpoint and set your API key:
+Add your endpoint and set your API keys:
 
   
 
-Change the view_comfy_api_url value inside `main.py` to the ViewComfy endpoint from your [ViewComfy Dashboard](https://app.viewcomfy.com). Do the same with the "client_id" and "client_secret" values using your API key (you can also get it from your dashboard). If you want, you can change the parameters of the workflow inside `main.py` at the same time.
+Change the view_comfy_api_url value inside `main.py` to the ViewComfy endpoint from your [ViewComfy Dashboard](https://app.viewcomfy.com). Do the same with the "client_id" and "client_secret" values using your API keys (you can also get them from your dashboard). If you want, you can change the parameters of the workflow inside `main.py` at the same time.
 
 Call the API:
 
@@ -148,11 +148,11 @@ npm install
 
   
 
-Add your endpoint and set your API key:
+Add your endpoint and set your API keys:
 
   
 
-Change the view_comfy_api_url value inside `main.ts` to the ViewComfy endpoint from your [ViewComfy Dashboard](https://app.viewcomfy.com). Do the same with the "client_id" and "client_secret" values using your API key (you can also get it from your dashboard). If you want, you can change the parameters of the workflow inside `main.ts` at the same time.
+Change the view_comfy_api_url value inside `main.ts` to the ViewComfy endpoint from your [ViewComfy Dashboard](https://app.viewcomfy.com). Do the same with the "client_id" and "client_secret" values using your API keys (you can also get them from your dashboard). If you want, you can change the parameters of the workflow inside `main.ts` at the same time.
 
   
 
