@@ -2,12 +2,15 @@ import asyncio
 import base64
 from api import infer, infer_with_logs
 
-async def api_examples():
 
+async def api_examples():
     view_comfy_api_url = ""
+
+    client_id = ""
+    client_secret = ""
+
     # Set parameters
     params = {}
-
     params["625-inputs-image"] = open("pose_sheet.png", "rb")
     params["626-inputs-image"] = open("character.png", "rb")
 
@@ -29,19 +32,41 @@ async def api_examples():
     )
 
     # Call the API and wait for the results
-    # prompt_result = await infer(api_url=view_comfy_api_url, params=params)
+    # try:
+    #     prompt_result = await infer(
+    #         api_url=view_comfy_api_url,
+    #         params=params,
+    #         client_id=client_id,
+    #         client_secret=client_secret,
+    #     )
+    # except Exception as e:
+    #     print("something went wrong calling the api")
+    #     print(f"Error: {e}")
+    #     return
 
-    
+
     def logging_callback(log_message: str):
         print(log_message)
+
     # Call the API and get the logs of the execution in real time
     # the console.log is the function that will be use to log the messages
     # you can use any function that you want
-    prompt_result = await infer_with_logs(
-        api_url=view_comfy_api_url,
-        params=params,
-        logging_callback=logging_callback,
-    )
+    try:
+        prompt_result = await infer_with_logs(
+            api_url=view_comfy_api_url,
+            params=params,
+            logging_callback=logging_callback,
+            client_id=client_id,
+            client_secret=client_secret,
+        )
+    except Exception as e:
+        print("something went wrong calling the api")
+        print(f"Error: {e}")
+        return
+
+    if not prompt_result:
+        print("No prompt_result generated")
+        return
 
     for file in prompt_result.outputs:
         try:

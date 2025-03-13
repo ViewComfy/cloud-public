@@ -30,6 +30,8 @@ interface Infer {
     apiUrl: string;
     params: Record<string, any>;
     override_workflow_api?: Record<string, any> | undefined;
+    clientId: string;
+    clientSecret: string;
 }
 
 interface InferWithLogs extends Infer {
@@ -48,9 +50,17 @@ export const infer = async ({
     apiUrl,
     params,
     override_workflow_api,
+    clientId,
+    clientSecret,
 }: Infer) => {
     if (!apiUrl) {
         throw new Error("viewComfyUrl is not set");
+    }
+    if (!clientId) {
+        throw new Error("clientId is not set");
+    }
+    if (!clientSecret) {
+        throw new Error("clientSecret is not set");
     }
 
     try {
@@ -64,6 +74,10 @@ export const infer = async ({
             method: "POST",
             body: formData,
             redirect: "follow",
+            headers: {
+                "client_id": clientId,
+                "client_secret": clientSecret,
+            },
         });
 
         if (!response.ok) {
@@ -165,6 +179,7 @@ async function consumeEventSource(
         }
     } catch (error) {
         console.error("Error reading stream:", error);
+        throw error;
     }
 
     return promptResult;
@@ -184,9 +199,17 @@ export const inferWithLogsStream = async ({
     params,
     loggingCallback,
     override_workflow_api,
+    clientId,
+    clientSecret,
 }: InferWithLogs): Promise<PromptResult | null> => {
     if (!apiUrl) {
         throw new Error("url is not set");
+    }
+    if (!clientId) {
+        throw new Error("clientId is not set");
+    }
+    if (!clientSecret) {
+        throw new Error("clientSecret is not set");
     }
 
     try {
@@ -199,6 +222,10 @@ export const inferWithLogsStream = async ({
         const response = await fetch(apiUrl, {
             method: "POST",
             body: formData,
+            headers: {
+                "client_id": clientId,
+                "client_secret": clientSecret,
+            },
         });
 
         if (response.status === 201) {
@@ -214,7 +241,7 @@ export const inferWithLogsStream = async ({
         } else {
             const errorText = await response.text();
             console.error(`Error response: ${errorText}`);
-            return null;
+            throw new Error(errorText);
         }
     } catch (e) {
         console.error(
@@ -222,7 +249,7 @@ export const inferWithLogsStream = async ({
                 e instanceof Error ? e.message : String(e)
             }`
         );
-        return null;
+        throw e;
     }
 };
 

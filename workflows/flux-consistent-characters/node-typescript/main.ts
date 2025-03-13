@@ -10,6 +10,9 @@ const generate = async () => {
     try {
         const params = {};
 
+        const clientId = ""
+        const clientSecret = ""
+
         const poseSheet = await loadImageFile("pose_sheet.png");
         params["625-inputs-image"] = poseSheet;
 
@@ -39,6 +42,8 @@ const generate = async () => {
         // const result = await infer({
         //     apiUrl: viewComfyUrl,
         //     params,
+        //     clientId,
+        //     clientSecret,
         // });
 
         // Call the API and get the logs of the execution in real time
@@ -48,6 +53,8 @@ const generate = async () => {
             apiUrl: viewComfyUrl,
             params,
             loggingCallback: console.log,
+            clientId,
+            clientSecret,
         });
 
         const urls = [];
@@ -86,5 +93,5 @@ async function getWorkflowParametersForApi() {
     );
 }
 
-// generate().catch(console.error);
-getWorkflowParametersForApi().catch(console.error);
+generate().catch(console.error);
+// getWorkflowParametersForApi().catch(console.error);
