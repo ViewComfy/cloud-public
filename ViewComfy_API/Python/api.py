@@ -65,17 +65,37 @@ class PromptResult:
 
 
 class ComfyAPIClient:
-    def __init__(self, infer_url: str = "http://localhost:8000/api/infer"):
+    def __init__(
+        self,
+        *,
+        infer_url: str | None = None,
+        client_id: str | None = None,
+        client_secret: str | None = None,
+    ):
         """
         Initialize the ComfyAPI client with the server URL.
 
         Args:
             base_url (str): The base URL of the API server
         """
+        if infer_url is None:
+            raise Exception("infer_url is required")
         self.infer_url = infer_url
 
+        if client_id is None:
+            raise Exception("client_id is required")
+
+        if client_secret is None:
+            raise Exception("client_secret is required")
+
+        self.client_id = client_id
+        self.client_secret = client_secret
+
     async def infer(
-        self, *, data: Dict[str, Any], files: list[tuple[str, BufferedReader]] = []
+        self,
+        *,
+        data: Dict[str, Any],
+        files: list[tuple[str, BufferedReader]] = [],
     ) -> Dict[str, Any]:
         """
         Make a POST request to the /api/infer-files endpoint with files encoded in form data.
@@ -97,6 +117,10 @@ class ComfyAPIClient:
                     files=files,
                     timeout=httpx.Timeout(2400.0),
                     follow_redirects=True,
+                    headers={
+                        "client_id": self.client_id,
+                        "client_secret": self.client_secret,
+                    },
                 )
 
                 if response.status_code == 201:
@@ -172,17 +196,6 @@ class ComfyAPIClient:
         logging_callback: Callable[[str], None],
         files: list[tuple[str, BufferedReader]] = [],
     ) -> Dict[str, Any] | None:
-        """
-        Make an inference with real-time logs from the execution prompt
-
-        Args:
-            view_comfy_api_url (str): The ViewComfy endpoint to send the request to
-            data (dict): The parameter to send to the workflow
-            logging_callback (Callable[[str], None]): The callback function to handle logging messages
-            files (list[tuple[str, BufferedReader]]): The files to send to the workflow
-        Returns:
-            PromptResult: The result of the inference containing outputs and execution details
-        """
         if data.get("logs") is not True:
             raise Exception("Set the logs to True for streaming the process logs")
 
@@ -195,6 +208,10 @@ class ComfyAPIClient:
                     files=files,
                     timeout=24000,
                     follow_redirects=True,
+                    headers={
+                        "client_id": self.client_id,
+                        "client_secret": self.client_secret,
+                    },
                 ) as response:
                     if response.status_code == 201:
                         # Check if it's actually a server-sent event stream
@@ -211,9 +228,13 @@ class ComfyAPIClient:
                                 "Set the logs to True for streaming the process logs"
                             )
                     else:
-                        print(f"Error response: {await response.aread()}")
+                        error_response = await response.aread()
+                        error_data = json.loads(error_response)
+                        raise Exception(
+                            f"API request failed with status {response.status_code}: {error_data}"
+                        )
             except Exception as e:
-                print(f"Error with streaming request: {str(e)}")
+                raise Exception(f"Error with streaming request: {str(e)}")
 
 
 def parse_parameters(params: dict):
@@ -241,6 +262,8 @@ async def infer(
     params: Dict[str, Any],
     api_url: str,
     override_workflow_api: Dict[str, Any] | None = None,
+    client_id: str,
+    client_secret: str,
 ):
     """
     Make an inference with real-time logs from the execution prompt
@@ -253,7 +276,11 @@ async def infer(
     Returns:
         PromptResult: The result of the inference containing outputs and execution details
     """
-    client = ComfyAPIClient(api_url)
+    client = ComfyAPIClient(
+        infer_url=api_url,
+        client_id=client_id,
+        client_secret=client_secret,
+    )
 
     params_parsed, files = parse_parameters(params)
     data = {
@@ -270,14 +297,14 @@ async def infer(
     return PromptResult(**result)
 
 
-
-
 async def infer_with_logs(
     *,
     params: Dict[str, Any],
     logging_callback: Callable[[str], None],
     api_url: str,
     override_workflow_api: Dict[str, Any] | None = None,
+    client_id: str,
+    client_secret: str,
 ):
     """
     Make an inference with real-time logs from the execution prompt
@@ -292,7 +319,11 @@ async def infer_with_logs(
         PromptResult: The result of the inference containing outputs and execution details
     """
 
-    client = ComfyAPIClient(api_url)
+    client = ComfyAPIClient(
+        infer_url=api_url,
+        client_id=client_id,
+        client_secret=client_secret,
+    )
 
     params_parsed, files = parse_parameters(params)
     data = {
@@ -305,7 +336,9 @@ async def infer_with_logs(
 
     # Make the API call
     result = await client.infer_with_logs(
-        data=data, files=files, logging_callback=logging_callback
+        data=data,
+        files=files,
+        logging_callback=logging_callback,
     )
 
     if result:

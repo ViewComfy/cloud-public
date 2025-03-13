@@ -1,5 +1,5 @@
 {
-  "name": "virtual-try-on-api",
+  "name": "flux-consistent-characters-api",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {

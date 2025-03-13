@@ -4,6 +4,8 @@ import { infer, inferWithLogsStream } from "../../workflows/flux-consistent-char
 import { workflowApiParametersCreator } from "../../workflows/flux-consistent-characters/node-typescript/workflow_api_parameters_creator";
 
 const viewComfyUrl = "<ViewComfy api url>";
+const clientId = "<ViewComfy client id>";
+const clientSecret = "<ViewComfy client secret>";
 
 // Move your main function logic into a route handler
 const generate = async () => {
@@ -34,6 +36,8 @@ const generate = async () => {
         // const result = await infer({
         //     apiUrl: viewComfyUrl,
         //     params,
+        //     clientId,
+        //     clientSecret,
         // });
 
         // Call the API and get the logs of the execution in real time
@@ -43,7 +47,8 @@ const generate = async () => {
             apiUrl: viewComfyUrl,
             params,
             loggingCallback: console.log,
-            override_workflow_api,
+            clientId,
+            clientSecret,
         });
 
         const urls = [];
@@ -70,8 +75,9 @@ async function saveBlob(blob: Blob, filename: string): Promise<void> {
     await fs.writeFile(filename, buffer);
 }
 
-async function getWorkflowParametersForApi(workflowPath: string) {
+async function getWorkflowParametersForApi() {
     // Example usage with a workflow file
+    const workflowPath = "workflow_api.json";
     const workflowJson = JSON.parse(await fs.readFile(workflowPath, "utf-8"));
     const flattened = workflowApiParametersCreator(workflowJson);
 
@@ -82,5 +88,4 @@ async function getWorkflowParametersForApi(workflowPath: string) {
 }
 
 generate().catch(console.error);
-// const workflowPath = "/home/gbieler/GitHub/cloud-public/workflow_api.json";
-// getWorkflowParametersForApi(workflowPath).catch(console.error);
+// getWorkflowParametersForApi().catch(console.error);
