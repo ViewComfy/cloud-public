@@ -5,6 +5,10 @@ import random
 import asyncio
 import requests
 
+'''
+This is an example of how to call the ComfyUI API, which is different from the ViewComfy API.
+For the ViewComfy API, see the ViewComfy_API folder: https://github.com/ViewComfy/cloud-public/tree/main/ViewComfy_API.
+'''
 
 generation_parameters = {
     "input_path": "img.jpg",
