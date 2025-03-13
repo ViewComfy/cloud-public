@@ -1,4 +1,4 @@
-# Flux Consistent Characters ViewComfy API Call Example
+# ViewComfy API Example
 
 For a detailed guide on how to deploy a ComfyUI workflow and use the API, you can refer to [this](https://medium.com/@guillaume.bieler/integrate-comfyui-workflows-into-your-apps-a-guide-to-the-viewcomfy-api-981319b16c66) article.
 
