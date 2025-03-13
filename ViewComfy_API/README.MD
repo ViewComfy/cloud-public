@@ -148,7 +148,7 @@ npm install
 
   
 
-Add your endpoint:
+Add your endpoint and set your API key:
 
   
 
