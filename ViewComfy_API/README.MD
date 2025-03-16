@@ -169,10 +169,9 @@ npm run dev
 
 <a  id="advanced-usage"></a>
 
-### Advanced Usage
+### Using the API with a different workflow
 
   
-
 You can overwrite the default workflow_api.json when sending a request. Be careful if you need to install new node packs to run the new workflow. Having too many custom node packages can create some issues between the Python packages. This can increase ComfyUI start up time and in some cases break the ComfyUI installation.
 
 To use an updated workflow (that works with your deployment) with the API, you can send the new workflow_api.json as a parameter by changing the override_workflow_api_path value. For example, using python:
