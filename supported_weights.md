@@ -4,6 +4,7 @@
 - absolutereality_v181.safetensors
 - albedobaseXL_v13.safetensors
 - albedobaseXL_v21.safetensors
+- albedobaseXL_v31Large.safetensors
 - animagine-xl-3.0.safetensors
 - anything-v3-fp16-pruned.safetensors
 - artUniverse_sdxlV50.safetensors
@@ -15,6 +16,7 @@
 - copaxCuteXLSDXL10_v4.safetensors
 - copaxTimelessxlSDXL1_v122.safetensors
 - copaxTimelessxlSDXL1_v8.safetensors
+- creapromptLightning_v13.safetensors
 - crystalClearXL_ccxl.safetensors
 - Deliberate_v2.safetensors
 - disneyPixarCartoon_v10.safetensors
@@ -36,10 +38,12 @@
 - Epicrealismxl_Hades.safetensors
 - epicrealismXL_v10.safetensors
 - epicrealismXL_v7FinalDestination.safetensors
+- Flex.1-alpha.safetensors
 - flux1-dev-fp8.safetensors
 - flux1-schnell-fp8.safetensors
 - Hyper-SDXL-1step-Unet-Comfyui.fp16.safetensors
 - Hyper-SDXL-1step-Unet.safetensors
+- illustriousXL_v01.safetensors
 - imp_v10.safetensors
 - jibMixRealisticXL_v10Lightning46Step.safetensors
 - Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors
@@ -54,7 +58,10 @@
 - LCM_Dreamshaper_v7_4k.safetensors
 - leosamsHelloworldXL_helloworldXL60.safetensors
 - ltx-video-2b-v0.9.1.safetensors
+- ltx-video-2b-v0.9.5.safetensors
 - ltx-video-2b-v0.9.safetensors
+- lumina_2.safetensors
+- lumina_2_model_bf16.safetensors
 - magicmixReverie_v10.safetensors
 - majicmixRealistic_v7.safetensors
 - motionctrl.pth
@@ -96,7 +103,7 @@
 - realvisxlV50_v50Bakedvae.safetensors
 - realvisxlV50_v50LightningBakedvae.safetensors
 - rundiffusionXL_beta.safetensors
-- sd3.5_large.safetensors
+- sd3.5_large.safetensors (Also available as SD3.5-L.safetensors)
 - sd3.5_large_fp8_scaled.safetensors
 - sd3.5_large_turbo.safetensors
 - sd3_medium.safetensors
@@ -148,6 +155,10 @@
 - flux1-dev-bnb-nf4-v2.safetensors
 - 2dn-illust-v1-sdxl.safetensors
 - majicMIXrealistic_v7.safetensors
+- wildcardxXLTURBO_wildcardxXLTURBOV10.safetensors
+- dreamshaperXL_sfwLightningDPMSDE.safetensors
+- leosamsHelloworldXL_helloworldXL70.safetensors
+- juggernautXL_juggXILightningByRD.safetensors
 
 ## Upscale models
 - 4x-AnimeSharp.pth
@@ -169,11 +180,20 @@
 - RealESRGAN_x8.pth
 - 4x_RealisticRescaler_100000_G.pth
 - 4xNomos8kDAT.pth
+- 4x-ClearRealityV1.pth
 
 ## Text Encoders
+- gemma_2_2b_fp16.safetensors
+- llava_llama3_fp16.safetensors
+- llava_llama3_fp8_scaled.safetensors
+- oldt5_xxl_fp8_e4m3fn_scaled.safetensors
+- umt5_xxl_fp16.safetensors
+- umt5_xxl_fp8_e4m3fn_scaled.safetensors
+- ViT-L-14-TEXT-detail-improved-hiT-GmP-HF.safetensors
 - clip-vit-large-patch14
 - clip_g.safetensors
 - clip_l.safetensors
+- EVA02_CLIP_L_336_psz14_s6B.pt
 - models--QuanSun--EVA-CLIP
 - sd15/model.fp16.safetensors
 - sd15/model.safetensors
@@ -200,6 +220,11 @@
 - llava-llama-3-8b-v1_1-int4.gguf
 - llava-llama-3-8b-v1_1-mmproj-f16.gguf
 - ViT-L-14-TEXT-detail-improved-hiT-GmP-HF.safetensors
+- llava_llama3_fp16.safetensors
+- open-clip-xlm-roberta-large-vit-huge-14_fp16.safetensors
+- open-clip-xlm-roberta-large-vit-huge-14_visual_fp32.safetensors
+- umt5-xxl-enc-bf16.safetensors
+- umt5-xxl-enc-fp8_e4m3fn.safetensors
 
 ## CLIP Vision
 - CLIP-ViT-bigG-14-laion2B-39B-b160k.safetensors
@@ -208,7 +233,9 @@
 - clip-vit-large-patch14-336.bin
 - clip-vit-large-patch14.bin
 - clip_vision_g.safetensors
+- clip_vision_h.safetensors
 - IPAdapter_image_encoder_sd15.safetensors
+- llava_llama3_vision.safetensors
 - model.15.safetensors
 - model.sdxl.safetensors
 - SD1.5/model.safetensors
@@ -369,6 +396,9 @@
 - CZArqui9_v10.safetensors
 - sh1n-02-st-bs1-4e4-32-2000.safetensors
 - hyvideo_FastVideo_LoRA-fp8.safetensors
+- FLUX.1-Turbo-Alpha.safetensors
+- equirectangular_flux_lora_v3_000003072.safetensors
+- Detailer2K.safetensors
 
 ## Embeddings
 - bad_prompt_version2-neg.pt
@@ -415,6 +445,7 @@
 - ip_plus_composition_sd15.safetensors
 - ip_plus_composition_sdxl.safetensors
 - Kolors-IP-Adapter-Plus.bin
+- SD3.5-Large-IP-Adapter.bin (Also available as ip_sd35l_instantx.bin)
 
 ## ControlNet
 - animatediff_controlnet.ckpt
@@ -478,6 +509,7 @@
 - controlnet-canny-sdxl-1.0.fp16.safetensors
 - controlnet-canny-sdxl-1.0.safetensors
 - controlnet-canny-sdxl-1.0_V2.safetensors
+- controlnet-densepose-sdxl.safetensors
 - controlnet-depth-sdxl-1.0.fp16.safetensors
 - controlnet-depth-sdxl-1.0.safetensors
 - controlnet-openpose-sdxl-1.0.safetensors
@@ -497,9 +529,12 @@
 - diffusers_xl_depth_full.safetensors
 - diffusers_xl_depth_mid.safetensors
 - diffusers_xl_depth_small.safetensors
+- FLUX.1-dev-Controlnet-Canny.safetensors
+- FLUX.1-dev-Controlnet-Inpainting-Beta.safetensors (Also available as 0930_inpaint_cn.safetensors)
 - FLUX.1-dev-ControlNet-Union-Pro.safetensors
 - flux.1-dev-controlnet-union.safetensors
-- instantid-controlnet.safetensors
+- Flux.1-dev-Controlnet-Upscaler.safetensors
+- instantid-controlnet.safetensors (Also available as instantid/diffusion_pytorch_model.safetensors)
 - ioclab_sd15_recolor.safetensors
 - ip-adapter_sd15.pth
 - ip-adapter_sd15_plus.pth
@@ -566,7 +601,8 @@
 - controlnet-union-sdxl-1.0-promax.safetensors
 
 ## VAE
-- ae.safetensors
+- ae.safetensors (Also available as ae.sft)
+- cosmos_cv8x8x8_1.0.safetensors
 - hunyuan_video_vae_bf16.safetensors
 - mochi/mochi_preview_vae_bf16.safetensors
 - mochi_vae.safetensors
@@ -575,10 +611,13 @@
 - stable-cascade/effnet_encoder.safetensors
 - stable-cascade/stage_a.safetensors
 - vae-ft-mse-840000-ema-pruned.safetensors
+- wan_2.1_vae.safetensors
 - stable-diffusion-v1-5-vae-diffusion_pytorch_model.safetensors
 - pyramid_flow_vae_bf16.safetensors
 - pyramid_flow_vae_fp32.safetensors
 - hunyuan_video_vae_fp32.safetensors
+- Wan2_1_VAE_bf16.safetensors
+- Wan2_1_VAE_fp32.safetensors
 
 ## PhotoMaker
 - photomaker-v1.bin
@@ -655,6 +694,7 @@
 - GPEN-BFR-2048.onnx
 - GPEN-BFR-512.onnx
 - RestoreFormer.pth
+- codeformer-v0.1.0.pth
 
 ## Face detection models
 - detection_mobilenet0.25_Final.pth
@@ -695,6 +735,8 @@
 ## PuLID
 - ip-adapter_pulid_sdxl_fp16.safetensors
 - pulid_flux_v0.9.0.safetensors
+- pulid_flux_v0.9.1.safetensors
+- pulid_flux_v0.9.1.safetensors
 
 ## GLIGEN
 - gligen_sd14_textbox_pruned.safetensors
@@ -742,8 +784,39 @@
 - random_mask_brushnet_ckpt_sdxl_v0.safetensors
 - segmentation_mask_brushnet_sdxl_v1.safetensors
 
+## BiRefNet
+- BiRefNet-DIS_ep580.pth
+- BiRefNet-ep480.pth
+- COD.safetensors
+- DIS-TR_TEs.safetensors
+- DIS.safetensors
+- General-HR.safetensors
+- General-Lite-2K.safetensors
+- General-Lite.safetensors
+- General.safetensors
+- HRSOD.safetensors
+- Matting.safetensors
+- Portrait.safetensors
+- pvt_v2_b2.pth
+- pvt_v2_b5.pth
+- swin_base_patch4_window12_384_22kto1k.pth
+- swin_large_patch4_window12_384_22kto1k.pth
+
 ## Style models
 - flux1-redux-dev.safetensors
+
+## DepthAnything
+- depth_anything_v2_metric_hypersim_vitl_fp32.safetensors
+- depth_anything_v2_metric_vkitti_vitl_fp32.safetensors
+- depth_anything_v2_vitb_fp16.safetensors
+- depth_anything_v2_vitb_fp32.safetensors
+- depth_anything_v2_vitl_fp16.safetensors
+- depth_anything_v2_vitl_fp32.safetensors
+- depth_anything_v2_vits_fp16.safetensors
+- depth_anything_v2_vits_fp32.safetensors
+
+## FBCNN (Jpeg artifact removal)
+- fbcnn_color.pth
 
 ## Anyline
 - MTEED.pth
@@ -905,7 +978,15 @@
 - depth_anything_v2_vits.pth
 - depth_anything_v2_vitb.pth
 
+## CogVideo/LORAs
+- CogVideoX-Fun-V1.1-2b-InP-HPS2.1.safetensors
+- CogVideoX-Fun-V1.1-2b-InP-MPS.safetensors
+- CogVideoX-Fun-V1.1-5b-InP-HPS2.1.safetensors
+- CogVideoX-Fun-V1.1-5b-InP-MPS.safetensors
+
 ## Diffusion models
+- Cosmos-1_0-Diffusion-7B-Text2World.safetensors
+- Cosmos-1_0-Diffusion-7B-Video2World.safetensors
 - flux1-canny-dev.safetensors
 - flux1-depth-dev.safetensors
 - flux1-dev-fp8-e4m3fn.safetensors
@@ -913,10 +994,25 @@
 - flux1-fill-dev.safetensors
 - flux1-schnell-fp8-e4m3fn.safetensors
 - hunyuan_video_720_fp8_e4m3fn.safetensors
+- hunyuan_video_image_to_video_720p_bf16.safetensors (Also available as hunyuan_video_v2_replace_image_to_video_720p_bf16.safetensors)
 - mochi/mochi_preview_dit_fp8_e4m3fn.safetensors
 - mochi_preview_bf16.safetensors
 - mochi_preview_fp8_scaled.safetensors
 - pixelwave_flux1Dev03.safetensors
+- wan2.1_i2v_480p_14B_bf16.safetensors
+- wan2.1_i2v_480p_14B_fp16.safetensors
+- wan2.1_i2v_480p_14B_fp8_e4m3fn.safetensors
+- wan2.1_i2v_480p_14B_fp8_scaled.safetensors
+- wan2.1_i2v_720p_14B_bf16.safetensors
+- wan2.1_i2v_720p_14B_fp16.safetensors
+- wan2.1_i2v_720p_14B_fp8_e4m3fn.safetensors
+- wan2.1_i2v_720p_14B_fp8_scaled.safetensors
+- wan2.1_t2v_1.3B_bf16.safetensors
+- wan2.1_t2v_1.3B_fp16.safetensors
+- wan2.1_t2v_14B_bf16.safetensors
+- wan2.1_t2v_14B_fp16.safetensors
+- wan2.1_t2v_14B_fp8_e4m3fn.safetensors
+- wan2.1_t2v_14B_fp8_scaled.safetensors
 - flux1-dev.safetensors
 - flux1-schnell.safetensors
 - iclight_sd15_fbc.safetensors
@@ -973,3 +1069,24 @@
 - fast-hunyuan-video-t2v-720p-Q5_K_S.gguf
 - fast-hunyuan-video-t2v-720p-Q6_K.gguf
 - fast-hunyuan-video-t2v-720p-Q8_0.gguf
+- fluxRealistic_ggufFluxRealistic.gguf
+- flux1-fill-dev-Q4_K_S.gguf
+- fluxrealistic_ggufflaxrealistic.gguf
+- flux1-fill-dev-fp16-F16-GGUF.gguf
+- flux1-fill-dev-fp16-Q4_0-GGUF.gguf
+- flux1-fill-dev-fp16-Q5_0-GGUF.gguf
+- flux1-fill-dev-fp16-Q8_0-GGUF.gguf
+- skyreels-hunyuan-I2V-Q3_K_S.gguf
+- skyreels-hunyuan-I2V-Q4_K_S.gguf
+- skyreels-hunyuan-I2V-Q5_K_M.gguf
+- skyreels-hunyuan-I2V-Q6_K.gguf
+- skyreels-hunyuan-I2V-Q8_0.gguf
+- skyreels_hunyuan_i2v_bf16.safetensors
+- skyreels_hunyuan_i2v_fp8_e4m3fn.safetensors
+- skyreels_hunyuan_t2v_bf16.safetensors
+- skyreels_hunyuan_t2v_fp8_e4m3fn.safetensors
+- Wan2_1-I2V-14B-480P_fp8_e4m3fn.safetensors
+- Wan2_1-I2V-14B-720P_fp8_e4m3fn.safetensors
+- Wan2_1-T2V-14B_fp8_e4m3fn.safetensors
+- Wan2_1-T2V-1_3B_bf16.safetensors
+- Wan2_1-T2V-1_3B_fp8_e4m3fn.safetensors
