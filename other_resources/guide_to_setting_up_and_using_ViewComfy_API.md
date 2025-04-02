@@ -1,12 +1,3 @@
-﻿---
-title: "Integrate ComfyUI Workflows into your apps via API: A Guide to ViewComfy"
-excerpt: "This detailed guide goes over how to deploy a ComfyUI workflow, turn it into a scalable API and integrate it into an TypeScript or Python application."
-coverImage: "/assets/blog/viewcomfyapi_guide/ViewComfy API guide.jpg"
-date: "2025-03-12T05:35:07.322Z"
-ogImage:
-  url: "/assets/blog/viewcomfyapi_guide/ViewComfy API guide.jpg"
----
-
 This guide goes over all the steps to integrate a ComfyUI workflow into a Python or TypeScript application via the  [ViewComfy](https://www.viewcomfy.com/deploy-comfyui) API. The first section will go over the details of deploying the workflow and turning it into a serverless API. This should only take a few minutes with the ViewComfy dashboard. We will then go over how to call the API and make the integration.
 
 ## Deploying your workflow
