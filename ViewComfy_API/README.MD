@@ -2,6 +2,8 @@
 
 For a detailed guide on how to deploy a ComfyUI workflow and use the API, you can refer to [this](https://medium.com/@guillaume.bieler/integrate-comfyui-workflows-into-your-apps-a-guide-to-the-viewcomfy-api-981319b16c66) article.
 
+If you are using Cursor, you can set up the cursor_rule.md (Python/cursor_rule.md or Node-TypeScript/cursor_rule.md) as a project rule so the agent can help you with the API implementation. For more details on how to do that, you can check out the [cursor docs](https://docs.cursor.com/context/rules-for-ai).
+
 ## API
 
 We have two API examples, one in Python and one TypeScript. All the functions to call the API and handle the responses are in the api files (api.ts and api.py). The main files (main.ts and main.py) take in the parameters that are specific in your workflow and in most cases will be the only files you need to edit.
