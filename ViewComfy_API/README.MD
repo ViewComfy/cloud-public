@@ -2,7 +2,7 @@
 
 For a detailed guide on how to deploy a ComfyUI workflow and use the API, you can refer to [this](https://medium.com/@guillaume.bieler/integrate-comfyui-workflows-into-your-apps-a-guide-to-the-viewcomfy-api-981319b16c66) article.
 
-If you are using Cursor, you can set up the cursor_rule.md (Python/cursor_rule.md or Node-TypeScript/cursor_rule.md) as a project rule so the agent can help you with the API implementation. For more details on how to do that, you can check out the [cursor docs](https://docs.cursor.com/context/rules-for-ai).
+If you are using Cursor, you can set up the cursor_rule.md (Python/cursor_rule.md or Node-TypeScript/cursor_rule.md) as a project rule so the agent can help you with the API implementation. For more details on how to do that, you can check out the [cursor docs](https://docs.cursor.com/context/rules-for-ai). We recommend using the rule as a reference file (manual rule). 
 
 ## API
 
