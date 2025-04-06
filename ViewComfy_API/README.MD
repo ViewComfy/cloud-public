@@ -4,7 +4,7 @@ For a detailed guide on how to deploy a ComfyUI workflow and use the API, you ca
 
 ## API
 
-We have two API examples, one in Python and one TypeScript. All the functions to call the API and handle the responses are in the api files (api.ts and api.py). The main files (main.ts and main.py) take in the parameters that are specific to your workflow and in most cases will be the only files you need to edit.
+We have two API examples, one in Python and one TypeScript. All the functions to call the API and handle the responses are in the api files (api.ts and api.py). The main files (main.ts and main.py) take in the parameters that are specific in your workflow and in most cases will be the only files you need to edit.
 
 #### The API file has two endpoints:
 
