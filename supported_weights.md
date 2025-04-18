@@ -159,6 +159,9 @@
 - dreamshaperXL_sfwLightningDPMSDE.safetensors
 - leosamsHelloworldXL_helloworldXL70.safetensors
 - juggernautXL_juggXILightningByRD.safetensors
+- flux1-schnell-fp8.safetensors
+- flux1-dev-fp8.safetensors
+- dreamshaper_8LCM.safetensors
 
 ## Upscale models
 - 4x-AnimeSharp.pth
@@ -225,6 +228,11 @@
 - open-clip-xlm-roberta-large-vit-huge-14_visual_fp32.safetensors
 - umt5-xxl-enc-bf16.safetensors
 - umt5-xxl-enc-fp8_e4m3fn.safetensors
+- t5xxl_fp16.safetensors
+- t5xxl_fp8_e4m3fn.safetensors
+- t5xxl_fp8_e4m3fn_scaled.safetensors
+- clip_l.safetensors
+- clip_g.safetensors
 
 ## CLIP Vision
 - CLIP-ViT-bigG-14-laion2B-39B-b160k.safetensors
@@ -240,6 +248,7 @@
 - model.sdxl.safetensors
 - SD1.5/model.safetensors
 - sigclip_vision_patch14_384.safetensors
+- siglip2_so400m_patch16_512.safetensors
 - SD1.5-model.safetensors
 - siglip-so400m-patch14-384-model.safetensors
 - siglip-so400m-patch14-384.safetensors
@@ -380,6 +389,8 @@
 - theovercomer8sContrastFix_sd15.safetensors
 - theovercomer8sContrastFix_sd21768.safetensors
 - Ton618-Epic-Realism-Flux-LoRA.safetensors
+- wan2.1-1.3b-control-lora-depth-v0.1_comfy.safetensors
+- wan2.1-1.3b-control-lora-tile-v1.0_comfy.safetensors
 - weight_slider-LECO-v1.safetensors
 - visual-identity-design.safetensors
 - sparklers-visual-effect.safetensors
@@ -599,6 +610,8 @@
 - Flux.1-dev-Controlnet-Upscaler-diffusion_pytorch_model.safetensors
 - FLUX.1-dev-Controlnet-Union-diffusion_pytorch_model.safetensors
 - controlnet-union-sdxl-1.0-promax.safetensors
+- t2i-adapter_diffusers_xl_lineart.safetensors
+- sai_xl_depth_256lora.safetensors
 
 ## VAE
 - ae.safetensors (Also available as ae.sft)
@@ -618,6 +631,7 @@
 - hunyuan_video_vae_fp32.safetensors
 - Wan2_1_VAE_bf16.safetensors
 - Wan2_1_VAE_fp32.safetensors
+- ae.safetensors
 
 ## PhotoMaker
 - photomaker-v1.bin
@@ -1090,3 +1104,25 @@
 - Wan2_1-T2V-14B_fp8_e4m3fn.safetensors
 - Wan2_1-T2V-1_3B_bf16.safetensors
 - Wan2_1-T2V-1_3B_fp8_e4m3fn.safetensors
+- flux1-dev.safetensors
+- flux1-canny-dev.safetensors
+- flux1-depth-dev.safetensors
+- flux1-fill-dev.safetensors
+- flux1-schnell-fp8-e4m3fn.safetensors
+- flux1-dev-fp8-e5m2.safetensors
+- flux1-dev-fp8-e4m3fn.safetensors
+- wan2.1_i2v_480p_14B_bf16.safetensors
+- wan2.1_i2v_480p_14B_fp16.safetensors
+- wan2.1_i2v_480p_14B_fp8_e4m3fn.safetensors
+- wan2.1_i2v_480p_14B_fp8_scaled.safetensors
+- wan2.1_i2v_720p_14B_bf16.safetensors
+- wan2.1_i2v_720p_14B_fp16.safetensors
+- wan2.1_i2v_720p_14B_fp8_e4m3fn.safetensors
+- wan2.1_i2v_720p_14B_fp8_scaled.safetensors
+- wan2.1_t2v_1.3B_bf16.safetensors
+- wan2.1_t2v_1.3B_fp16.safetensors
+- wan2.1_t2v_14B_bf16.safetensors
+- wan2.1_t2v_14B_fp16.safetensors
+- wan2.1_t2v_14B_fp8_e4m3fn.safetensors
+- wan2.1_t2v_14B_fp8_scaled.safetensors
+
