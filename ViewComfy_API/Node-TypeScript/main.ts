@@ -38,6 +38,7 @@ const generate = async () => {
         //     params,
         //     clientId,
         //     clientSecret,
+        //     override_workflow_api: override_workflow_api
         // });
 
         // Call the API and get the logs of the execution in real time
@@ -49,6 +50,7 @@ const generate = async () => {
             loggingCallback: console.log,
             clientId,
             clientSecret,
+            override_workflow_api: override_workflow_api
         });
 
         const urls = [];
