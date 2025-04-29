@@ -1,0 +1,271 @@
+{
+    "3": {
+        "inputs": {
+            "seed": 461631196608471,
+            "steps": 30,
+            "cfg": 6.5,
+            "sampler_name": "dpmpp_2m",
+            "scheduler": "karras",
+            "denoise": 1,
+            "model": [
+                "14",
+                0
+            ],
+            "positive": [
+                "31",
+                0
+            ],
+            "negative": [
+                "31",
+                1
+            ],
+            "latent_image": [
+                "19",
+                0
+            ]
+        },
+        "class_type": "KSampler",
+        "_meta": {
+            "title": "KSampler"
+        }
+    },
+    "4": {
+        "inputs": {
+            "ckpt_name": "leosamsHelloworldXL_helloworldXL70.safetensors"
+        },
+        "class_type": "CheckpointLoaderSimple",
+        "_meta": {
+            "title": "Load Checkpoint"
+        }
+    },
+    "6": {
+        "inputs": {
+            "text": "A mountain, marble statue, high quality, highly detailed, high quality, highly detailed",
+            "clip": [
+                "4",
+                1
+            ]
+        },
+        "class_type": "CLIPTextEncode",
+        "_meta": {
+            "title": "CLIP Text Encode (Prompt)"
+        }
+    },
+    "7": {
+        "inputs": {
+            "text": "blurry, noisy, messy, lowres, jpeg, artifacts, ill, distorted, malformed",
+            "clip": [
+                "4",
+                1
+            ]
+        },
+        "class_type": "CLIPTextEncode",
+        "_meta": {
+            "title": "CLIP Text Encode (Prompt)"
+        }
+    },
+    "8": {
+        "inputs": {
+            "samples": [
+                "3",
+                0
+            ],
+            "vae": [
+                "4",
+                2
+            ]
+        },
+        "class_type": "VAEDecode",
+        "_meta": {
+            "title": "VAE Decode"
+        }
+    },
+    "9": {
+        "inputs": {
+            "filename_prefix": "1087",
+            "images": [
+                "8",
+                0
+            ]
+        },
+        "class_type": "SaveImage",
+        "_meta": {
+            "title": "Save Image"
+        }
+    },
+    "11": {
+        "inputs": {
+            "preset": "PLUS (high strength)",
+            "model": [
+                "4",
+                0
+            ]
+        },
+        "class_type": "IPAdapterUnifiedLoader",
+        "_meta": {
+            "title": "IPAdapter Unified Loader"
+        }
+    },
+    "12": {
+        "inputs": {
+            "image": "cinthia-piedrahita-n0ZsDUw8Nck-unsplash.jpg",
+            "upload": "image"
+        },
+        "class_type": "LoadImage",
+        "_meta": {
+            "title": "Composition image"
+        }
+    },
+    "14": {
+        "inputs": {
+            "weight": 1,
+            "weight_type": "style transfer",
+            "combine_embeds": "concat",
+            "start_at": 0,
+            "end_at": 1,
+            "embeds_scaling": "V only",
+            "model": [
+                "11",
+                0
+            ],
+            "ipadapter": [
+                "11",
+                1
+            ],
+            "image": [
+                "17",
+                0
+            ]
+        },
+        "class_type": "IPAdapterAdvanced",
+        "_meta": {
+            "title": "IPAdapter Advanced"
+        }
+    },
+    "15": {
+        "inputs": {
+            "strength": 0.8,
+            "start_percent": 0,
+            "end_percent": 1,
+            "positive": [
+                "6",
+                0
+            ],
+            "negative": [
+                "7",
+                0
+            ],
+            "control_net": [
+                "18",
+                0
+            ],
+            "image": [
+                "25",
+                0
+            ]
+        },
+        "class_type": "ControlNetApplyAdvanced",
+        "_meta": {
+            "title": "Apply Lineart ControlNet"
+        }
+    },
+    "17": {
+        "inputs": {
+            "image": "maxim-bogdanov-pHvhDaHKs34-unsplash.jpg",
+            "upload": "image"
+        },
+        "class_type": "LoadImage",
+        "_meta": {
+            "title": "Style Image"
+        }
+    },
+    "18": {
+        "inputs": {
+            "control_net_name": "t2i-adapter_diffusers_xl_lineart.safetensors"
+        },
+        "class_type": "ControlNetLoader",
+        "_meta": {
+            "title": "Load ControlNet Model"
+        }
+    },
+    "19": {
+        "inputs": {
+            "pixels": [
+                "12",
+                0
+            ],
+            "vae": [
+                "4",
+                2
+            ]
+        },
+        "class_type": "VAEEncode",
+        "_meta": {
+            "title": "VAE Encode"
+        }
+    },
+    "25": {
+        "inputs": {
+            "coarse": "disable",
+            "resolution": 512,
+            "image": [
+                "12",
+                0
+            ]
+        },
+        "class_type": "LineArtPreprocessor",
+        "_meta": {
+            "title": "Realistic Lineart"
+        }
+    },
+    "29": {
+        "inputs": {
+            "ckpt_name": "depth_anything_vitl14.pth",
+            "resolution": 512,
+            "image": [
+                "12",
+                0
+            ]
+        },
+        "class_type": "DepthAnythingPreprocessor",
+        "_meta": {
+            "title": "Depth Anything"
+        }
+    },
+    "31": {
+        "inputs": {
+            "strength": 0.6,
+            "start_percent": 0,
+            "end_percent": 1,
+            "positive": [
+                "15",
+                0
+            ],
+            "negative": [
+                "15",
+                1
+            ],
+            "control_net": [
+                "32",
+                0
+            ],
+            "image": [
+                "29",
+                0
+            ]
+        },
+        "class_type": "ControlNetApplyAdvanced",
+        "_meta": {
+            "title": "Apply Depth ControlNet"
+        }
+    },
+    "32": {
+        "inputs": {
+            "control_net_name": "sai_xl_depth_256lora.safetensors"
+        },
+        "class_type": "ControlNetLoader",
+        "_meta": {
+            "title": "Load ControlNet Model"
+        }
+    }
+}
