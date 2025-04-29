@@ -1,0 +1,794 @@
+{
+  "file_type": "view_comfy",
+  "file_version": "1.0.0",
+  "version": "0.0.1",
+  "appTitle": "pied piper",
+  "appImg": "https://rukminim2.flixcart.com/image/850/1000/jf8khow0/poster/3/g/w/small-silicon-valley-pied-piper-tv-show-poster-collection-original-imaf3r93tcdxgk4u.jpeg?q=20&crop=false",
+  "workflows": [
+    {
+      "viewComfyJSON": {
+        "title": "Style transfer",
+        "description": "Add any style to your images",
+        "viewcomfyEndpoint": "https://viewcomfy--4-2-v7zp07-comfyui-infer.modal.run",
+        "previewImages": [
+          "https://viewcomfy-models-public.s3.us-east-1.amazonaws.com/template_covers/style_transfer_cover_image.jpg",
+          null,
+          null
+        ],
+        "inputs": [
+          {
+            "title": "CLIP Text Encode (Prompt)",
+            "inputs": [
+              {
+                "title": "CLIP Text Encode (Prompt)",
+                "placeholder": "CLIP Text Encode (Prompt)",
+                "value": "A mountain, marble statue, high quality, highly detailed, high quality, highly detailed",
+                "workflowPath": [
+                  "6",
+                  "inputs",
+                  "text"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "long-text",
+                "validations": {
+                  "required": true
+                },
+                "key": "6-inputs-text"
+              }
+            ],
+            "key": "6-CLIPTextEncode"
+          },
+          {
+            "title": "Composition image",
+            "inputs": [
+              {
+                "title": "Composition image",
+                "placeholder": "Composition image",
+                "value": null,
+                "workflowPath": [
+                  "12",
+                  "inputs",
+                  "image"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "image",
+                "validations": {
+                  "required": true
+                },
+                "key": "12-inputs-image"
+              }
+            ],
+            "key": "12-LoadImage"
+          },
+          {
+            "title": "Style Image",
+            "inputs": [
+              {
+                "title": "Style Image",
+                "placeholder": "Style Image",
+                "value": null,
+                "workflowPath": [
+                  "17",
+                  "inputs",
+                  "image"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "image",
+                "validations": {
+                  "required": true
+                },
+                "key": "17-inputs-image"
+              }
+            ],
+            "key": "17-LoadImage"
+          }
+        ],
+        "advancedInputs": [],
+        "id": "5c5d9c997ac1b"
+      },
+      "workflowApiJSON": {
+        "3": {
+          "inputs": {
+            "seed": 461631196608471,
+            "steps": 30,
+            "cfg": 6.5,
+            "sampler_name": "dpmpp_2m",
+            "scheduler": "karras",
+            "denoise": 1,
+            "model": [
+              "14",
+              0
+            ],
+            "positive": [
+              "31",
+              0
+            ],
+            "negative": [
+              "31",
+              1
+            ],
+            "latent_image": [
+              "19",
+              0
+            ]
+          },
+          "class_type": "KSampler",
+          "_meta": {
+            "title": "KSampler"
+          }
+        },
+        "4": {
+          "inputs": {
+            "ckpt_name": "leosamsHelloworldXL_helloworldXL70.safetensors"
+          },
+          "class_type": "CheckpointLoaderSimple",
+          "_meta": {
+            "title": "Load Checkpoint"
+          }
+        },
+        "6": {
+          "inputs": {
+            "text": "A mountain, marble statue, high quality, highly detailed, high quality, highly detailed",
+            "clip": [
+              "4",
+              1
+            ]
+          },
+          "class_type": "CLIPTextEncode",
+          "_meta": {
+            "title": "CLIP Text Encode (Prompt)"
+          }
+        },
+        "7": {
+          "inputs": {
+            "text": "blurry, noisy, messy, lowres, jpeg, artifacts, ill, distorted, malformed",
+            "clip": [
+              "4",
+              1
+            ]
+          },
+          "class_type": "CLIPTextEncode",
+          "_meta": {
+            "title": "CLIP Text Encode (Prompt)"
+          }
+        },
+        "8": {
+          "inputs": {
+            "samples": [
+              "3",
+              0
+            ],
+            "vae": [
+              "4",
+              2
+            ]
+          },
+          "class_type": "VAEDecode",
+          "_meta": {
+            "title": "VAE Decode"
+          }
+        },
+        "9": {
+          "inputs": {
+            "filename_prefix": "1087",
+            "images": [
+              "8",
+              0
+            ]
+          },
+          "class_type": "SaveImage",
+          "_meta": {
+            "title": "Save Image"
+          }
+        },
+        "11": {
+          "inputs": {
+            "preset": "PLUS (high strength)",
+            "model": [
+              "4",
+              0
+            ]
+          },
+          "class_type": "IPAdapterUnifiedLoader",
+          "_meta": {
+            "title": "IPAdapter Unified Loader"
+          }
+        },
+        "12": {
+          "inputs": {
+            "image": "cinthia-piedrahita-n0ZsDUw8Nck-unsplash.jpg",
+            "upload": "image"
+          },
+          "class_type": "LoadImage",
+          "_meta": {
+            "title": "Composition image"
+          }
+        },
+        "14": {
+          "inputs": {
+            "weight": 1,
+            "weight_type": "style transfer",
+            "combine_embeds": "concat",
+            "start_at": 0,
+            "end_at": 1,
+            "embeds_scaling": "V only",
+            "model": [
+              "11",
+              0
+            ],
+            "ipadapter": [
+              "11",
+              1
+            ],
+            "image": [
+              "17",
+              0
+            ]
+          },
+          "class_type": "IPAdapterAdvanced",
+          "_meta": {
+            "title": "IPAdapter Advanced"
+          }
+        },
+        "15": {
+          "inputs": {
+            "strength": 0.8,
+            "start_percent": 0,
+            "end_percent": 1,
+            "positive": [
+              "6",
+              0
+            ],
+            "negative": [
+              "7",
+              0
+            ],
+            "control_net": [
+              "18",
+              0
+            ],
+            "image": [
+              "25",
+              0
+            ]
+          },
+          "class_type": "ControlNetApplyAdvanced",
+          "_meta": {
+            "title": "Apply Lineart ControlNet"
+          }
+        },
+        "17": {
+          "inputs": {
+            "image": "maxim-bogdanov-pHvhDaHKs34-unsplash.jpg",
+            "upload": "image"
+          },
+          "class_type": "LoadImage",
+          "_meta": {
+            "title": "Style Image"
+          }
+        },
+        "18": {
+          "inputs": {
+            "control_net_name": "t2i-adapter_diffusers_xl_lineart.safetensors"
+          },
+          "class_type": "ControlNetLoader",
+          "_meta": {
+            "title": "Load ControlNet Model"
+          }
+        },
+        "19": {
+          "inputs": {
+            "pixels": [
+              "12",
+              0
+            ],
+            "vae": [
+              "4",
+              2
+            ]
+          },
+          "class_type": "VAEEncode",
+          "_meta": {
+            "title": "VAE Encode"
+          }
+        },
+        "25": {
+          "inputs": {
+            "coarse": "disable",
+            "resolution": 512,
+            "image": [
+              "12",
+              0
+            ]
+          },
+          "class_type": "LineArtPreprocessor",
+          "_meta": {
+            "title": "Realistic Lineart"
+          }
+        },
+        "29": {
+          "inputs": {
+            "ckpt_name": "depth_anything_vitl14.pth",
+            "resolution": 512,
+            "image": [
+              "12",
+              0
+            ]
+          },
+          "class_type": "DepthAnythingPreprocessor",
+          "_meta": {
+            "title": "Depth Anything"
+          }
+        },
+        "31": {
+          "inputs": {
+            "strength": 0.6,
+            "start_percent": 0,
+            "end_percent": 1,
+            "positive": [
+              "15",
+              0
+            ],
+            "negative": [
+              "15",
+              1
+            ],
+            "control_net": [
+              "32",
+              0
+            ],
+            "image": [
+              "29",
+              0
+            ]
+          },
+          "class_type": "ControlNetApplyAdvanced",
+          "_meta": {
+            "title": "Apply Depth ControlNet"
+          }
+        },
+        "32": {
+          "inputs": {
+            "control_net_name": "sai_xl_depth_256lora.safetensors"
+          },
+          "class_type": "ControlNetLoader",
+          "_meta": {
+            "title": "Load ControlNet Model"
+          }
+        }
+      }
+    },
+    {
+      "viewComfyJSON": {
+        "title": "Text to Video with custom styles",
+        "description": "Generate a video from text with custom styles",
+        "viewcomfyEndpoint": "https://viewcomfy--4-2-joixac-comfyui-infer.modal.run",
+        "previewImages": [
+          "https://www.viewcomfy.com/_next/image?url=%2Fassets%2Fblog%2FHunyuan_loras%2Fusing%20Hunyuan%20loras%20in%20ComfyUI.webp&w=3840&q=75",
+          null,
+          null
+        ],
+        "inputs": [
+          {
+            "title": "HunyuanVideo TextEncode",
+            "inputs": [
+              {
+                "title": "Prompt",
+                "placeholder": "Prompt",
+                "value": "A scene from a Studio Ghibli animated film, featuring a playful girl with wavy red hair, green eyes, and a sunhat, as she runs through a meadow of wildflowers under a clear blue sky, with petals floating in the air, while the camera follows her joyfully, emphasizing the lively and carefree ambiance.",
+                "workflowPath": [
+                  "30",
+                  "inputs",
+                  "prompt"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "string",
+                "validations": {
+                  "required": true
+                },
+                "key": "30-inputs-prompt"
+              }
+            ],
+            "key": "30-HyVideoTextEncode"
+          },
+          {
+            "title": "HunyuanVideo Lora Select",
+            "inputs": [
+              {
+                "title": "Lora",
+                "placeholder": "Lora",
+                "value": "fluidart-v1_hunyuanvideo_e28.safetensors",
+                "workflowPath": [
+                  "42",
+                  "inputs",
+                  "lora"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "select",
+                "options": [
+                  {
+                    "label": "Fluid art styled animations",
+                    "value": "fluidart-v1_hunyuanvideo_e28.safetensors"
+                  },
+                  {
+                    "label": "Studio Ghibli",
+                    "value": "studio_ghibli_hv_v03_19.safetensors"
+                  },
+                  {
+                    "label": "Boring reality",
+                    "value": "boring-reality-v1.safetensors"
+                  }
+                ],
+                "validations": {
+                  "required": true
+                },
+                "key": "42-inputs-lora"
+              },
+              {
+                "title": "Strength",
+                "placeholder": "Strength",
+                "value": 1,
+                "workflowPath": [
+                  "42",
+                  "inputs",
+                  "strength"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "42-inputs-strength"
+              }
+            ],
+            "key": "42-HyVideoLoraSelect"
+          }
+        ],
+        "advancedInputs": [
+          {
+            "title": "HunyuanVideo Sampler",
+            "inputs": [
+              {
+                "title": "Width",
+                "placeholder": "Width",
+                "value": 512,
+                "workflowPath": [
+                  "3",
+                  "inputs",
+                  "width"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "3-inputs-width"
+              },
+              {
+                "title": "Height",
+                "placeholder": "Height",
+                "value": 320,
+                "workflowPath": [
+                  "3",
+                  "inputs",
+                  "height"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "3-inputs-height"
+              },
+              {
+                "title": "Num_frames",
+                "placeholder": "Num_frames",
+                "value": 41,
+                "workflowPath": [
+                  "3",
+                  "inputs",
+                  "num_frames"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "3-inputs-num_frames"
+              },
+              {
+                "title": "Steps",
+                "placeholder": "Steps",
+                "value": 30,
+                "workflowPath": [
+                  "3",
+                  "inputs",
+                  "steps"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "3-inputs-steps"
+              },
+              {
+                "title": "Embedded_guidance_scale",
+                "placeholder": "Embedded_guidance_scale",
+                "value": 6,
+                "workflowPath": [
+                  "3",
+                  "inputs",
+                  "embedded_guidance_scale"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "3-inputs-embedded_guidance_scale"
+              },
+              {
+                "title": "Flow_shift",
+                "placeholder": "Flow_shift",
+                "value": 9,
+                "workflowPath": [
+                  "3",
+                  "inputs",
+                  "flow_shift"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "3-inputs-flow_shift"
+              },
+              {
+                "title": "Seed",
+                "placeholder": "Seed",
+                "value": 738843970376088,
+                "workflowPath": [
+                  "3",
+                  "inputs",
+                  "seed"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "seed",
+                "validations": {
+                  "required": true
+                },
+                "key": "3-inputs-seed"
+              },
+              {
+                "title": "Force_offload",
+                "placeholder": "Force_offload",
+                "value": 1,
+                "workflowPath": [
+                  "3",
+                  "inputs",
+                  "force_offload"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "3-inputs-force_offload"
+              },
+              {
+                "title": "Denoise_strength",
+                "placeholder": "Denoise_strength",
+                "value": 1,
+                "workflowPath": [
+                  "3",
+                  "inputs",
+                  "denoise_strength"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "3-inputs-denoise_strength"
+              },
+              {
+                "title": "Scheduler",
+                "placeholder": "Scheduler",
+                "value": "FlowMatchDiscreteScheduler",
+                "workflowPath": [
+                  "3",
+                  "inputs",
+                  "scheduler"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "string",
+                "validations": {
+                  "required": true
+                },
+                "key": "3-inputs-scheduler"
+              },
+              {
+                "title": "Riflex_freq_index",
+                "placeholder": "Riflex_freq_index",
+                "value": 0,
+                "workflowPath": [
+                  "3",
+                  "inputs",
+                  "riflex_freq_index"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "3-inputs-riflex_freq_index"
+              },
+              {
+                "title": "I2v_mode",
+                "placeholder": "I2v_mode",
+                "value": "dynamic",
+                "workflowPath": [
+                  "3",
+                  "inputs",
+                  "i2v_mode"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "string",
+                "validations": {
+                  "required": true
+                },
+                "key": "3-inputs-i2v_mode"
+              }
+            ],
+            "key": "3-HyVideoSampler"
+          }
+        ],
+        "id": "47f528185830b8"
+      },
+      "workflowApiJSON": {
+        "1": {
+          "inputs": {
+            "model": "hunyuan_video_720_fp8_e4m3fn.safetensors",
+            "base_precision": "bf16",
+            "quantization": "fp8_e4m3fn",
+            "load_device": "offload_device",
+            "attention_mode": "comfy",
+            "auto_cpu_offload": false,
+            "upcast_rope": true,
+            "lora": [
+              "42",
+              0
+            ]
+          },
+          "class_type": "HyVideoModelLoader",
+          "_meta": {
+            "title": "HunyuanVideo Model Loader"
+          }
+        },
+        "3": {
+          "inputs": {
+            "width": 512,
+            "height": 320,
+            "num_frames": 41,
+            "steps": 30,
+            "embedded_guidance_scale": 6,
+            "flow_shift": 9,
+            "seed": 738843970376088,
+            "force_offload": 1,
+            "denoise_strength": 1,
+            "scheduler": "FlowMatchDiscreteScheduler",
+            "riflex_freq_index": 0,
+            "i2v_mode": "dynamic",
+            "model": [
+              "1",
+              0
+            ],
+            "hyvid_embeds": [
+              "30",
+              0
+            ]
+          },
+          "class_type": "HyVideoSampler",
+          "_meta": {
+            "title": "HunyuanVideo Sampler"
+          }
+        },
+        "5": {
+          "inputs": {
+            "enable_vae_tiling": true,
+            "temporal_tiling_sample_size": 8,
+            "spatial_tile_sample_min_size": 256,
+            "auto_tile_size": true,
+            "skip_latents": 0,
+            "balance_brightness": false,
+            "vae": [
+              "7",
+              0
+            ],
+            "samples": [
+              "3",
+              0
+            ]
+          },
+          "class_type": "HyVideoDecode",
+          "_meta": {
+            "title": "HunyuanVideo Decode"
+          }
+        },
+        "7": {
+          "inputs": {
+            "model_name": "hunyuan_video_vae_bf16.safetensors",
+            "precision": "fp16"
+          },
+          "class_type": "HyVideoVAELoader",
+          "_meta": {
+            "title": "HunyuanVideo VAE Loader"
+          }
+        },
+        "16": {
+          "inputs": {
+            "llm_model": "Kijai/llava-llama-3-8b-text-encoder-tokenizer",
+            "clip_model": "openai/clip-vit-large-patch14",
+            "precision": "fp16",
+            "apply_final_norm": false,
+            "hidden_state_skip_layer": 2,
+            "quantization": "disabled",
+            "load_device": "offload_device"
+          },
+          "class_type": "DownloadAndLoadHyVideoTextEncoder",
+          "_meta": {
+            "title": "(Down)Load HunyuanVideo TextEncoder"
+          }
+        },
+        "30": {
+          "inputs": {
+            "prompt": "A scene from a Studio Ghibli animated film, featuring a playful girl with wavy red hair, green eyes, and a sunhat, as she runs through a meadow of wildflowers under a clear blue sky, with petals floating in the air, while the camera follows her joyfully, emphasizing the lively and carefree ambiance.",
+            "force_offload": "bad quality video",
+            "prompt_template": "video",
+            "text_encoders": [
+              "16",
+              0
+            ]
+          },
+          "class_type": "HyVideoTextEncode",
+          "_meta": {
+            "title": "HunyuanVideo TextEncode"
+          }
+        },
+        "34": {
+          "inputs": {
+            "frame_rate": 16,
+            "loop_count": 0,
+            "filename_prefix": "1176",
+            "format": "video/h264-mp4",
+            "pix_fmt": "yuv420p",
+            "crf": 19,
+            "save_metadata": true,
+            "trim_to_audio": false,
+            "pingpong": false,
+            "save_output": true,
+            "images": [
+              "5",
+              0
+            ]
+          },
+          "class_type": "VHS_VideoCombine",
+          "_meta": {
+            "title": "Video Combine 🎥🅥🅗🅢"
+          }
+        },
+        "42": {
+          "inputs": {
+            "lora": "studio_ghibli_hv_v03_19.safetensors",
+            "strength": 1
+          },
+          "class_type": "HyVideoLoraSelect",
+          "_meta": {
+            "title": "HunyuanVideo Lora Select"
+          }
+        }
+      }
+    }
+  ]
+}
