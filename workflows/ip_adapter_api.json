@@ -1,271 +1,271 @@
 {
     "3": {
+        "_meta": {
+            "title": "KSampler"
+        },
         "inputs": {
-            "seed": 461631196608471,
-            "steps": 30,
             "cfg": 6.5,
-            "sampler_name": "dpmpp_2m",
-            "scheduler": "karras",
-            "denoise": 1,
+            "seed": 461631196608471,
             "model": [
                 "14",
                 0
             ],
-            "positive": [
-                "31",
-                0
-            ],
+            "steps": 30,
+            "denoise": 1,
             "negative": [
                 "31",
                 1
             ],
+            "positive": [
+                "31",
+                0
+            ],
+            "scheduler": "karras",
             "latent_image": [
                 "19",
                 0
-            ]
+            ],
+            "sampler_name": "dpmpp_2m"
         },
-        "class_type": "KSampler",
-        "_meta": {
-            "title": "KSampler"
-        }
+        "class_type": "KSampler"
     },
     "4": {
+        "_meta": {
+            "title": "Load Checkpoint"
+        },
         "inputs": {
             "ckpt_name": "leosamsHelloworldXL_helloworldXL70.safetensors"
         },
-        "class_type": "CheckpointLoaderSimple",
-        "_meta": {
-            "title": "Load Checkpoint"
-        }
+        "class_type": "CheckpointLoaderSimple"
     },
     "6": {
+        "_meta": {
+            "title": "CLIP Text Encode (Prompt)"
+        },
         "inputs": {
-            "text": "A mountain, marble statue, high quality, highly detailed, high quality, highly detailed",
             "clip": [
                 "4",
                 1
-            ]
+            ],
+            "text": "A mountain, marble statue, high quality, highly detailed, high quality, highly detailed"
         },
-        "class_type": "CLIPTextEncode",
-        "_meta": {
-            "title": "CLIP Text Encode (Prompt)"
-        }
+        "class_type": "CLIPTextEncode"
     },
     "7": {
+        "_meta": {
+            "title": "CLIP Text Encode (Prompt)"
+        },
         "inputs": {
-            "text": "blurry, noisy, messy, lowres, jpeg, artifacts, ill, distorted, malformed",
             "clip": [
                 "4",
                 1
-            ]
+            ],
+            "text": "blurry, noisy, messy, lowres, jpeg, artifacts, ill, distorted, malformed"
         },
-        "class_type": "CLIPTextEncode",
-        "_meta": {
-            "title": "CLIP Text Encode (Prompt)"
-        }
+        "class_type": "CLIPTextEncode"
     },
     "8": {
+        "_meta": {
+            "title": "VAE Decode"
+        },
         "inputs": {
-            "samples": [
-                "3",
-                0
-            ],
             "vae": [
                 "4",
                 2
+            ],
+            "samples": [
+                "3",
+                0
             ]
         },
-        "class_type": "VAEDecode",
-        "_meta": {
-            "title": "VAE Decode"
-        }
+        "class_type": "VAEDecode"
     },
     "9": {
+        "_meta": {
+            "title": "Save Image"
+        },
         "inputs": {
-            "filename_prefix": "1087",
             "images": [
                 "8",
                 0
-            ]
+            ],
+            "filename_prefix": "1087"
         },
-        "class_type": "SaveImage",
-        "_meta": {
-            "title": "Save Image"
-        }
+        "class_type": "SaveImage"
     },
     "11": {
+        "_meta": {
+            "title": "IPAdapter Unified Loader"
+        },
         "inputs": {
-            "preset": "PLUS (high strength)",
             "model": [
                 "4",
                 0
-            ]
+            ],
+            "preset": "PLUS (high strength)"
         },
-        "class_type": "IPAdapterUnifiedLoader",
-        "_meta": {
-            "title": "IPAdapter Unified Loader"
-        }
+        "class_type": "IPAdapterUnifiedLoader"
     },
     "12": {
+        "_meta": {
+            "title": "Composition image"
+        },
         "inputs": {
             "image": "cinthia-piedrahita-n0ZsDUw8Nck-unsplash.jpg",
             "upload": "image"
         },
-        "class_type": "LoadImage",
-        "_meta": {
-            "title": "Composition image"
-        }
+        "class_type": "LoadImage"
     },
     "14": {
+        "_meta": {
+            "title": "IPAdapter Advanced"
+        },
         "inputs": {
-            "weight": 1,
-            "weight_type": "style transfer",
-            "combine_embeds": "concat",
-            "start_at": 0,
-            "end_at": 1,
-            "embeds_scaling": "V only",
+            "image": [
+                "17",
+                0
+            ],
             "model": [
                 "11",
                 0
             ],
+            "end_at": 1,
+            "weight": 1,
+            "start_at": 0,
             "ipadapter": [
                 "11",
                 1
             ],
-            "image": [
-                "17",
-                0
-            ]
+            "weight_type": "style transfer",
+            "combine_embeds": "concat",
+            "embeds_scaling": "V only"
         },
-        "class_type": "IPAdapterAdvanced",
-        "_meta": {
-            "title": "IPAdapter Advanced"
-        }
+        "class_type": "IPAdapterAdvanced"
     },
     "15": {
+        "_meta": {
+            "title": "Apply Lineart ControlNet"
+        },
         "inputs": {
-            "strength": 0.8,
-            "start_percent": 0,
-            "end_percent": 1,
-            "positive": [
-                "6",
+            "image": [
+                "25",
                 0
             ],
             "negative": [
                 "7",
                 0
             ],
+            "positive": [
+                "6",
+                0
+            ],
+            "strength": 0.8,
             "control_net": [
                 "18",
                 0
             ],
-            "image": [
-                "25",
-                0
-            ]
+            "end_percent": 1,
+            "start_percent": 0
         },
-        "class_type": "ControlNetApplyAdvanced",
-        "_meta": {
-            "title": "Apply Lineart ControlNet"
-        }
+        "class_type": "ControlNetApplyAdvanced"
     },
     "17": {
+        "_meta": {
+            "title": "Style Image"
+        },
         "inputs": {
             "image": "maxim-bogdanov-pHvhDaHKs34-unsplash.jpg",
             "upload": "image"
         },
-        "class_type": "LoadImage",
-        "_meta": {
-            "title": "Style Image"
-        }
+        "class_type": "LoadImage"
     },
     "18": {
+        "_meta": {
+            "title": "Load ControlNet Model"
+        },
         "inputs": {
             "control_net_name": "t2i-adapter_diffusers_xl_lineart.safetensors"
         },
-        "class_type": "ControlNetLoader",
-        "_meta": {
-            "title": "Load ControlNet Model"
-        }
+        "class_type": "ControlNetLoader"
     },
     "19": {
+        "_meta": {
+            "title": "VAE Encode"
+        },
         "inputs": {
-            "pixels": [
-                "12",
-                0
-            ],
             "vae": [
                 "4",
                 2
+            ],
+            "pixels": [
+                "12",
+                0
             ]
         },
-        "class_type": "VAEEncode",
-        "_meta": {
-            "title": "VAE Encode"
-        }
+        "class_type": "VAEEncode"
     },
     "25": {
-        "inputs": {
-            "coarse": "disable",
-            "resolution": 512,
-            "image": [
-                "12",
-                0
-            ]
-        },
-        "class_type": "LineArtPreprocessor",
         "_meta": {
             "title": "Realistic Lineart"
-        }
-    },
-    "29": {
+        },
         "inputs": {
-            "ckpt_name": "depth_anything_vitl14.pth",
-            "resolution": 512,
             "image": [
                 "12",
                 0
-            ]
+            ],
+            "coarse": "disable",
+            "resolution": 512
         },
-        "class_type": "DepthAnythingPreprocessor",
+        "class_type": "LineArtPreprocessor"
+    },
+    "29": {
         "_meta": {
             "title": "Depth Anything"
-        }
+        },
+        "inputs": {
+            "image": [
+                "12",
+                0
+            ],
+            "ckpt_name": "depth_anything_vitl14.pth",
+            "resolution": 512
+        },
+        "class_type": "DepthAnythingPreprocessor"
     },
     "31": {
+        "_meta": {
+            "title": "Apply Depth ControlNet"
+        },
         "inputs": {
-            "strength": 0.6,
-            "start_percent": 0,
-            "end_percent": 1,
-            "positive": [
-                "15",
+            "image": [
+                "29",
                 0
             ],
             "negative": [
                 "15",
                 1
             ],
+            "positive": [
+                "15",
+                0
+            ],
+            "strength": 0.6,
             "control_net": [
                 "32",
                 0
             ],
-            "image": [
-                "29",
-                0
-            ]
+            "end_percent": 1,
+            "start_percent": 0
         },
-        "class_type": "ControlNetApplyAdvanced",
-        "_meta": {
-            "title": "Apply Depth ControlNet"
-        }
+        "class_type": "ControlNetApplyAdvanced"
     },
     "32": {
+        "_meta": {
+            "title": "Load ControlNet Model"
+        },
         "inputs": {
             "control_net_name": "sai_xl_depth_256lora.safetensors"
         },
-        "class_type": "ControlNetLoader",
-        "_meta": {
-            "title": "Load ControlNet Model"
-        }
+        "class_type": "ControlNetLoader"
     }
 }
