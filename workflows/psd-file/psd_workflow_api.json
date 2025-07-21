@@ -1,0 +1,142 @@
+{
+  "10": {
+    "inputs": {
+      "width": 512,
+      "height": 512,
+      "batch_size": 1,
+      "color": 4
+    },
+    "class_type": "EmptyImage",
+    "_meta": {
+      "title": "EmptyImage"
+    }
+  },
+  "11": {
+    "inputs": {
+      "width": 512,
+      "height": 512,
+      "batch_size": 1,
+      "color": 94
+    },
+    "class_type": "EmptyImage",
+    "_meta": {
+      "title": "EmptyImage"
+    }
+  },
+  "16": {
+    "inputs": {
+      "value": 1,
+      "width": 512,
+      "height": 512
+    },
+    "class_type": "SolidMask",
+    "_meta": {
+      "title": "SolidMask"
+    }
+  },
+  "17": {
+    "inputs": {
+      "expand": -109,
+      "tapered_corners": true,
+      "mask": [
+        "16",
+        0
+      ]
+    },
+    "class_type": "GrowMask",
+    "_meta": {
+      "title": "GrowMask"
+    }
+  },
+  "23": {
+    "inputs": {
+      "filename_prefix": [
+        "29",
+        0
+      ],
+      "output_dir": "/root/comfy/ComfyUI/output",
+      "layer1": [
+        "10",
+        0
+      ],
+      "mask1": [
+        "17",
+        0
+      ],
+      "layer2": [
+        "11",
+        0
+      ],
+      "mask2": [
+        "16",
+        0
+      ]
+    },
+    "class_type": "StarPSDSaver2",
+    "_meta": {
+      "title": "⭐ Star PSD Saver 2 (Optimized)"
+    }
+  },
+  "26": {
+    "inputs": {
+      "text": "{\n  \"type\": \"output\",\n  \"filename\": \"psd_file_name.psd\"\n}",
+      "anything": [
+        "28",
+        0
+      ]
+    },
+    "class_type": "easy showAnything",
+    "_meta": {
+      "title": "Show Any"
+    }
+  },
+  "27": {
+    "inputs": {
+      "value": "{\n  \"type\": \"output\",\n  \"filename\": \"__VALUE__\"\n}"
+    },
+    "class_type": "PrimitiveStringMultiline",
+    "_meta": {
+      "title": "Output Like Object"
+    }
+  },
+  "28": {
+    "inputs": {
+      "string": [
+        "27",
+        0
+      ],
+      "find": "__VALUE__",
+      "replace": [
+        "30",
+        0
+      ]
+    },
+    "class_type": "StringReplace",
+    "_meta": {
+      "title": "Replace"
+    }
+  },
+  "29": {
+    "inputs": {
+      "value": "psd_file_name"
+    },
+    "class_type": "PrimitiveString",
+    "_meta": {
+      "title": "FileName"
+    }
+  },
+  "30": {
+    "inputs": {
+      "string_a": [
+        "29",
+        0
+      ],
+      "string_b": ".psd",
+      "delimiter": ""
+    },
+    "class_type": "StringConcatenate",
+    "_meta": {
+      "title": "Extension"
+    }
+  }
+}

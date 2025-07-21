@@ -1,0 +1,547 @@
+{
+  "file_type": "view_comfy",
+  "file_version": "1.0.0",
+  "version": "0.0.1",
+  "appTitle": "",
+  "appImg": "",
+  "workflows": [
+    {
+      "viewComfyJSON": {
+        "title": "My Awesome Workflow 1",
+        "description": "",
+        "viewcomfyEndpoint": "",
+        "previewImages": [
+          null,
+          null,
+          null
+        ],
+        "inputs": [
+          {
+            "title": "EmptyImage",
+            "inputs": [
+              {
+                "title": "Width",
+                "placeholder": "Width",
+                "value": 512,
+                "workflowPath": [
+                  "10",
+                  "inputs",
+                  "width"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "10-inputs-width"
+              },
+              {
+                "title": "Height",
+                "placeholder": "Height",
+                "value": 512,
+                "workflowPath": [
+                  "10",
+                  "inputs",
+                  "height"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "10-inputs-height"
+              },
+              {
+                "title": "Batch_size",
+                "placeholder": "Batch_size",
+                "value": 1,
+                "workflowPath": [
+                  "10",
+                  "inputs",
+                  "batch_size"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "10-inputs-batch_size"
+              },
+              {
+                "title": "Color",
+                "placeholder": "Color",
+                "value": 4,
+                "workflowPath": [
+                  "10",
+                  "inputs",
+                  "color"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "10-inputs-color"
+              }
+            ],
+            "key": "10-EmptyImage"
+          },
+          {
+            "title": "EmptyImage",
+            "inputs": [
+              {
+                "title": "Width",
+                "placeholder": "Width",
+                "value": 512,
+                "workflowPath": [
+                  "11",
+                  "inputs",
+                  "width"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "11-inputs-width"
+              },
+              {
+                "title": "Height",
+                "placeholder": "Height",
+                "value": 512,
+                "workflowPath": [
+                  "11",
+                  "inputs",
+                  "height"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "11-inputs-height"
+              },
+              {
+                "title": "Batch_size",
+                "placeholder": "Batch_size",
+                "value": 1,
+                "workflowPath": [
+                  "11",
+                  "inputs",
+                  "batch_size"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "11-inputs-batch_size"
+              },
+              {
+                "title": "Color",
+                "placeholder": "Color",
+                "value": 94,
+                "workflowPath": [
+                  "11",
+                  "inputs",
+                  "color"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "11-inputs-color"
+              }
+            ],
+            "key": "11-EmptyImage"
+          },
+          {
+            "title": "SolidMask",
+            "inputs": [
+              {
+                "title": "Value",
+                "placeholder": "Value",
+                "value": 1,
+                "workflowPath": [
+                  "16",
+                  "inputs",
+                  "value"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "16-inputs-value"
+              },
+              {
+                "title": "Width",
+                "placeholder": "Width",
+                "value": 512,
+                "workflowPath": [
+                  "16",
+                  "inputs",
+                  "width"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "16-inputs-width"
+              },
+              {
+                "title": "Height",
+                "placeholder": "Height",
+                "value": 512,
+                "workflowPath": [
+                  "16",
+                  "inputs",
+                  "height"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "16-inputs-height"
+              }
+            ],
+            "key": "16-SolidMask"
+          },
+          {
+            "title": "GrowMask",
+            "inputs": [
+              {
+                "title": "Expand",
+                "placeholder": "Expand",
+                "value": -109,
+                "workflowPath": [
+                  "17",
+                  "inputs",
+                  "expand"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "number",
+                "validations": {
+                  "required": true
+                },
+                "key": "17-inputs-expand"
+              },
+              {
+                "title": "Tapered_corners",
+                "placeholder": "Tapered_corners",
+                "value": true,
+                "workflowPath": [
+                  "17",
+                  "inputs",
+                  "tapered_corners"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "boolean",
+                "validations": {
+                  "required": true
+                },
+                "key": "17-inputs-tapered_corners"
+              }
+            ],
+            "key": "17-GrowMask"
+          },
+          {
+            "title": "⭐ Star PSD Saver 2 (Optimized)",
+            "inputs": [
+              {
+                "title": "Output_dir",
+                "placeholder": "Output_dir",
+                "value": "/root/comfy/ComfyUI/output",
+                "workflowPath": [
+                  "23",
+                  "inputs",
+                  "output_dir"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "string",
+                "validations": {
+                  "required": true
+                },
+                "key": "23-inputs-output_dir"
+              }
+            ],
+            "key": "23-StarPSDSaver2"
+          },
+          {
+            "title": "Show Any",
+            "inputs": [
+              {
+                "title": "Text",
+                "placeholder": "Text",
+                "value": "{\n  \"type\": \"output\",\n  \"filename\": \"psd_file_name.psd\"\n}",
+                "workflowPath": [
+                  "26",
+                  "inputs",
+                  "text"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "string",
+                "validations": {
+                  "required": true
+                },
+                "key": "26-inputs-text"
+              }
+            ],
+            "key": "26-easy showAnything"
+          },
+          {
+            "title": "Output Like Object",
+            "inputs": [
+              {
+                "title": "Value",
+                "placeholder": "Value",
+                "value": "{\n  \"type\": \"output\",\n  \"filename\": \"__VALUE__\"\n}",
+                "workflowPath": [
+                  "27",
+                  "inputs",
+                  "value"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "string",
+                "validations": {
+                  "required": true
+                },
+                "key": "27-inputs-value"
+              }
+            ],
+            "key": "27-PrimitiveStringMultiline"
+          },
+          {
+            "title": "Replace",
+            "inputs": [
+              {
+                "title": "Find",
+                "placeholder": "Find",
+                "value": "__VALUE__",
+                "workflowPath": [
+                  "28",
+                  "inputs",
+                  "find"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "string",
+                "validations": {
+                  "required": true
+                },
+                "key": "28-inputs-find"
+              }
+            ],
+            "key": "28-StringReplace"
+          },
+          {
+            "title": "FileName",
+            "inputs": [
+              {
+                "title": "Value",
+                "placeholder": "Value",
+                "value": "psd_file_name",
+                "workflowPath": [
+                  "29",
+                  "inputs",
+                  "value"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "string",
+                "validations": {
+                  "required": true
+                },
+                "key": "29-inputs-value"
+              }
+            ],
+            "key": "29-PrimitiveString"
+          },
+          {
+            "title": "Extension",
+            "inputs": [
+              {
+                "title": "String_b",
+                "placeholder": "String_b",
+                "value": ".psd",
+                "workflowPath": [
+                  "30",
+                  "inputs",
+                  "string_b"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "string",
+                "validations": {
+                  "required": true
+                },
+                "key": "30-inputs-string_b"
+              },
+              {
+                "title": "Delimiter",
+                "placeholder": "Delimiter",
+                "value": "",
+                "workflowPath": [
+                  "30",
+                  "inputs",
+                  "delimiter"
+                ],
+                "helpText": "Helper Text",
+                "valueType": "string",
+                "validations": {
+                  "required": true
+                },
+                "key": "30-inputs-delimiter"
+              }
+            ],
+            "key": "30-StringConcatenate"
+          }
+        ],
+        "advancedInputs": [],
+        "id": "f688dc269f7a7"
+      },
+      "workflowApiJSON": {
+        "10": {
+          "inputs": {
+            "width": 512,
+            "height": 512,
+            "batch_size": 1,
+            "color": 4
+          },
+          "class_type": "EmptyImage",
+          "_meta": {
+            "title": "EmptyImage"
+          }
+        },
+        "11": {
+          "inputs": {
+            "width": 512,
+            "height": 512,
+            "batch_size": 1,
+            "color": 94
+          },
+          "class_type": "EmptyImage",
+          "_meta": {
+            "title": "EmptyImage"
+          }
+        },
+        "16": {
+          "inputs": {
+            "value": 1,
+            "width": 512,
+            "height": 512
+          },
+          "class_type": "SolidMask",
+          "_meta": {
+            "title": "SolidMask"
+          }
+        },
+        "17": {
+          "inputs": {
+            "expand": -109,
+            "tapered_corners": true,
+            "mask": [
+              "16",
+              0
+            ]
+          },
+          "class_type": "GrowMask",
+          "_meta": {
+            "title": "GrowMask"
+          }
+        },
+        "23": {
+          "inputs": {
+            "filename_prefix": [
+              "29",
+              0
+            ],
+            "output_dir": "/root/comfy/ComfyUI/output",
+            "layer1": [
+              "10",
+              0
+            ],
+            "mask1": [
+              "17",
+              0
+            ],
+            "layer2": [
+              "11",
+              0
+            ],
+            "mask2": [
+              "16",
+              0
+            ]
+          },
+          "class_type": "StarPSDSaver2",
+          "_meta": {
+            "title": "⭐ Star PSD Saver 2 (Optimized)"
+          }
+        },
+        "26": {
+          "inputs": {
+            "text": "{\n  \"type\": \"output\",\n  \"filename\": \"psd_file_name.psd\"\n}",
+            "anything": [
+              "28",
+              0
+            ]
+          },
+          "class_type": "easy showAnything",
+          "_meta": {
+            "title": "Show Any"
+          }
+        },
+        "27": {
+          "inputs": {
+            "value": "{\n  \"type\": \"output\",\n  \"filename\": \"__VALUE__\"\n}"
+          },
+          "class_type": "PrimitiveStringMultiline",
+          "_meta": {
+            "title": "Output Like Object"
+          }
+        },
+        "28": {
+          "inputs": {
+            "string": [
+              "27",
+              0
+            ],
+            "find": "__VALUE__",
+            "replace": [
+              "30",
+              0
+            ]
+          },
+          "class_type": "StringReplace",
+          "_meta": {
+            "title": "Replace"
+          }
+        },
+        "29": {
+          "inputs": {
+            "value": "psd_file_name"
+          },
+          "class_type": "PrimitiveString",
+          "_meta": {
+            "title": "FileName"
+          }
+        },
+        "30": {
+          "inputs": {
+            "string_a": [
+              "29",
+              0
+            ],
+            "string_b": ".psd",
+            "delimiter": ""
+          },
+          "class_type": "StringConcatenate",
+          "_meta": {
+            "title": "Extension"
+          }
+        }
+      }
+    }
+  ]
+}
