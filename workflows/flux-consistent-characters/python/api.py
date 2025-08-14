@@ -1,26 +1,57 @@
 import json
 from io import BufferedReader
-from typing import Any, Callable, Dict, List
+from typing import Any, Callable, Dict, Self
+
 import httpx
 
 
 class FileOutput:
     """Represents a file output with its content encoded in base64"""
 
-    def __init__(self, filename: str, content_type: str, data: str, size: int):
-        """
-        Initialize a FileOutput object.
+    def __init__(
+        self,
+        filename: str,
+        content_type: str,
+        data: str,
+        size: int,
+    ):
+        """Initialize a FileOutput object.
 
         Args:
             filename (str): Name of the output file
             content_type (str): MIME type of the file
             data (str): Base64 encoded file content
             size (int): Size of the file in bytes
+
         """
         self.filename = filename
         self.content_type = content_type
         self.data = data
         self.size = size
+
+class S3FileOutput:
+    """Represents a file output with its content with an S3 bucket link."""
+
+    def __init__(
+        self,
+        filename: str,
+        content_type: str,
+        size: int,
+        filepath: str,
+    ):
+        """Initialize a FileOutput object.
+
+        Args:
+            filename (str): Name of the output file
+            content_type (str): MIME type of the file
+            filepath (str): the s3 path file content
+            size (int): Size of the file in bytes
+
+        """
+        self.filename = filename
+        self.content_type = content_type
+        self.size = size
+        self.filepath = filepath
 
 
 class PromptResult:
@@ -30,11 +61,10 @@ class PromptResult:
         status: str,
         completed: bool,
         execution_time_seconds: float,
-        prompt: Dict,
-        outputs: List[Dict] | None = None,
+        prompt: dict,
+        outputs: list[dict] | None = None,
     ):
-        """
-        Initialize a PromptResult object.
+        """Initialize a PromptResult object.
 
         Args:
             prompt_id (str): Unique identifier for the prompt
@@ -43,6 +73,7 @@ class PromptResult:
             execution_time_seconds (float): Time taken to execute the prompt
             prompt (Dict): The original prompt configuration
             outputs (List[Dict], optional): List of output file data. Defaults to empty list.
+
         """
         self.prompt_id = prompt_id
         self.status = status
@@ -54,14 +85,24 @@ class PromptResult:
         self.outputs = []
         if outputs:
             for output_data in outputs:
-                self.outputs.append(
-                    FileOutput(
-                        filename=output_data.get("filename", ""),
-                        content_type=output_data.get("content_type", ""),
-                        data=output_data.get("data", ""),
-                        size=output_data.get("size", 0),
+                if output_data.get("data", ""):
+                    self.outputs.append(
+                        FileOutput(
+                            filename=output_data.get("filename", ""),
+                            content_type=output_data.get("content_type", ""),
+                            data=output_data.get("data", ""),
+                            size=output_data.get("size", 0),
+                        ),
                     )
-                )
+                else:
+                    self.outputs.append(
+                        S3FileOutput(
+                            filename=output_data.get("filename", ""),
+                            content_type=output_data.get("content_type", ""),
+                            size=output_data.get("size", 0),
+                            filepath=output_data.get("filepath", ""),
+                        ),
+                    )
 
 
 class ComfyAPIClient:
@@ -72,11 +113,11 @@ class ComfyAPIClient:
         client_id: str | None = None,
         client_secret: str | None = None,
     ):
-        """
-        Initialize the ComfyAPI client with the server URL.
+        """Initialize the ComfyAPI client with the server URL.
 
         Args:
             base_url (str): The base URL of the API server
+
         """
         if infer_url is None:
             raise Exception("infer_url is required")
@@ -97,8 +138,7 @@ class ComfyAPIClient:
         data: Dict[str, Any],
         files: list[tuple[str, BufferedReader]] = [],
     ) -> Dict[str, Any]:
-        """
-        Make a POST request to the /api/infer-files endpoint with files encoded in form data.
+        """Make a POST request to the /api/infer-files endpoint with files encoded in form data.
 
         Args:
             data: Dictionary of form fields (logs, params, etc.)
@@ -107,8 +147,8 @@ class ComfyAPIClient:
 
         Returns:
             Dict[str, Any]: Response from the server
-        """
 
+        """
         async with httpx.AsyncClient() as client:
             try:
                 response = await client.post(
@@ -125,27 +165,29 @@ class ComfyAPIClient:
 
                 if response.status_code == 201:
                     return response.json()
-                else:
-                    error_text = response.text
-                    raise Exception(
-                        f"API request failed with status {response.status_code}: {error_text}"
-                    )
+                error_text = response.text
+                raise Exception(
+                    f"API request failed with status {response.status_code}: {error_text}",
+                )
             except httpx.HTTPError as e:
-                raise Exception(f"Connection error: {str(e)}")
+                raise Exception(f"Connection error: {e!s}")
             except Exception as e:
-                raise Exception(f"Error during API call: {str(e)}")
+                raise Exception(f"Error during API call: {e!s}")
 
     async def consume_event_source(
-        self, *, response, logging_callback: Callable[[str], None]
+        self,
+        *,
+        response,
+        logging_callback: Callable[[str], None],
     ) -> Dict[str, Any] | None:
-        """
-        Process a streaming Server-Sent Events (SSE) response.
+        """Process a streaming Server-Sent Events (SSE) response.
 
         Args:
             response: An active httpx streaming response object
 
         Returns:
             List of parsed event objects
+
         """
         current_data = ""
         current_event = "message"  # Default event type
@@ -166,7 +208,7 @@ class ComfyAPIClient:
                             prompt_result = json.loads(current_data)
                         else:
                             print(
-                                f"Unknown event: {current_event}, data: {current_data}"
+                                f"Unknown event: {current_event}, data: {current_data}",
                             )
                     except json.JSONDecodeError as e:
                         print("Invalid JSON: ...")
@@ -194,8 +236,12 @@ class ComfyAPIClient:
         *,
         data: Dict[str, Any],
         logging_callback: Callable[[str], None],
-        files: list[tuple[str, BufferedReader]] = [],
-    ) -> Dict[str, Any] | None:
+        files: list[tuple[str, BufferedReader]] | None,
+    ) -> dict[str, Any] | None:
+
+        if files is None:
+            files = []
+
         if data.get("logs") is not True:
             raise Exception("Set the logs to True for streaming the process logs")
 
@@ -216,36 +262,36 @@ class ComfyAPIClient:
                     if response.status_code == 201:
                         # Check if it's actually a server-sent event stream
                         if "text/event-stream" in response.headers.get(
-                            "content-type", ""
+                            "content-type",
+                            "",
                         ):
                             prompt_result = await self.consume_event_source(
-                                response=response, logging_callback=logging_callback
+                                response=response,
+                                logging_callback=logging_callback,
                             )
                             return prompt_result
-                        else:
-                            # For non-SSE responses, read the content normally
-                            raise Exception(
-                                "Set the logs to True for streaming the process logs"
-                            )
-                    else:
-                        error_response = await response.aread()
-                        error_data = json.loads(error_response)
+                        # For non-SSE responses, read the content normally
                         raise Exception(
-                            f"API request failed with status {response.status_code}: {error_data}"
+                            "Set the logs to True for streaming the process logs",
                         )
+                    error_response = await response.aread()
+                    error_data = json.loads(error_response)
+                    raise Exception(
+                        f"API request failed with status {response.status_code}: {error_data}",
+                    )
             except Exception as e:
-                raise Exception(f"Error with streaming request: {str(e)}")
+                raise Exception(f"Error with streaming request: {e!s}")
 
 
 def parse_parameters(params: dict):
-    """
-    Parse parameters from a dictionary to a format suitable for the API call.
+    """Parse parameters from a dictionary to a format suitable for the API call.
 
     Args:
         params (dict): Dictionary of parameters
 
     Returns:
         dict: Parsed parameters
+
     """
     parsed_params = {}
     files = []
@@ -265,8 +311,7 @@ async def infer(
     client_id: str,
     client_secret: str,
 ):
-    """
-    Make an inference with real-time logs from the execution prompt
+    """Make an inference with real-time logs from the execution prompt
 
     Args:
         api_url (str): The URL to send the request to
@@ -275,6 +320,7 @@ async def infer(
 
     Returns:
         PromptResult: The result of the inference containing outputs and execution details
+
     """
     client = ComfyAPIClient(
         infer_url=api_url,
@@ -306,8 +352,7 @@ async def infer_with_logs(
     client_id: str,
     client_secret: str,
 ):
-    """
-    Make an inference with real-time logs from the execution prompt
+    """Make an inference with real-time logs from the execution prompt
 
     Args:
         api_url (str): The URL to send the request to
@@ -317,8 +362,8 @@ async def infer_with_logs(
 
     Returns:
         PromptResult: The result of the inference containing outputs and execution details
-    """
 
+    """
     client = ComfyAPIClient(
         infer_url=api_url,
         client_id=client_id,

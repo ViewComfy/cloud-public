@@ -1,9 +1,12 @@
+import io, { Socket } from "socket.io-client"
+import { v4 as uuidv4 } from 'uuid';
+
 function buildFormData(data: {
     logs: boolean;
     params: Record<string, any>;
-    override_workflow_api?: Record<string, any> | undefined;
+    overrideWorkflowApi?: Record<string, any> | undefined;
 }): FormData {
-    const { params, override_workflow_api, logs } = data;
+    const { params, overrideWorkflowApi, logs } = data;
     const formData = new FormData();
     let params_str = {};
     for (const key in params) {
@@ -15,8 +18,8 @@ function buildFormData(data: {
         }
     }
 
-    if (override_workflow_api) {
-        formData.set("workflow_api", JSON.stringify(override_workflow_api));
+    if (overrideWorkflowApi) {
+        formData.set("workflow_api", JSON.stringify(overrideWorkflowApi));
     }
 
     formData.set("params", JSON.stringify(params_str));
@@ -26,10 +29,41 @@ function buildFormData(data: {
     return formData;
 }
 
+function buildFormDataWS(data: {
+    params: Record<string, any>;
+    overrideWorkflowApi?: Record<string, any> | undefined;
+    prompt_id: string;
+    view_comfy_api_url: string;
+    sid: string;
+}): FormData {
+    const { params, overrideWorkflowApi, prompt_id, view_comfy_api_url, sid } = data;
+    const formData = new FormData();
+    let params_str = {};
+    for (const key in params) {
+        const value = params[key];
+        if (value instanceof File) {
+            formData.set(key, value);
+        } else {
+            params_str[key] = value;
+        }
+    }
+
+    formData.set("params", JSON.stringify(params_str));
+    formData.set("prompt_id", prompt_id);
+    formData.set("view_comfy_api_url", view_comfy_api_url);
+    formData.set("sid", sid);
+
+    if (overrideWorkflowApi) {
+        formData.set("workflow_api", JSON.stringify(overrideWorkflowApi));
+    }
+
+    return formData;
+}
+
 interface Infer {
     apiUrl: string;
     params: Record<string, any>;
-    override_workflow_api?: Record<string, any> | undefined;
+    overrideWorkflowApi?: Record<string, any> | undefined;
     clientId: string;
     clientSecret: string;
 }
@@ -43,13 +77,13 @@ interface InferWithLogs extends Infer {
  *
  * @param apiUrl - The URL to send the request to
  * @param params - The parameter to send to the workflow
- * @param override_workflow_api - Optional override the default workflow_api of the deployment
+ * @param overrideWorkflowApi - Optional override the default workflow_api of the deployment
  * @returns The parsed prompt result or null
  */
 export const infer = async ({
     apiUrl,
     params,
-    override_workflow_api,
+    overrideWorkflowApi,
     clientId,
     clientSecret,
 }: Infer) => {
@@ -67,7 +101,7 @@ export const infer = async ({
         const formData = buildFormData({
             logs: false,
             params,
-            override_workflow_api,
+            overrideWorkflowApi,
         });
 
         const response = await fetch(apiUrl, {
@@ -81,9 +115,8 @@ export const infer = async ({
         });
 
         if (!response.ok) {
-            const errMsg = `Failed to fetch viewComfy: ${
-                response.statusText
-            }, ${await response.text()}`;
+            const errMsg = `Failed to fetch viewComfy: ${response.statusText
+                }, ${await response.text()}`;
             console.error(errMsg);
             throw new Error(errMsg);
         }
@@ -93,6 +126,156 @@ export const infer = async ({
     } catch (error) {
         throw error;
     }
+};
+
+enum InferEmitEventEnum {
+    LogMessage = "infer_log_message",
+    ErrorMessage = "infer_error_message",
+    ExecutedMessage = "infer_executed_message",
+    JoinRoom = "infer_join_room",
+    ResultMessage = "infer_result_message",
+}
+
+/**
+ * Make an inference request to the viewComfy API
+ *
+ * @param apiUrl - The URL to send the request to
+ * @param params - The parameter to send to the workflow
+ * @param overrideWorkflowApi - Optional override the default workflow_api of the deployment
+ * @returns The parsed prompt result or null
+ */
+export const inferWithLogsWS = ({
+    apiUrl,
+    params,
+    overrideWorkflowApi,
+    clientId,
+    clientSecret,
+}: Infer): Promise<PromptResult | undefined> => {
+
+    if (!apiUrl) {
+        throw new Error("viewComfyUrl is not set");
+    }
+    if (!clientId) {
+        throw new Error("clientId is not set");
+    }
+    if (!clientSecret) {
+        throw new Error("clientSecret is not set");
+    }
+
+    const SERVER_URL = "https://api.viewcomfy.com"
+
+    const auth = {
+        "client_id": clientId,
+        "client_secret": clientSecret,
+    };
+
+    return new Promise((resolve, reject) => {
+        const prompt_id: string = uuidv4();
+        let socket: Socket;
+
+        try {
+            socket = io(SERVER_URL, { auth });
+            console.log("Socket initialized. Waiting for connection...");
+        } catch (error) {
+            console.log("Something went wrong trying to initialize socket.")
+            return reject(error);
+        }
+
+        let loading_interval: NodeJS.Timeout;
+        let isWorkflowExecuted = false;
+
+        const cleanup = (result?: PromptResult) => {
+            clearInterval(loading_interval);
+            socket.disconnect();
+            resolve(result);
+        };
+
+        socket.on('connect', async () => {
+            const formData = buildFormDataWS({
+                params,
+                overrideWorkflowApi,
+                view_comfy_api_url: apiUrl,
+                sid: socket.id!,
+                prompt_id,
+            });
+
+            try {
+                const response = await fetch(`${SERVER_URL}/api/workflow/infer`, {
+                    method: "POST",
+                    body: formData,
+                    redirect: "follow",
+                    headers: auth,
+                });
+
+                if (!response.ok) {
+                    const errMsg = `Failed to fetch viewComfy: ${response.statusText}, ${await response.text()}`;
+                    console.error(errMsg);
+                    socket.disconnect();
+                    return reject(new Error(errMsg));
+                }
+
+                const res = await response.json();
+                console.log(res["data"]);
+
+                let dots = 0;
+                loading_interval = setInterval(() => {
+                    dots = (dots % 3) + 1;
+                    const message = "Loading" + ".".repeat(dots);
+                    process.stdout.write(`\r${message.padEnd(20)}`);
+                }, 500);
+
+            } catch (error) {
+                console.error("Error during fetch:", error);
+                socket.disconnect();
+                reject(error);
+            }
+        });
+
+        socket.on('connect_error', (err) => {
+            console.error('Socket connection error:', err);
+            clearInterval(loading_interval);
+            socket.disconnect();
+            reject(err);
+        });
+
+        socket.on('disconnect', (reason) => {
+            if (reason !== "io client disconnect") {
+                console.log(`Socket disconnected: ${reason}`);
+                clearInterval(loading_interval);
+                // If the disconnect was not initiated by a result or error, it's unexpected.
+                // We can reject the promise to avoid the script hanging.
+                reject(new Error(`Socket disconnected unexpectedly: ${reason}`));
+            }
+        });
+
+        socket.on(InferEmitEventEnum.LogMessage, (data: any) => {
+            clearInterval(loading_interval);
+            process.stdout.write(data as string);
+        });
+
+        socket.on(InferEmitEventEnum.ErrorMessage, (data: { [key: string]: any }) => {
+            console.error(`error: ${JSON.stringify(data)}`);
+            clearInterval(loading_interval);
+            socket.disconnect();
+            if (!isWorkflowExecuted) {
+                reject(new Error(JSON.stringify(data)));
+            }
+        });
+
+        socket.on(InferEmitEventEnum.ExecutedMessage, (data: { [key: string]: any }) => {
+            console.log(`prompt executed: ${JSON.stringify(data)}`);
+        });
+
+        socket.on(InferEmitEventEnum.ResultMessage, (data: any) => {
+            console.log("Result message received.");
+            isWorkflowExecuted = true;
+            if (data) {
+                cleanup(new PromptResult(data));
+            } else {
+                cleanup();
+            }
+        });
+    });
 };
 
 /**
@@ -198,7 +381,7 @@ export const inferWithLogsStream = async ({
     apiUrl,
     params,
     loggingCallback,
-    override_workflow_api,
+    overrideWorkflowApi: override_workflow_api,
     clientId,
     clientSecret,
 }: InferWithLogs): Promise<PromptResult | null> => {
@@ -215,7 +398,7 @@ export const inferWithLogsStream = async ({
     try {
         const formData = buildFormData({
             logs: true,
-            override_workflow_api,
+            overrideWorkflowApi: override_workflow_api,
             params,
         });
 
@@ -245,8 +428,7 @@ export const inferWithLogsStream = async ({
         }
     } catch (e) {
         console.error(
-            `Error with streaming request: ${
-                e instanceof Error ? e.message : String(e)
+            `Error with streaming request: ${e instanceof Error ? e.message : String(e)
             }`
         );
         throw e;
@@ -260,6 +442,16 @@ export interface FilesData {
     filename: string;
     content_type: string;
     data: string;
+    size: number;
+}
+
+/**
+ * Represents the output file with a link to download the data from a prompt execution
+ */
+export class S3FilesData {
+    filename: string;
+    content_type: string;
+    filepath: string;
     size: number;
 }
 
@@ -286,7 +478,7 @@ export class PromptResult {
     prompt: Record<string, any>;
 
     /** List of output files */
-    outputs: File[];
+    outputs: File[] | S3FilesData[];
 
     constructor(data: {
         prompt_id: string;
@@ -294,7 +486,7 @@ export class PromptResult {
         completed: boolean;
         execution_time_seconds: number;
         prompt: Record<string, any>;
-        outputs?: FilesData[];
+        outputs?: FilesData[] | S3FilesData[];
     }) {
         const {
             prompt_id,
@@ -307,22 +499,27 @@ export class PromptResult {
 
         // Convert output data to File objects
         const fileOutputs = outputs.map((output) => {
-            // Convert base64 data to Blob
-            const binaryData = atob(output.data);
-            const arrayBuffer = new ArrayBuffer(binaryData.length);
-            const uint8Array = new Uint8Array(arrayBuffer);
+            if (output.hasOwnProperty("filepath")) {
+                return output;
+            } else {
+                // Convert base64 data to Blob
+                const binaryData = atob(output.data);
+                const arrayBuffer = new ArrayBuffer(binaryData.length);
+                const uint8Array = new Uint8Array(arrayBuffer);
 
-            for (let i = 0; i < binaryData.length; i++) {
-                uint8Array[i] = binaryData.charCodeAt(i);
+                for (let i = 0; i < binaryData.length; i++) {
+                    uint8Array[i] = binaryData.charCodeAt(i);
+                }
+
+                const blob = new Blob([arrayBuffer], { type: output.content_type });
+
+                // Create File object from Blob
+                return new File([blob], output.filename, {
+                    type: output.content_type,
+                    lastModified: new Date().getTime(),
+                });
             }
 
-            const blob = new Blob([arrayBuffer], { type: output.content_type });
-
-            // Create File object from Blob
-            return new File([blob], output.filename, {
-                type: output.content_type,
-                lastModified: new Date().getTime(),
-            });
         });
 
         this.prompt_id = prompt_id;
