@@ -1,9 +1,15 @@
+import io, { Socket } from "socket.io-client"
+import { v4 as uuidv4 } from 'uuid';
+
+
 function buildFormData(data: {
-    logs: boolean;
     params: Record<string, any>;
-    override_workflow_api?: Record<string, any> | undefined;
+    overrideWorkflowApi?: Record<string, any> | undefined;
+    prompt_id: string;
+    view_comfy_api_url: string;
+    sid: string;
 }): FormData {
-    const { params, override_workflow_api, logs } = data;
+    const { params, overrideWorkflowApi, prompt_id, view_comfy_api_url, sid } = data;
     const formData = new FormData();
     let params_str = {};
     for (const key in params) {
@@ -15,13 +21,14 @@ function buildFormData(data: {
         }
     }
 
-    if (override_workflow_api) {
-        formData.set("workflow_api", JSON.stringify(override_workflow_api));
-    }
-
     formData.set("params", JSON.stringify(params_str));
+    formData.set("prompt_id", prompt_id);
+    formData.set("view_comfy_api_url", view_comfy_api_url);
+    formData.set("sid", sid);
 
-    formData.set("logs", logs.toString());
+    if (overrideWorkflowApi) {
+        formData.set("workflow_api", JSON.stringify(overrideWorkflowApi));
+    }
 
     return formData;
 }
@@ -29,13 +36,17 @@ function buildFormData(data: {
 interface Infer {
     apiUrl: string;
     params: Record<string, any>;
-    override_workflow_api?: Record<string, any> | undefined;
+    overrideWorkflowApi?: Record<string, any> | undefined;
     clientId: string;
     clientSecret: string;
 }
 
-interface InferWithLogs extends Infer {
-    loggingCallback: (message: string) => void;
+enum InferEmitEventEnum {
+    LogMessage = "infer_log_message",
+    ErrorMessage = "infer_error_message",
+    ExecutedMessage = "infer_executed_message",
+    JoinRoom = "infer_join_room",
+    ResultMessage = "infer_result_message",
 }
 
 /**
@@ -43,16 +54,17 @@ interface InferWithLogs extends Infer {
  *
  * @param apiUrl - The URL to send the request to
  * @param params - The parameter to send to the workflow
- * @param override_workflow_api - Optional override the default workflow_api of the deployment
+ * @param overrideWorkflowApi - Optional override the default workflow_api of the deployment
  * @returns The parsed prompt result or null
  */
-export const infer = async ({
+export const infer = ({
     apiUrl,
     params,
-    override_workflow_api,
+    overrideWorkflowApi,
     clientId,
     clientSecret,
-}: Infer) => {
+}: Infer): Promise<PromptResult | undefined> => {
+
     if (!apiUrl) {
         throw new Error("viewComfyUrl is not set");
     }
@@ -63,203 +75,131 @@ export const infer = async ({
         throw new Error("clientSecret is not set");
     }
 
-    try {
-        const formData = buildFormData({
-            logs: false,
-            params,
-            override_workflow_api,
-        });
+    const SERVER_URL = "https://api.viewcomfy.com"
 
-        const response = await fetch(apiUrl, {
-            method: "POST",
-            body: formData,
-            redirect: "follow",
-            headers: {
-                "client_id": clientId,
-                "client_secret": clientSecret,
-            },
-        });
+    const auth = {
+        "client_id": clientId,
+        "client_secret": clientSecret,
+    };
 
-        if (!response.ok) {
-            const errMsg = `Failed to fetch viewComfy: ${
-                response.statusText
-            }, ${await response.text()}`;
-            console.error(errMsg);
-            throw new Error(errMsg);
+    return new Promise((resolve, reject) => {
+        const prompt_id: string = uuidv4();
+        let socket: Socket;
+
+        try {
+            socket = io(SERVER_URL, { auth, transports: ["websocket"] });
+            console.log("Socket initialized. Waiting for connection...");
+        } catch (error) {
+            console.log("Something went wrong trying to initialize socket.")
+            return reject(error);
         }
 
-        const data = await response.json();
-        return new PromptResult(data);
-    } catch (error) {
-        throw error;
-    }
-};
+        let loading_interval: NodeJS.Timeout;
+        let isWorkflowExecuted = false;
 
-/**
- * Process a streaming Server-Sent Events (SSE) response.
- *
- * @param response - An active fetch response with a readable stream
- * @param loggingCallback - Function to handle log messages
- * @returns The parsed prompt result or null
- */
-async function consumeEventSource(
-    response: Response,
-    loggingCallback: (message: string) => void
-): Promise<PromptResult | null> {
-    if (!response.body) {
-        throw new Error("Response body is null");
-    }
+        const cleanup = (result?: PromptResult) => {
+            clearInterval(loading_interval);
+            socket.disconnect();
+            resolve(result);
+        };
 
-    const reader = response.body.getReader();
-    const decoder = new TextDecoder();
-    let currentData = "";
-    let currentEvent = "message"; // Default event type
-    let promptResult: PromptResult | null = null;
-    let buffer = "";
+        socket.on('connect', async () => {
+            const formData = buildFormData({
+                params,
+                overrideWorkflowApi,
+                view_comfy_api_url: apiUrl,
+                sid: socket.id!,
+                prompt_id,
+            });
 
-    try {
-        while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
+            try {
+                const response = await fetch(`${SERVER_URL}/api/workflow/infer`, {
+                    method: "POST",
+                    body: formData,
+                    redirect: "follow",
+                    headers: auth,
+                });
 
-            buffer += decoder.decode(value, { stream: true });
-
-            // Process complete lines in the buffer
-            const lines = buffer.split("\n");
-            buffer = lines.pop() || ""; // Keep the last incomplete line in the buffer
-
-            for (const line of lines) {
-                const trimmedLine = line.trim();
-                if (promptResult) break;
-
-                // Empty line signals the end of an event
-                if (!trimmedLine) {
-                    if (currentData) {
-                        try {
-                            if (
-                                currentEvent === "log_message" ||
-                                currentEvent === "error"
-                            ) {
-                                loggingCallback(
-                                    `${currentEvent}: ${currentData}`
-                                );
-                            } else if (currentEvent === "prompt_result") {
-                                promptResult = new PromptResult(
-                                    JSON.parse(currentData)
-                                );
-                            } else {
-                                console.log(
-                                    `Unknown event: ${currentEvent}, data: ${currentData}`
-                                );
-                            }
-                        } catch (e) {
-                            console.log("Invalid JSON: ...");
-                            console.error(e);
-                        }
-                        // Reset for next event
-                        currentData = "";
-                        currentEvent = "message";
-                    }
-                    continue;
+                if (!response.ok) {
+                    const errMsg = `Failed to fetch viewComfy: ${response.statusText}, ${await response.text()}`;
+                    console.error(errMsg);
+                    socket.disconnect();
+                    return reject(new Error(errMsg));
                 }
 
-                // Parse SSE fields
-                if (trimmedLine.startsWith("event:")) {
-                    currentEvent = trimmedLine.substring(6).trim();
-                } else if (trimmedLine.startsWith("data:")) {
-                    currentData = trimmedLine.substring(5).trim();
-                } else if (trimmedLine.startsWith("id:")) {
-                    // Handle event ID if needed
-                } else if (trimmedLine.startsWith("retry:")) {
-                    // Handle retry directive if needed
-                }
+                const res = await response.json();
+                console.log(res["data"]);
+
+                let dots = 0;
+                loading_interval = setInterval(() => {
+                    dots = (dots % 3) + 1;
+                    const message = "Loading" + ".".repeat(dots);
+                    process.stdout.write(`\r${message.padEnd(20)}`);
+                }, 500);
+
+            } catch (error) {
+                console.error("Error during fetch:", error);
+                socket.disconnect();
+                reject(error);
             }
-
-            if (promptResult) break;
-        }
-    } catch (error) {
-        console.error("Error reading stream:", error);
-        throw error;
-    }
-
-    return promptResult;
-}
-
-/**
- * Make an inference with real-time logs from the execution prompt
- *
- * @param apiUrl - The URL to send the request to
- * @param params - The parameter to send to the workflow
- * @param loggingCallback - Function to handle log messages
- * @param override_workflow_api - Optional override the default workflow_api of the deployment
- * @returns The parsed prompt result or null
- */
-export const inferWithLogsStream = async ({
-    apiUrl,
-    params,
-    loggingCallback,
-    override_workflow_api,
-    clientId,
-    clientSecret,
-}: InferWithLogs): Promise<PromptResult | null> => {
-    if (!apiUrl) {
-        throw new Error("url is not set");
-    }
-    if (!clientId) {
-        throw new Error("clientId is not set");
-    }
-    if (!clientSecret) {
-        throw new Error("clientSecret is not set");
-    }
-
-    try {
-        const formData = buildFormData({
-            logs: true,
-            override_workflow_api,
-            params,
         });
 
-        const response = await fetch(apiUrl, {
-            method: "POST",
-            body: formData,
-            headers: {
-                "client_id": clientId,
-                "client_secret": clientSecret,
-            },
+        socket.on('connect_error', (err) => {
+            console.error('Socket connection error:', err);
+            clearInterval(loading_interval);
+            socket.disconnect();
+            reject(err);
         });
 
-        if (response.status === 201) {
-            // Check if it's actually a server-sent event stream
-            const contentType = response.headers.get("content-type") || "";
-            if (contentType.includes("text/event-stream")) {
-                return await consumeEventSource(response, loggingCallback);
+        socket.on('disconnect', (reason) => {
+            if (reason !== "io client disconnect") {
+                console.log(`Socket disconnected: ${reason}`);
+                clearInterval(loading_interval);
+                // If the disconnect was not initiated by a result or error, it's unexpected.
+                // We can reject the promise to avoid the script hanging.
+                reject(new Error(`Socket disconnected unexpectedly: ${reason}`));
+            }
+        });
+
+        socket.on(InferEmitEventEnum.LogMessage, (data: any) => {
+            clearInterval(loading_interval);
+            process.stdout.write(data as string);
+        });
+
+        socket.on(InferEmitEventEnum.ErrorMessage, (data: { [key: string]: any }) => {
+            console.error(`error: ${JSON.stringify(data)}`);
+            clearInterval(loading_interval);
+            socket.disconnect();
+            if (!isWorkflowExecuted) {
+                reject(new Error(JSON.stringify(data)));
+            }
+        });
+
+        socket.on(InferEmitEventEnum.ExecutedMessage, (data: { [key: string]: any }) => {
+            console.log(`prompt executed: ${JSON.stringify(data)}`);
+        });
+
+        socket.on(InferEmitEventEnum.ResultMessage, (data: any) => {
+            console.log("Result message received.");
+            isWorkflowExecuted = true;
+            if (data) {
+                cleanup(new PromptResult(data));
             } else {
-                throw new Error(
-                    "Set the logs to True for streaming the process logs"
-                );
+                cleanup();
             }
-        } else {
-            const errorText = await response.text();
-            console.error(`Error response: ${errorText}`);
-            throw new Error(errorText);
-        }
-    } catch (e) {
-        console.error(
-            `Error with streaming request: ${
-                e instanceof Error ? e.message : String(e)
-            }`
-        );
-        throw e;
-    }
+        });
+    });
 };
 
+
+
 /**
- * Represents the output file data from a prompt execution
+ * Represents the output file with a link to download the data from a prompt execution
  */
-export interface FilesData {
+export class S3FileData {
     filename: string;
     content_type: string;
-    data: string;
+    filepath: string;
     size: number;
 }
 
@@ -286,7 +226,7 @@ export class PromptResult {
     prompt: Record<string, any>;
 
     /** List of output files */
-    outputs: File[];
+    outputs: S3FileData[];
 
     constructor(data: {
         prompt_id: string;
@@ -294,7 +234,7 @@ export class PromptResult {
         completed: boolean;
         execution_time_seconds: number;
         prompt: Record<string, any>;
-        outputs?: FilesData[];
+        outputs?: S3FileData[];
     }) {
         const {
             prompt_id,
@@ -305,31 +245,12 @@ export class PromptResult {
             outputs = [],
         } = data;
 
-        // Convert output data to File objects
-        const fileOutputs = outputs.map((output) => {
-            // Convert base64 data to Blob
-            const binaryData = atob(output.data);
-            const arrayBuffer = new ArrayBuffer(binaryData.length);
-            const uint8Array = new Uint8Array(arrayBuffer);
-
-            for (let i = 0; i < binaryData.length; i++) {
-                uint8Array[i] = binaryData.charCodeAt(i);
-            }
-
-            const blob = new Blob([arrayBuffer], { type: output.content_type });
-
-            // Create File object from Blob
-            return new File([blob], output.filename, {
-                type: output.content_type,
-                lastModified: new Date().getTime(),
-            });
-        });
 
         this.prompt_id = prompt_id;
         this.status = status;
         this.completed = completed;
         this.execution_time_seconds = execution_time_seconds;
         this.prompt = prompt;
-        this.outputs = fileOutputs;
+        this.outputs = outputs;
     }
 }

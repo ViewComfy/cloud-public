@@ -1,6 +1,10 @@
 import asyncio
 import base64
-from api import infer, infer_with_logs
+
+import aiofiles
+import httpx
+
+from api import infer
 
 
 async def api_examples():
@@ -28,34 +32,16 @@ async def api_examples():
             "499-inputs-noise_seed": 384340151733840,
             "594-inputs-string": "a attractive woman, dark long hair, a women wearing a grey wool turtleneck sweater, brown eyes, jeans, brown boots, short medium long hair, chin long hair that looks like she just got up, She has a fair complexion, expressive brown eyes, Her makeup is natural, highlighting her soft features. she has slightly pink cheeks and a healthy skin tone",
             "608-inputs-string": "it is a masterpiece, amateur photography, shot on iphone",
-        }
+        },
     )
-
-    # Call the API and wait for the results
-    # try:
-    #     prompt_result = await infer(
-    #         api_url=view_comfy_api_url,
-    #         params=params,
-    #         client_id=client_id,
-    #         client_secret=client_secret,
-    #     )
-    # except Exception as e:
-    #     print("something went wrong calling the api")
-    #     print(f"Error: {e}")
-    #     return
-
-
-    def logging_callback(log_message: str):
-        print(log_message)
 
     # Call the API and get the logs of the execution in real time
     # the console.log is the function that will be use to log the messages
     # you can use any function that you want
     try:
-        prompt_result = await infer_with_logs(
-            api_url=view_comfy_api_url,
+        prompt_result = await infer(
+            view_comfy_api_url=view_comfy_api_url,
             params=params,
-            logging_callback=logging_callback,
             client_id=client_id,
             client_secret=client_secret,
         )
@@ -70,13 +56,15 @@ async def api_examples():
 
     for file in prompt_result.outputs:
         try:
-            # Decode the base64 data before writing to file
-            binary_data = base64.b64decode(file.data)
-            with open(file.filename, "wb") as f:
-                f.write(binary_data)
-            print(f"Successfully saved {file.filename}")
+            print(f"Downloading file from {file.filepath}")  # noqa: T201
+            async with httpx.AsyncClient() as client:
+                response = await client.get(file.filepath)
+                response.raise_for_status()  # raise exception for bad status codes
+                async with aiofiles.open(file.filename, "wb") as f:
+                    await f.write(response.content)
+            print(f"Successfully saved {file.filename}")  # noqa: T201
         except Exception as e:
-            print(f"Error saving {file.filename}: {str(e)}")
+            print(f"Error downloading {file.filename} from S3: {e!s}")  # noqa: T201
 
 
 if __name__ == "__main__":

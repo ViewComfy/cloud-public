@@ -1,78 +1,69 @@
 import asyncio
-import base64
 import json
-import os
-from api import infer, infer_with_logs
+from pathlib import Path
 
-async def api_examples():
+import aiofiles
+import httpx
+from api import infer
 
+
+async def api():
     view_comfy_api_url = "<Your_ViewComfy_endpoint>"
     client_id = "<Your_ViewComfy_client_id>"
     client_secret = "<Your_ViewComfy_client_secret>"
 
-    override_workflow_api_path = None # Advanced feature: overwrite default workflow with a new one
+    # Advanced feature: overwrite default workflow with a new one:
+    # https://github.com/ViewComfy/cloud-public/tree/main/ViewComfy_API#using-the-api-with-a-different-workflow
+    override_workflow_api_path = None
 
     # Set parameters
     params = {}
 
     params["6-inputs-text"] = "A cat sorcerer"
-    params["52-inputs-image"] = open("input_folder/input_img.png", "rb")
+    params["10-inputs-image"] = Path("input_folder/input_img.png").open("rb")
 
     override_workflow_api = None
-    if  override_workflow_api_path:
-        if os.path.exists(override_workflow_api_path):  
-            with open(override_workflow_api_path, "r") as f:
+    if override_workflow_api_path:
+        if Path(override_workflow_api_path).exists():
+            with open(override_workflow_api_path) as f:
                 override_workflow_api = json.load(f)
         else:
-            print(f"Error: {override_workflow_api_path} does not exist")
-
-    def logging_callback(log_message: str):
-        print(log_message)
-
-    # Call the API and wait for the results
-    # try:
-    #     prompt_result = await infer(
-    #         api_url=view_comfy_api_url,
-    #         params=params,
-    #         client_id=client_id,
-    #         client_secret=client_secret,
-    #     )
-    # except Exception as e:
-    #     print("something went wrong calling the api")
-    #     print(f"Error: {e}")
-    #     return
+            msg = f"Error: {override_workflow_api_path} does not exist"
+            print(msg)
+            raise Exception(msg)
 
     # Call the API and get the logs of the execution in real time
-    # the console.log is the function that will be use to log the messages
-    # you can use any function that you want
+
     try:
-        prompt_result = await infer_with_logs(
-            api_url=view_comfy_api_url,
+        prompt_result = await infer(
+            view_comfy_api_url=view_comfy_api_url,
             params=params,
-            logging_callback=logging_callback,
             client_id=client_id,
             client_secret=client_secret,
             override_workflow_api=override_workflow_api,
         )
     except Exception as e:
-        print("something went wrong calling the api")
-        print(f"Error: {e}")
-        return
+        msg = f"something went wrong calling the api, Error: {e}"
+        print(msg)
+        raise
 
     if not prompt_result:
-        print("No prompt_result generated")
-        return
+        message = "No prompt_result generated"
+        print(message)
+        raise Exception(message)
 
     for file in prompt_result.outputs:
         try:
-            # Decode the base64 data before writing to file
-            binary_data = base64.b64decode(file.data)
-            with open(file.filename, "wb") as f:
-                f.write(binary_data)
-            print(f"Successfully saved {file.filename}")
+            print(f"Downloading file from {file.filepath}")  # noqa: T201
+            async with httpx.AsyncClient() as client:
+                response = await client.get(file.filepath)
+                response.raise_for_status()  # raise exception for bad status codes
+                async with aiofiles.open(file.filename, "wb") as f:
+                    await f.write(response.content)
+            print(f"Successfully saved {file.filename}")  # noqa: T201
         except Exception as e:
-            print(f"Error saving {file.filename}: {str(e)}")
+            print(f"Error downloading {file.filename} from S3: {e!s}")  # noqa: T201
 
 
 if __name__ == "__main__":
-    asyncio.run(api_examples())
+    asyncio.run(api())

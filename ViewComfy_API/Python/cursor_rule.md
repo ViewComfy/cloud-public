@@ -20,6 +20,13 @@ The data comes back from the API with the following format:
             "data": "string",          # Base64 encoded file content
             "size": int               # File size in bytes
         },
+        or this format
+        {
+            "filename": "string",      # Name of the output file
+            "content_type": "string",  # MIME type of the file
+            "filepath": "string",      # the s3 url to download the file content
+            "size": int               # File size in bytes
+        },
         # ... potentially multiple output files
     ]
 }

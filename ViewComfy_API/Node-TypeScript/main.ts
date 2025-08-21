@@ -1,16 +1,19 @@
 import { promises as fs } from "fs";
 import * as path from "path";
-import { infer, inferWithLogsStream } from "../../workflows/flux-consistent-characters/node-typescript/api";
-import { workflowApiParametersCreator } from "../../workflows/flux-consistent-characters/node-typescript/workflow_api_parameters_creator";
+import { workflowApiParametersCreator } from "./workflow_api_parameters_creator";
+import { infer } from "./api";
 
-const viewComfyUrl = "<ViewComfy api url>";
+const viewComfyApiUrl = "<ViewComfy api url>";
 const clientId = "<ViewComfy client id>";
 const clientSecret = "<ViewComfy client secret>";
 
 // Move your main function logic into a route handler
 const generate = async () => {
     try {
-        const override_workflow_api_path = null;
+
+        // Advanced feature: overwrite default workflow with a new one:
+        // https://github.com/ViewComfy/cloud-public/tree/main/ViewComfy_API#using-the-api-with-a-different-workflow
+        const overrideWorkflowApiPath = null;
 
         const params = {};
 
@@ -22,41 +25,42 @@ const generate = async () => {
         params["3-inputs-steps"] = 1
 
 
-        let override_workflow_api = null;
-        if (override_workflow_api_path) {
+        let overrideWorkflowApi = null;
+        if (overrideWorkflowApiPath) {
             try {
-                const fileContent = await fs.readFile(override_workflow_api_path, "utf-8");
-                override_workflow_api = JSON.parse(fileContent);
+                const fileContent = await fs.readFile(overrideWorkflowApiPath, "utf-8");
+                overrideWorkflowApi = JSON.parse(fileContent);
             } catch (error) {
                 console.error("Override workflow API path does not exist");
             }
         }
 
-        // Call the API and wait for the results
-        // const result = await infer({
-        //     apiUrl: viewComfyUrl,
-        //     params,
-        //     clientId,
-        //     clientSecret,
-        //     override_workflow_api: override_workflow_api
-        // });
-
         // Call the API and get the logs of the execution in real time
-        // the console.log is the function that will be use to log the messages
-        // you can use any function that you want
-        const result = await inferWithLogsStream({
-            apiUrl: viewComfyUrl,
+        const result = await infer({
+            viewComfyApiUrl,
             params,
-            loggingCallback: console.log,
             clientId,
             clientSecret,
-            override_workflow_api: override_workflow_api
+            overrideWorkflowApi
         });
 
         const urls = [];
         if (result) {
-            for (const file of result.outputs) {
-                await saveBlob(file, file.name);
+            for (const s3File of result.outputs) {
+                if (s3File.filepath) {
+                    try {
+                        const response = await fetch(s3File.filepath);
+                        if (!response.ok) {
+                            console.error(`Failed to download file: ${s3File.filepath}`);
+                            continue;
+                        }
+                        const blob = await response.blob();
+                        await saveBlob(blob, s3File.filename);
+                        console.log(`Successfully downloaded and saved ${s3File.filename}`);
+                    } catch (error) {
+                        console.error(`Error downloading file ${s3File.filepath}:`, error);
+                    }
+                }
             }
         }
 
