@@ -171,7 +171,7 @@ class ComfyAPIClient:
                 "client_id": self.client_id,
                 "client_secret": self.client_secret,
             }
-            await self.sio.connect(API_URL, auth=auth)
+            await self.sio.connect(API_URL, auth=auth, transports=["websocket"])
             self.is_ws_connected = True
         except Exception as e:
             err = Exception(f"Unable to connect to to websocket server, e: {e}")

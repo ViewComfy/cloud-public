@@ -87,7 +87,7 @@ export const infer = ({
         let socket: Socket;
 
         try {
-            socket = io(SERVER_URL, { auth });
+            socket = io(SERVER_URL, { auth, transports: ["websocket"] });
             console.log("Socket initialized. Waiting for connection...");
         } catch (error) {
             console.log("Something went wrong trying to initialize socket.")

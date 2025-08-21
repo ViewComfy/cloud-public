@@ -6,10 +6,10 @@ function buildFormData(data: {
     params: Record<string, any>;
     overrideWorkflowApi?: Record<string, any> | undefined;
     prompt_id: string;
-    view_comfy_api_url: string;
+    viewComfyApiUrl: string;
     sid: string;
 }): FormData {
-    const { params, overrideWorkflowApi, prompt_id, view_comfy_api_url, sid } = data;
+    const { params, overrideWorkflowApi, prompt_id, viewComfyApiUrl, sid } = data;
     const formData = new FormData();
     let params_str = {};
     for (const key in params) {
@@ -23,7 +23,7 @@ function buildFormData(data: {
 
     formData.set("params", JSON.stringify(params_str));
     formData.set("prompt_id", prompt_id);
-    formData.set("view_comfy_api_url", view_comfy_api_url);
+    formData.set("view_comfy_api_url", viewComfyApiUrl);
     formData.set("sid", sid);
 
     if (overrideWorkflowApi) {
@@ -34,7 +34,7 @@ function buildFormData(data: {
 }
 
 interface Infer {
-    apiUrl: string;
+    viewComfyApiUrl: string;
     params: Record<string, any>;
     overrideWorkflowApi?: Record<string, any> | undefined;
     clientId: string;
@@ -52,21 +52,21 @@ enum InferEmitEventEnum {
 /**
  * Make an inference request to the viewComfy API
  *
- * @param apiUrl - The URL to send the request to
+ * @param viewComfyApiUrl - The URL to send the request to
  * @param params - The parameter to send to the workflow
  * @param overrideWorkflowApi - Optional override the default workflow_api of the deployment
  * @returns The parsed prompt result or null
  */
 export const infer = ({
-    apiUrl,
+    viewComfyApiUrl,
     params,
     overrideWorkflowApi,
     clientId,
     clientSecret,
 }: Infer): Promise<PromptResult | undefined> => {
 
-    if (!apiUrl) {
-        throw new Error("viewComfyUrl is not set");
+    if (!viewComfyApiUrl) {
+        throw new Error("viewComfyApiUrl is not set");
     }
     if (!clientId) {
         throw new Error("clientId is not set");
@@ -75,7 +75,7 @@ export const infer = ({
         throw new Error("clientSecret is not set");
     }
 
-    const SERVER_URL = "https://api.viewcomfy.com"
+    const API_URL = "https://api.viewcomfy.com"
 
     const auth = {
         "client_id": clientId,
@@ -87,7 +87,7 @@ export const infer = ({
         let socket: Socket;
 
         try {
-            socket = io(SERVER_URL, { auth });
+            socket = io(API_URL, { auth, transports: ["websocket"] });
             console.log("Socket initialized. Waiting for connection...");
         } catch (error) {
             console.log("Something went wrong trying to initialize socket.")
@@ -107,13 +107,13 @@ export const infer = ({
             const formData = buildFormData({
                 params,
                 overrideWorkflowApi,
-                view_comfy_api_url: apiUrl,
+                viewComfyApiUrl,
                 sid: socket.id!,
                 prompt_id,
             });
 
             try {
-                const response = await fetch(`${SERVER_URL}/api/workflow/infer`, {
+                const response = await fetch(`${API_URL}/api/workflow/infer`, {
                     method: "POST",
                     body: formData,
                     redirect: "follow",
@@ -163,7 +163,7 @@ export const infer = ({
 
         socket.on(InferEmitEventEnum.LogMessage, (data: any) => {
             clearInterval(loading_interval);
-            process.stdout.write(data as string);
+            console.log(JSON.stringify(data));
         });
 
         socket.on(InferEmitEventEnum.ErrorMessage, (data: { [key: string]: any }) => {

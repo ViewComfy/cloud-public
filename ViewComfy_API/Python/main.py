@@ -1,34 +1,36 @@
 import asyncio
 import json
-import os
+from pathlib import Path
 
 import aiofiles
 import httpx
 from api import infer
 
 
-async def api_examples():
+async def api():
     view_comfy_api_url = "<Your_ViewComfy_endpoint>"
     client_id = "<Your_ViewComfy_client_id>"
     client_secret = "<Your_ViewComfy_client_secret>"
 
-    override_workflow_api_path = (
-        None  # Advanced feature: overwrite default workflow with a new one
-    )
+    # Advanced feature: overwrite default workflow with a new one:
+    # https://github.com/ViewComfy/cloud-public/tree/main/ViewComfy_API#using-the-api-with-a-different-workflow
+    override_workflow_api_path = None
 
     # Set parameters
     params = {}
 
     params["6-inputs-text"] = "A cat sorcerer"
-    params["52-inputs-image"] = await aiofiles.open("input_folder/input_img.png", "rb")
+    params["10-inputs-image"] = Path("input_folder/input_img.png").open("rb")
 
     override_workflow_api = None
     if override_workflow_api_path:
-        if os.path.exists(override_workflow_api_path):
+        if Path(override_workflow_api_path).exists():
             with open(override_workflow_api_path) as f:
                 override_workflow_api = json.load(f)
         else:
-            print(f"Error: {override_workflow_api_path} does not exist")
+            msg = f"Error: {override_workflow_api_path} does not exist"
+            print(msg)
+            raise Exception(msg)
 
     # Call the API and get the logs of the execution in real time
 
@@ -64,4 +66,4 @@ async def api_examples():
 
 
 if __name__ == "__main__":
-    asyncio.run(api_examples())
+    asyncio.run(api())

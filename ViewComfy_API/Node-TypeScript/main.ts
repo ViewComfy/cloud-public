@@ -3,13 +3,16 @@ import * as path from "path";
 import { workflowApiParametersCreator } from "./workflow_api_parameters_creator";
 import { infer } from "./api";
 
-const viewComfyUrl = "<ViewComfy api url>";
+const viewComfyApiUrl = "<ViewComfy api url>";
 const clientId = "<ViewComfy client id>";
 const clientSecret = "<ViewComfy client secret>";
 
 // Move your main function logic into a route handler
 const generate = async () => {
     try {
+
+        // Advanced feature: overwrite default workflow with a new one:
+        // https://github.com/ViewComfy/cloud-public/tree/main/ViewComfy_API#using-the-api-with-a-different-workflow
         const overrideWorkflowApiPath = null;
 
         const params = {};
@@ -34,7 +37,7 @@ const generate = async () => {
 
         // Call the API and get the logs of the execution in real time
         const result = await infer({
-            apiUrl: viewComfyUrl,
+            viewComfyApiUrl,
             params,
             clientId,
             clientSecret,
