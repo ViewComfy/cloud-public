@@ -1,10 +1,10 @@
 import asyncio
-import base64
 import json
 import os
 
+import aiofiles
 import httpx
-from api import FileOutput, S3FileOutput, infer_with_logs_ws
+from api import infer
 
 
 async def api_examples():
@@ -20,7 +20,7 @@ async def api_examples():
     params = {}
 
     params["6-inputs-text"] = "A cat sorcerer"
-    params["52-inputs-image"] = open("input_folder/input_img.png", "rb")
+    params["52-inputs-image"] = await aiofiles.open("input_folder/input_img.png", "rb")
 
     override_workflow_api = None
     if override_workflow_api_path:
@@ -30,28 +30,10 @@ async def api_examples():
         else:
             print(f"Error: {override_workflow_api_path} does not exist")
 
-    def logging_callback(log_message: str):
-        print(log_message)
-
-    # Call the API and wait for the results
-    # try:
-    #     prompt_result = await infer(
-    #         api_url=view_comfy_api_url,
-    #         params=params,
-    #         client_id=client_id,
-    #         client_secret=client_secret,
-    #     )
-    # except Exception as e:
-    #     print("something went wrong calling the api")
-    #     print(f"Error: {e}")
-    #     return
-
     # Call the API and get the logs of the execution in real time
-    # the console.log is the function that will be use to log the messages
-    # you can use any function that you want
-    # Call the API and wait for the results
+
     try:
-        prompt_result = await infer_with_logs_ws(
+        prompt_result = await infer(
             view_comfy_api_url=view_comfy_api_url,
             params=params,
             client_id=client_id,
@@ -59,9 +41,9 @@ async def api_examples():
             override_workflow_api=override_workflow_api,
         )
     except Exception as e:
-        print("something went wrong calling the api")
-        print(f"Error: {e}")
-        return
+        msg = f"something went wrong calling the api, Error: {e}"
+        print(msg)
+        raise
 
     if not prompt_result:
         message = "No prompt_result generated"
@@ -69,29 +51,16 @@ async def api_examples():
         raise Exception(message)
 
     for file in prompt_result.outputs:
-        if isinstance(file, S3FileOutput):
-            try:
-                print(f"Downloading file from {file.filepath}")
-                async with httpx.AsyncClient() as client:
-                    response = await client.get(file.filepath)
-                    response.raise_for_status()  # raise exception for bad status codes
-                    with open(file.filename, "wb") as f:
-                        f.write(response.content)
-                print(f"Successfully saved {file.filename}")
-            except Exception as e:
-                print(f"Error downloading {file.filename} from S3: {e!s}")
-        elif isinstance(file, FileOutput):
-            try:
-                # Decode the base64 data before writing to file
-                print(file.content_type)
-                print(file.size)
-                print(file.filename)
-                binary_data = base64.b64decode(file.data)
-                with open(file.filename, "wb") as f:
-                    f.write(binary_data)
-                print(f"Successfully saved {file.filename}")
-            except Exception as e:
-                print(f"Error saving {file.filename}: {e!s}")
+        try:
+            print(f"Downloading file from {file.filepath}")  # noqa: T201
+            async with httpx.AsyncClient() as client:
+                response = await client.get(file.filepath)
+                response.raise_for_status()  # raise exception for bad status codes
+                async with aiofiles.open(file.filename, "wb") as f:
+                    await f.write(response.content)
+            print(f"Successfully saved {file.filename}")  # noqa: T201
+        except Exception as e:
+            print(f"Error downloading {file.filename} from S3: {e!s}")  # noqa: T201
 
 
 if __name__ == "__main__":

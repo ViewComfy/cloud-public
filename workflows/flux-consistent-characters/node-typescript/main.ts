@@ -1,6 +1,6 @@
 import { promises as fs } from "fs";
 import * as path from "path";
-import { infer, inferWithLogsStream } from "./api";
+import { infer } from "./api";
 import { workflowApiParametersCreator } from "./workflow_api_parameters_creator";
 
 const viewComfyUrl = "";
@@ -49,18 +49,30 @@ const generate = async () => {
         // Call the API and get the logs of the execution in real time
         // the console.log is the function that will be use to log the messages
         // you can use any function that you want
-        const result = await inferWithLogsStream({
+        const result = await infer({
             apiUrl: viewComfyUrl,
             params,
-            loggingCallback: console.log,
             clientId,
             clientSecret,
         });
 
         const urls = [];
         if (result) {
-            for (const file of result.outputs) {
-                await saveBlob(file, file.name);
+            for (const s3File of result.outputs) {
+                if (s3File.filepath) {
+                    try {
+                        const response = await fetch(s3File.filepath);
+                        if (!response.ok) {
+                            console.error(`Failed to download file: ${s3File.filepath}`);
+                            continue;
+                        }
+                        const blob = await response.blob();
+                        await saveBlob(blob, s3File.filename);
+                        console.log(`Successfully downloaded and saved ${s3File.filename}`);
+                    } catch (error) {
+                        console.error(`Error downloading file ${s3File.filepath}:`, error);
+                    }
+                }
             }
         }
 
