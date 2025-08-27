@@ -84,6 +84,7 @@ class InferEmitEventEnum(str, Enum):
     ExecutedMessage = "infer_executed_message"
     JoinRoom = "infer_join_room"
     ResultMessage = "infer_result_message"
+    CanceledInference = "infer_canceled_message"
 
 
 class ComfyAPIClient:
@@ -137,10 +138,10 @@ class ComfyAPIClient:
                 self.prompt_result = PromptResult(**data)
             self.is_ws_connected = False
 
-        # @self.sio.event
-        # def connect():
-        # print(f"I'm connected: {self.sio.sid}")
-        # self.is_ws_connected = False
+        @self.sio.on(InferEmitEventEnum.CanceledInference)  # pyright: ignore[reportOptionalCall]
+        async def canceled_message(data: dict[str, Any]) -> None:
+            print(f"the workflow has been canceled: {data}")
+            self.is_ws_connected = False
 
         @self.sio.event
         def disconnect(reason):
@@ -224,6 +225,34 @@ class ComfyAPIClient:
         await self.sio.disconnect()
         return self.prompt_result
 
+    async def _cancel_infer(self, *, prompt_id: str, view_comfy_api_url: str):
+        auth = {
+            "client_id": self.client_id,
+            "client_secret": self.client_secret,
+        }
+        data = {"prompt_id": prompt_id, "view_comfy_api_url": view_comfy_api_url}
+        async with httpx.AsyncClient() as client:
+            try:
+                response = await client.post(
+                    f"{API_URL}/api/workflow/infer/cancel",
+                    json=data,
+                    timeout=httpx.Timeout(2400.0),
+                    headers=auth,
+                )
+
+                if response.status_code == 201:
+                    return response.json()
+                error_text = response.text
+                err_msg = f"API request failed with status {response.status_code}: {error_text}"
+                raise Exception(err_msg)
+
+            except httpx.HTTPError as e:
+                msg = f"Connection error: {e!s}"
+                raise Exception(msg) from e
+            except Exception as e:
+                msg = f"Error during API call: {e!s}"
+                raise Exception(msg) from e
+
 
 def parse_parameters(params: dict):
     """Parse parameters from a dictionary to a format suitable for the API call.
@@ -264,4 +293,23 @@ async def infer(
         params=params,
         view_comfy_api_url=view_comfy_api_url,
         override_workflow_api=override_workflow_api,
+    )
+
+
+async def infer_cancel(
+    *,
+    prompt_id: str,
+    view_comfy_api_url: str,
+    client_id: str,
+    client_secret: str,
+):
+    client = ComfyAPIClient(
+        infer_url=view_comfy_api_url,
+        client_id=client_id,
+        client_secret=client_secret,
+    )
+
+    return await client._cancel_infer(
+        prompt_id=prompt_id,
+        view_comfy_api_url=view_comfy_api_url,
     )
