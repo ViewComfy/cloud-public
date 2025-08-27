@@ -18,7 +18,7 @@ const generate = async () => {
 
         params["6-inputs-text"] = "A cat sorcerer"
 
-        const inputImage = await loadImageFile("tmprljf27da.png");
+        const inputImage = await loadImageFile("<path to image>");
         params["10-inputs-image"] = inputImage;
         params["3-inputs-cfg"] = 32
         params["3-inputs-steps"] = 80
