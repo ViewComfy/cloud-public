@@ -1,6 +1,7 @@
 import io, { Socket } from "socket.io-client"
 import { v4 as uuidv4 } from 'uuid';
 
+const API_URL = "https://api.viewcomfy.com"
 
 function buildFormData(data: {
     params: Record<string, any>;
@@ -47,6 +48,7 @@ enum InferEmitEventEnum {
     ExecutedMessage = "infer_executed_message",
     JoinRoom = "infer_join_room",
     ResultMessage = "infer_result_message",
+    CanceledInference = "infer_canceled_message",
 }
 
 /**
@@ -74,8 +76,6 @@ export const infer = ({
     if (!clientSecret) {
         throw new Error("clientSecret is not set");
     }
-
-    const API_URL = "https://api.viewcomfy.com"
 
     const auth = {
         "client_id": clientId,
@@ -188,10 +188,70 @@ export const infer = ({
                 cleanup();
             }
         });
+
+        socket.on(InferEmitEventEnum.CanceledInference, (data: any) => {
+            console.log("The workflow has been canceled");
+            isWorkflowExecuted = true;
+            cleanup();
+        });
+
     });
 };
 
+export const inferCancel = async (args: {
+    clientId: string;
+    clientSecret: string;
+    promptId: string;
+    viewComfyApiUrl: string
+}) => {
 
+    const { promptId, viewComfyApiUrl, clientId, clientSecret } = args
+
+    if (!viewComfyApiUrl) {
+        throw new Error("viewComfyApiUrl is not set");
+    }
+    if (!clientId) {
+        throw new Error("clientId is not set");
+    }
+    if (!clientSecret) {
+        throw new Error("clientSecret is not set");
+    }
+
+    if (!promptId) {
+        throw new Error("promptId is not set");
+    }
+
+    const headers = {
+        "client_id": clientId,
+        "client_secret": clientSecret,
+        "content-type": "application/json"
+    };
+
+    try {
+        const response = await fetch(`${API_URL}/api/workflow/infer/cancel`, {
+            method: "POST",
+            body: JSON.stringify({
+                promptId,
+                viewComfyApiUrl
+            }),
+            headers,
+        });
+
+        if (!response.ok) {
+            console.error("something wen't wrong stopping your workflow");
+            console.error(await response.text());
+            return
+        }
+
+        const data = await response.json();
+        console.log("workflow stopped")
+        console.log({ data });
+    } catch (error) {
+        console.error("something wen't wrong stopping your workflow");
+        console.error(error);
+    }
+
+}
 
 /**
  * Represents the output file with a link to download the data from a prompt execution

@@ -1,13 +1,12 @@
 import { promises as fs } from "fs";
 import * as path from "path";
 import { workflowApiParametersCreator } from "./workflow_api_parameters_creator";
-import { infer } from "./api";
+import { infer, inferCancel } from "./api";
 
 const viewComfyApiUrl = "<ViewComfy api url>";
 const clientId = "<ViewComfy client id>";
 const clientSecret = "<ViewComfy client secret>";
 
-// Move your main function logic into a route handler
 const generate = async () => {
     try {
 
@@ -19,10 +18,10 @@ const generate = async () => {
 
         params["6-inputs-text"] = "A cat sorcerer"
 
-        const inputImage = await loadImageFile("<path to image>");
-        params["52-inputs-image"] = inputImage;
-
-        params["3-inputs-steps"] = 1
+        const inputImage = await loadImageFile("tmprljf27da.png");
+        params["10-inputs-image"] = inputImage;
+        params["3-inputs-cfg"] = 32
+        params["3-inputs-steps"] = 80
 
 
         let overrideWorkflowApi = null;
@@ -93,5 +92,18 @@ async function getWorkflowParametersForApi() {
     );
 }
 
+async function cancel() {
+    const promptId = "<Prompt Id that you got from calling the generate function>";
+
+    const result = await inferCancel({
+        clientId,
+        clientSecret,
+        promptId,
+        viewComfyApiUrl
+    });
+    console.log({ result });
+}
+
 generate().catch(console.error);
+// cancel().catch(console.error);
 // getWorkflowParametersForApi().catch(console.error);
