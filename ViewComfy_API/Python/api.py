@@ -47,6 +47,7 @@ class PromptResult:
         execution_time_seconds: float,
         prompt: dict,
         outputs: list[dict[str, Any]],
+        error_data: str,
     ) -> None:
         """Initialize a PromptResult object.
 
