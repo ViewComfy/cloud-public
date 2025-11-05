@@ -1,6 +1,7 @@
 import asyncio
 import itertools
 import json
+import re
 import sys
 import uuid
 from enum import Enum
@@ -47,6 +48,7 @@ class PromptResult:
         execution_time_seconds: float,
         prompt: dict,
         outputs: list[dict[str, Any]],
+        error_data: str | None = None,
     ) -> None:
         """Initialize a PromptResult object.
 
@@ -64,6 +66,7 @@ class PromptResult:
         self.completed = completed
         self.execution_time_seconds = execution_time_seconds
         self.prompt = prompt
+        self.error_data = error_data
 
         self.outputs = []
         if outputs:
@@ -76,6 +79,28 @@ class PromptResult:
                         filepath=output_data.get("filepath", ""),
                     ),
                 )
+
+class PromptScheduled:
+    def __init__(
+        self,
+        prompt_id: str,
+        message: str,
+        workflow: dict,
+    ) -> None:
+        """Initialize a PromptResult object.
+
+        Args:
+            prompt_id (str): Unique identifier for the prompt
+            status (str): Current status of the prompt execution
+            completed (bool): Whether the prompt execution is complete
+            execution_time_seconds (float): Time taken to execute the prompt
+            prompt (dict): The original prompt configuration
+            outputs (list[S3FileOutput], optional): List of output file data. Defaults to empty list.
+
+        """
+        self.prompt_id = prompt_id
+        self.message = message
+        self.workflow = workflow
 
 
 class InferEmitEventEnum(str, Enum):
@@ -153,7 +178,7 @@ class ComfyAPIClient:
             #     print('disconnect reason:', reason)
             self.is_ws_connected = False
 
-    async def infer(
+    async def infer_with_logs(
         self,
         *,
         params: dict[str, Any],
@@ -225,7 +250,66 @@ class ComfyAPIClient:
         await self.sio.disconnect()
         return self.prompt_result
 
-    async def _cancel_infer(self, *, prompt_id: str, view_comfy_api_url: str):
+    async def infer(
+        self,
+        *,
+        params: dict[str, Any],
+        view_comfy_api_url: str,
+        override_workflow_api: dict[str, Any] | None = None,
+    ) -> PromptScheduled:
+        override_workflow_api_param: str | None = None
+        if override_workflow_api:
+            override_workflow_api_param = json.dumps(override_workflow_api)
+
+        params_parsed, files = parse_parameters(params)
+        prompt_id = str(uuid.uuid4())
+
+        auth = {
+            "client_id": self.client_id,
+            "client_secret": self.client_secret,
+        }
+
+        data = {
+            "prompt_id": prompt_id,
+            "view_comfy_api_url": view_comfy_api_url,
+            "params": json.dumps(params_parsed),
+            "workflow_api": override_workflow_api_param,
+        }
+
+        async with httpx.AsyncClient() as client:
+            try:
+                response = await client.post(
+                    f"{API_URL}/api/workflow/infer",
+                    data=data,
+                    files=files,
+                    timeout=httpx.Timeout(2400.0),
+                    follow_redirects=True,
+                    headers=auth,
+                )
+
+                if response.status_code == 201:
+                    response_json = response.json()
+                else:
+                    error_text = response.text
+                    err_msg = f"API request failed with status\
+                    {response.status_code}: {error_text}"
+                    raise Exception(err_msg)
+
+            except httpx.HTTPError as e:
+                msg = f"Connection error: {e!s}"
+                raise Exception(msg) from e  # noqa: TRY002
+            except Exception as e:
+                msg = f"Error during API call: {e!s}"
+                raise Exception(msg) from e  # noqa: TRY002
+
+        response_data = response_json.get("data", None)
+        if not response_data:
+            msg = "Something went wrong reading the response data"
+            raise Exception(msg)
+
+        return PromptScheduled(**response_data)
+
+    async def _cancel_infer(self, *, prompt_id: str, view_comfy_api_url: str) -> dict:
         auth = {
             "client_id": self.client_id,
             "client_secret": self.client_secret,
@@ -253,8 +337,63 @@ class ComfyAPIClient:
                 msg = f"Error during API call: {e!s}"
                 raise Exception(msg) from e
 
+    async def _infer_info(self, *, prompt_ids: list[str]) -> list[PromptResult]:
+        auth = {
+            "client_id": self.client_id,
+            "client_secret": self.client_secret,
+            "content-type": "application/json",
+        }
+        params = {"prompt_ids": prompt_ids}
+        async with httpx.AsyncClient() as client:
+            try:
+                response = await client.get(
+                    f"{API_URL}/api/workflow/infer/",
+                    params=params,
+                    timeout=httpx.Timeout(2400.0),
+                    headers=auth,
+                )
 
-def parse_parameters(params: dict):
+                if response.status_code == 200:
+                    response_data = response.json()
+                else:
+                    error_text = response.text
+                    err_msg = f"API request failed with status {response.status_code}: {error_text}"
+                    raise Exception(err_msg)
+
+            except httpx.HTTPError as e:
+                msg = f"Connection error: {e!s}"
+                raise Exception(msg) from e
+            except Exception as e:
+                msg = f"Error during API call: {e!s}"
+                raise Exception(msg) from e
+
+        prompt_results = []
+
+        snake_case = re.compile("((?<=[a-z0-9])[A-Z]|(?!^)[A-Z](?=[a-z]))")
+        for data in response_data:
+            data_parse = {}
+            for key, value in data.items():
+                snake = snake_case.sub(r"_\1", key).lower()
+                data_parse[snake] = value
+            output_parsed = []
+            for outputs in data["outputs"]:
+                output_parse = {}
+                for key, value in outputs.items():
+                    snake = snake_case.sub(r"_\1", key).lower()
+                    output_parse[snake] = value
+                output_parsed.append(output_parse)
+            data_parse["outputs"] = output_parsed
+            del data_parse["created_at"]
+            del data_parse["workflow"]
+            del data_parse["client_id"]
+            del data_parse["user"]
+
+            prompt_results.append(PromptResult(**data_parse))
+
+        return prompt_results
+
+
+def parse_parameters(params: dict) -> tuple[dict[str, Any], list]:
     """Parse parameters from a dictionary to a format suitable for the API call.
 
     Args:
@@ -274,7 +413,7 @@ def parse_parameters(params: dict):
     return parsed_params, files
 
 
-async def infer(
+async def infer_with_logs(
     *,
     params: dict[str, Any],
     view_comfy_api_url: str,
@@ -282,6 +421,28 @@ async def infer(
     client_id: str,
     client_secret: str,
 ) -> PromptResult | None:
+    client = ComfyAPIClient(
+        infer_url=view_comfy_api_url,
+        client_id=client_id,
+        client_secret=client_secret,
+    )
+
+    # Make the API call
+    return await client.infer_with_logs(
+        params=params,
+        view_comfy_api_url=view_comfy_api_url,
+        override_workflow_api=override_workflow_api,
+    )
+
+
+async def infer(
+    *,
+    params: dict[str, Any],
+    view_comfy_api_url: str,
+    override_workflow_api: dict[str, Any] | None = None,
+    client_id: str,
+    client_secret: str,
+) -> PromptScheduled | None:
     client = ComfyAPIClient(
         infer_url=view_comfy_api_url,
         client_id=client_id,
@@ -313,3 +474,19 @@ async def infer_cancel(
         prompt_id=prompt_id,
         view_comfy_api_url=view_comfy_api_url,
     )
+
+
+async def infer_info(
+    *,
+    prompt_ids: list[str],
+    client_id: str,
+    client_secret: str,
+    view_comfy_api_url: str,
+) -> list[PromptResult]:
+    client = ComfyAPIClient(
+        infer_url=view_comfy_api_url,
+        client_id=client_id,
+        client_secret=client_secret,
+    )
+
+    return await client._infer_info(prompt_ids=prompt_ids)
