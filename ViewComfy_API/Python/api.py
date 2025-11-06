@@ -80,6 +80,7 @@ class PromptResult:
                     ),
                 )
 
+
 class PromptScheduled:
     def __init__(
         self,
@@ -490,3 +491,46 @@ async def infer_info(
     )
 
     return await client._infer_info(prompt_ids=prompt_ids)
+
+
+async def invite_user(
+    *,
+    client_id: str,
+    client_secret: str,
+    email: str,
+    team_id: int,
+) -> str:
+    auth = {
+        "client_id": client_id,
+        "client_secret": client_secret,
+    }
+
+    data = {
+        "team_id": team_id,
+        "email": email,
+    }
+
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.post(
+                f"{API_URL}/api/team/add-playground-user",
+                json=data,
+                timeout=httpx.Timeout(2400.0),
+                follow_redirects=True,
+                headers=auth,
+            )
+
+            if response.status_code == 201:
+                return "User Invited!"
+
+            error_text = response.text
+            err_msg = f"API request failed with status\
+                    {response.status_code}: {error_text}"
+            raise Exception(err_msg)
+
+        except httpx.HTTPError as e:
+            msg = f"Connection error: {e!s}"
+            raise Exception(msg) from e  # noqa: TRY002
+        except Exception as e:
+            msg = f"Error during API call: {e!s}"
+            raise Exception(msg) from e  # noqa: TRY002

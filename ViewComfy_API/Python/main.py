@@ -4,7 +4,7 @@ from pathlib import Path
 
 import aiofiles
 import httpx
-from api import infer, infer_cancel, infer_info, infer_with_logs
+from api import infer, infer_cancel, infer_info, infer_with_logs, invite_user
 
 view_comfy_api_url = "<Your_ViewComfy_endpoint>"
 client_id = "<Your_ViewComfy_client_id>"
@@ -178,6 +178,17 @@ async def api_in_batch():
     await main_tasks()
 
 
+async def api_invite_user() -> None:
+    email: str = "<user_email>"
+    team_id: int = 0
+    await invite_user(
+        client_id=client_id,
+        client_secret=client_secret,
+        team_id=team_id,
+        email=email,
+    )
+
+
 if __name__ == "__main__":
     asyncio.run(api_with_realtime_logs())
 
@@ -185,8 +196,10 @@ if __name__ == "__main__":
 #     asyncio.run(api_in_batch())
 
 # if __name__ == "__main__":
-#     asyncio.run(cancel())
-
+#     asyncio.run(api_invite_user())
 
 # if __name__ == "__main__":
 #     asyncio.run(get_results())
+
+# if __name__ == "__main__":
+#     asyncio.run(cancel())
